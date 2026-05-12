@@ -6,7 +6,7 @@ const SHELL_ASSETS = [
   '/images/icon-192.png',
   '/images/icon-512.png',
   '/images/icon-maskable-512.png',
-  '/images/logo.jpeg'
+  '/images/logo.png'
 ];
 
 // Install — pre-cache the app shell
