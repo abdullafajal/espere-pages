@@ -1,71 +1,986 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <title>Espere - Expense Tracker</title>
+  <title>Espere - Track Personal Expenses & Split Group Bills Instantly</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" content="Track your expenses effortlessly with Espere">
+  <meta name="description" content="Master your money with Espere. The ultimate app to track personal spending with precision, set smart budgets, and instantly split group expenses with friends.">
+  <meta name="keywords" content="expense tracker, split bills, group expenses, budget planner, personal finance app, money manager, settle debts, splitwise alternative">
+  <meta name="author" content="Espere">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://espere.in/">
+  <meta property="og:title" content="Espere - Track Personal Expenses & Split Group Bills Instantly">
+  <meta property="og:description" content="Master your money with Espere. The ultimate app to track personal spending with precision, set smart budgets, and instantly split group expenses with friends.">
+  <meta property="og:image" content="https://espere.in/images/logo.png">
 
-  <!-- PWA Meta Tags -->
-  <meta name="theme-color" content="#1A1A1A">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Espere">
-     <script type="text/javascript">
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://espere.in/">
+  <meta property="twitter:title" content="Espere - Track Personal Expenses & Split Group Bills Instantly">
+  <meta property="twitter:description" content="Master your money with Espere. The ultimate app to track personal spending with precision, set smart budgets, and instantly split group expenses with friends.">
+  <meta property="twitter:image" content="https://espere.in/images/logo.png">
+  
+  <link rel="canonical" href="https://espere.in/">
+
+  <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "iobye2h59p");
-    </script>
+  </script>
 
   <!-- PWA Manifest -->
-  <link rel="manifest" href="manifest.json">
-
   <!-- Icons -->
-  <link rel="icon" href="images/favicon.ico">
+  <link rel="icon" type="image/png" href="images/favicon_transparent.png">
   <link rel="apple-touch-icon" sizes="512x512" href="images/icon-maskable-512.png">
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      width: 100vw;
-      overflow: hidden;
-      /* Prevent elastic bounce on the main body wrapper */
-      overscroll-behavior-y: none;
-    }
-
-    iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-      /* Hardware acceleration for smoother scrolling/transitions */
-      transform: translateZ(0);
-      will-change: transform;
-      backface-visibility: hidden;
-    }
-  </style>
-
-</head>
-
-<body>
-  <iframe src="https://montra.pythonanywhere.com" allow="fullscreen"></iframe>
-
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    // Register Service Worker
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-          .then((reg) => console.log('SW registered:', reg.scope))
-          .catch((err) => console.log('SW registration failed:', err));
-      });
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              DEFAULT: '#C8E64A',
+              hover: '#D9F260',
+            },
+            dark: {
+              DEFAULT: '#1A1A1A',
+              bg: '#0F0F0F',
+            },
+            light: {
+              DEFAULT: '#F5F5F5',
+              card: '#FFFFFF',
+            },
+            muted: '#9E9E9E'
+          },
+          borderRadius: {
+            'btn': '16px',
+            'card': '20px',
+            'pill': '28px',
+          },
+          boxShadow: {
+            'soft': '0 2px 12px rgba(0,0,0,0.06)',
+            'card': '0 1px 8px rgba(0,0,0,0.04), 0 4px 24px rgba(0,0,0,0.04)',
+            'elevated': '0 4px 20px rgba(0,0,0,0.08)',
+            'glow': '0 0 32px rgba(200, 230, 74, 0.4)',
+          }
+        }
+      }
     }
   </script>
-</body>
+
+  <!-- React & ReactDOM -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <!-- Babel for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Phosphor Icons for elegant UI icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <style>
+    body {
+      background-color: #F5F5F5;
+      color: #1A1A1A;
+      overflow-x: hidden;
+      overscroll-behavior-y: none;
+    }
+    
+    .glass-nav {
+      background: rgba(245, 245, 245, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    }
+    
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .scroll-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-100 { transition-delay: 100ms; }
+    .delay-200 { transition-delay: 200ms; }
+    
+    .mockup-3d {
+      transform: translateZ(0) rotateY(-15deg) rotateX(5deg) rotateZ(2deg);
+      will-change: transform;
+      transform-style: preserve-3d;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mockup-3d:hover {
+      transform: translateZ(0) rotateY(0) rotateX(0) rotateZ(0) scale(1.02);
+    }
+
+    /* Hide scrollbar for clean mockups */
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    const useScrollReveal = () => {
+      const ref = useRef(null);
+      useEffect(() => {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+        );
+        
+        const elements = document.querySelectorAll('.scroll-reveal');
+        elements.forEach(el => observer.observe(el));
+        
+        return () => {
+          elements.forEach(el => observer.unobserve(el));
+        };
+      }, []);
+      return ref;
+    };
+
+    const Navbar = () => {
+      return (
+        <nav className="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+          <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="index.html" className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
+              <img src="images/logo.png" alt="Espere Logo" className="w-10 h-10 object-contain rounded-xl shadow-soft" />
+              <span className="font-black text-2xl tracking-tight text-dark">Espere</span>
+            </a>
+            
+            <div className="hidden md:flex items-center gap-8 text-[15px] font-bold text-dark/60">
+              <a href="#features" className="text-dark border-b-2 border-dark pb-1 hover:text-dark transition-colors">Features</a>
+              <a href="faq.html" className="hover:text-dark transition-colors">FAQ</a>
+            </div>
+            
+            <div>
+              <a href="espere.apk" download className="inline-block bg-brand hover:bg-brand-hover text-dark font-bold px-7 py-3 rounded-btn transition-all duration-300 hover:shadow-glow transform hover:-translate-y-0.5">
+                Download App
+              </a>
+            </div>
+          </div>
+        </nav>
+      );
+    };
+
+    const Hero = () => {
+      return (
+        <section className="pt-32 pb-24 px-6 md:pt-32 md:pb-32 overflow-hidden relative">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand/15 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
+          
+          <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+            <div className="flex-1 text-center lg:text-left z-10 scroll-reveal">
+              <div className="inline-block bg-white px-5 py-2.5 rounded-pill text-sm font-bold text-dark mb-8 shadow-card border border-black/5">
+                Smart tracking. Effortless splitting.
+              </div>
+              <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-dark leading-[1.05] mb-6">
+                Master Your Money<br/>with <span className="text-brand inline-block transform -rotate-2 ml-2 bg-dark px-5 py-2 rounded-card shadow-elevated mt-2 lg:mt-0">Espere.</span>
+              </h1>
+              <p className="text-lg md:text-xl text-dark/70 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium">
+                Master your money in one seamless app. Track personal spending with precision, set smart budgets, and instantly split group expenses with friends.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+                <a href="espere.apk" download className="w-full sm:w-auto flex items-center justify-center gap-3 bg-dark text-white px-8 py-4 rounded-btn font-bold hover:bg-black transition-all hover:shadow-elevated transform hover:-translate-y-1">
+                  <i className="ph-fill ph-download-simple text-2xl"></i>
+                  Download App
+                </a>
+              </div>
+            </div>
+            
+            <div className="flex-1 relative w-full max-w-lg mx-auto lg:max-w-none scroll-reveal delay-200" style={{perspective: '1200px'}}>
+              <div className="relative w-[340px] h-[700px] mx-auto bg-[#111] rounded-[48px] border-[12px] border-[#222] shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden mockup-3d">
+                {/* Pixel Hardware Buttons */}
+                <div className="absolute -right-[14px] top-32 w-1 h-12 bg-[#333] rounded-l-md"></div>
+                <div className="absolute -right-[14px] top-52 w-1 h-24 bg-[#333] rounded-l-md"></div>
+                
+                {/* Pixel Punch Hole Camera */}
+                <div className="absolute top-4 left-1/2 -translate-x-1/2 w-4 h-4 bg-black rounded-full z-30 shadow-inner"></div>
+
+                {/* Shared Status Bar Space */}
+                <div className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-2 mt-1 pointer-events-none">
+                  <span className="text-[10px] font-bold text-[#1A1A1A]">9:35</span>
+                  <div className="flex items-center gap-1 text-[#1A1A1A]">
+                    <i className="ph-bold ph-bluetooth text-[10px]"></i>
+                    <i className="ph-bold ph-wifi-high text-[10px]"></i>
+                    <i className="ph-fill ph-cell-signal-full text-[10px]"></i>
+                    <i className="ph-fill ph-battery-full text-[10px]"></i>
+                  </div>
+                </div>
+
+                {/* --- Main Scrolling App Dashboard --- */}
+                <div className="absolute inset-0 bg-[#F5F5F5] p-5 pt-12 pb-24 flex flex-col text-[#1A1A1A] overflow-y-auto scrollbar-hide z-20">
+                  {/* Greeting Header */}
+                  <div className="flex justify-between items-start mb-4">
+                    <div>
+                      <p className="text-[10px] font-bold text-[#9E9E9E] tracking-[1.5px] uppercase">GOOD NIGHT</p>
+                      <p className="text-[26px] font-black tracking-tight leading-none mt-0.5">Abdulla Fajal<span className="text-[#C8E64A]">.</span></p>
+                    </div>
+                    <div className="w-[42px] h-[42px] bg-[#1A1A1A] rounded-[14px] shadow-sm flex items-center justify-center">
+                      <i className="ph-bold ph-gear text-[#C8E64A] text-[22px]"></i>
+                    </div>
+                  </div>
+                  
+                  {/* Balance Card */}
+                  <div className="bg-[#1A1A1A] rounded-[24px] p-5 text-white mb-4 shadow-elevated flex-shrink-0">
+                    <div className="flex justify-between items-center mb-3">
+                      <p className="text-white/80 text-[12px] font-medium tracking-wide">Total Balance</p>
+                      <i className="ph-bold ph-eye-slash text-white/50 text-lg"></i>
+                    </div>
+                    
+                    {/* Hidden Balance Dots */}
+                    <div className="flex gap-1.5 mb-4">
+                      {[...Array(7)].map((_, i) => (
+                        <div key={i} className="w-3.5 h-3.5 rounded-full bg-[#C8E64A]"></div>
+                      ))}
+                    </div>
+                    
+                    {/* Small Stat Pills */}
+                    <div className="flex gap-3 mb-3">
+                      <div className="flex items-center gap-1.5 text-[11px] font-bold text-white/80">
+                         <div className="w-5 h-5 rounded-full bg-[#C8E64A]/20 flex items-center justify-center text-[#C8E64A]"><i className="ph-bold ph-arrow-up text-[10px]"></i></div>
+                         ₹34306.00
+                      </div>
+                      <div className="flex items-center gap-1.5 text-[11px] font-bold text-white/80">
+                         <div className="w-5 h-5 rounded-full bg-[#C8E64A]/20 flex items-center justify-center text-[#C8E64A]"><i className="ph-bold ph-arrow-down text-[10px]"></i></div>
+                         ₹23742.00
+                      </div>
+                    </div>
+
+                    <div className="inline-flex items-center gap-2 bg-[#2A2A2A] rounded-full px-3 py-1.5 mb-5">
+                       <i className="ph-fill ph-piggy-bank text-white/70 text-xs"></i>
+                       <span className="text-[11px] text-white/90 font-medium">Saved ₹10564.00 this month</span>
+                    </div>
+
+                    <div className="flex gap-3">
+                      <div className="flex-1 bg-[#2A2A2A] rounded-[14px] py-3 flex items-center justify-center gap-2">
+                        <i className="ph-bold ph-arrow-up-right text-[#C8E64A] text-sm"></i>
+                        <span className="text-sm font-bold">Income</span>
+                      </div>
+                      <div className="flex-1 bg-[#2A2A2A] rounded-[14px] py-3 flex items-center justify-center gap-2">
+                        <i className="ph-bold ph-arrow-down-left text-[#C8E64A] text-sm"></i>
+                        <span className="text-sm font-bold">Expense</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Summary Cards Row */}
+                  <div className="flex gap-3 mb-4 flex-shrink-0">
+                    <div className="flex-1 bg-white rounded-[20px] p-3 shadow-sm flex flex-col items-center justify-center gap-1 border border-black/5">
+                      <div className="w-10 h-10 rounded-[14px] bg-[#C8E64A]/20 text-dark flex items-center justify-center mb-1"><i className="ph-bold ph-arrow-up text-[#1A1A1A] text-lg"></i></div>
+                      <p className="text-[10px] font-bold text-muted">Income</p>
+                      <p className="text-[11px] font-black tracking-tight">₹34306.00</p>
+                    </div>
+                    <div className="flex-1 bg-white rounded-[20px] p-3 shadow-sm flex flex-col items-center justify-center gap-1 border border-black/5">
+                      <div className="w-10 h-10 rounded-[14px] bg-[#C8E64A]/20 text-dark flex items-center justify-center mb-1"><i className="ph-bold ph-arrow-down text-[#1A1A1A] text-lg"></i></div>
+                      <p className="text-[10px] font-bold text-muted">Expenses</p>
+                      <p className="text-[11px] font-black tracking-tight">₹23742.00</p>
+                    </div>
+                    <div className="flex-1 bg-white rounded-[20px] p-3 shadow-sm flex flex-col items-center justify-center gap-1 border border-black/5">
+                      <div className="w-10 h-10 rounded-[14px] bg-[#C8E64A]/20 text-dark flex items-center justify-center mb-1"><i className="ph-bold ph-piggy-bank text-[#1A1A1A] text-lg"></i></div>
+                      <p className="text-[10px] font-bold text-muted">Savings</p>
+                      <p className="text-[11px] font-black tracking-tight">₹10564.00</p>
+                    </div>
+                  </div>
+
+                  {/* Promo Banner */}
+                  <div className="bg-[#C8E64A] rounded-[20px] p-4 flex items-center justify-between shadow-sm mb-4 flex-shrink-0">
+                    <div className="flex-1 pr-2">
+                      <p className="text-sm font-black text-[#1A1A1A] leading-tight mb-1">Start tracking money tax free</p>
+                      <p className="text-[10px] font-medium text-[#1A1A1A]/70 leading-tight">The best place for tracking expenses and income.</p>
+                    </div>
+                    <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center">
+                      <i className="ph-bold ph-piggy-bank text-[#1A1A1A] text-3xl"></i>
+                    </div>
+                  </div>
+
+                  {/* Alert Banner 1 */}
+                  <div className="bg-white rounded-[16px] p-3 flex items-center gap-3 shadow-sm mb-3 border border-black/5 flex-shrink-0">
+                     <div className="w-10 h-10 rounded-[12px] bg-[#C8E64A] flex items-center justify-center"><i className="ph-fill ph-fork-knife text-[#1A1A1A] text-lg"></i></div>
+                     <p className="text-[13px] font-bold text-[#1A1A1A]">Food & Dining budget exceeded!</p>
+                  </div>
+                  
+                  {/* Alert Banner 2 */}
+                  <div className="bg-white rounded-[16px] p-3 flex items-center gap-3 shadow-sm mb-3 border border-black/5 flex-shrink-0">
+                     <div className="w-10 h-10 rounded-[12px] bg-[#C8E64A]/20 flex items-center justify-center"><i className="ph-bold ph-chart-line-down text-[#C8E64A] text-lg"></i></div>
+                     <p className="text-[13px] font-bold text-[#1A1A1A]">📈 You spent 165% more than last month.</p>
+                  </div>
+
+                  {/* Alert Banner 3 */}
+                  <div className="bg-white rounded-[16px] p-3 flex items-center gap-3 shadow-sm mb-4 border border-black/5 flex-shrink-0">
+                     <div className="w-10 h-10 rounded-[12px] bg-[#C8E64A]/20 flex items-center justify-center"><i className="ph-bold ph-lightbulb text-[#C8E64A] text-lg"></i></div>
+                     <p className="text-[13px] font-bold text-[#1A1A1A]">💰 Your savings rate this month is 31%.</p>
+                  </div>
+
+                  {/* Spending by Category Chart */}
+                  <div className="bg-white rounded-[24px] p-4 shadow-sm mb-4 border border-black/5 flex-shrink-0">
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="w-8 h-8 rounded-[10px] bg-[#C8E64A] flex items-center justify-center"><i className="ph-bold ph-chart-bar text-[#1A1A1A] text-sm"></i></div>
+                      <h3 className="font-bold text-[15px]">Spending by Category</h3>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                       {/* Chart Rows */}
+                       <div className="flex items-center gap-2">
+                         <span className="w-20 text-[10px] text-right font-medium text-dark/70 truncate">Housing</span>
+                         <div className="flex-1 bg-gray-100 h-3 rounded-full overflow-hidden"><div className="bg-[#C8E64A] w-[90%] h-full rounded-full"></div></div>
+                       </div>
+                       <div className="flex items-center gap-2">
+                         <span className="w-20 text-[10px] text-right font-medium text-dark/70 truncate">Food & Dini...</span>
+                         <div className="flex-1 bg-gray-100 h-3 rounded-full overflow-hidden"><div className="bg-[#C8E64A] w-[45%] h-full rounded-full"></div></div>
+                       </div>
+                       <div className="flex items-center gap-2">
+                         <span className="w-20 text-[10px] text-right font-medium text-dark/70 truncate">Send Money</span>
+                         <div className="flex-1 bg-gray-100 h-3 rounded-full overflow-hidden"><div className="bg-[#C8E64A] w-[25%] h-full rounded-full"></div></div>
+                       </div>
+                       <div className="flex items-center gap-2">
+                         <span className="w-20 text-[10px] text-right font-medium text-dark/70 truncate">Baby</span>
+                         <div className="flex-1 bg-gray-100 h-3 rounded-full overflow-hidden"><div className="bg-[#C8E64A] w-[5%] h-full rounded-full"></div></div>
+                       </div>
+                       <div className="flex items-center gap-2">
+                         <span className="w-20 text-[10px] text-right font-medium text-dark/70 truncate">Fitness</span>
+                         <div className="flex-1 bg-gray-100 h-3 rounded-full overflow-hidden"><div className="bg-[#C8E64A] w-[5%] h-full rounded-full"></div></div>
+                       </div>
+                       <div className="flex items-center gap-2">
+                         <span className="w-20 text-[10px] text-right font-medium text-dark/70 truncate">Shopping</span>
+                         <div className="flex-1 bg-gray-100 h-3 rounded-full overflow-hidden"><div className="bg-[#C8E64A] w-[5%] h-full rounded-full"></div></div>
+                       </div>
+                       <div className="flex items-center gap-2">
+                         <span className="w-20 text-[10px] text-right font-medium text-dark/70 truncate">Other</span>
+                         <div className="flex-1 bg-gray-100 h-3 rounded-full overflow-hidden"><div className="bg-[#C8E64A] w-[5%] h-full rounded-full"></div></div>
+                       </div>
+                       <div className="flex ml-[88px] text-[9px] text-gray-400 justify-between mt-1 px-1 border-t border-gray-100 pt-1">
+                          <span>0</span><span>5,000</span><span>10,000</span><span>15,000</span>
+                       </div>
+                    </div>
+                  </div>
+
+                  {/* Income vs Expenses */}
+                  <div className="bg-white rounded-[24px] p-4 shadow-sm mb-4 border border-black/5 flex-shrink-0">
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="w-8 h-8 rounded-[10px] bg-[#C8E64A] flex items-center justify-center"><i className="ph-bold ph-chart-line-up text-[#1A1A1A] text-sm"></i></div>
+                      <h3 className="font-bold text-[15px]">Income vs Expenses</h3>
+                    </div>
+                    <div className="h-40 flex items-end justify-between px-2 pb-6 border-b border-gray-100 relative mb-4">
+                       <span className="absolute left-0 top-0 text-[9px] text-gray-300">50,000</span>
+                       <span className="absolute left-0 top-1/4 text-[9px] text-gray-300">40,000</span>
+                       <span className="absolute left-0 top-2/4 text-[9px] text-gray-300">30,000</span>
+                       <span className="absolute left-0 top-3/4 text-[9px] text-gray-300">20,000</span>
+                       
+                       <div className="w-full flex justify-between h-full pl-8 items-end">
+                         {/* Mar */}
+                         <div className="flex items-end gap-1 h-full">
+                           <div className="w-2.5 h-[85%] bg-[#C8E64A] rounded-t-sm"></div>
+                           <div className="w-2.5 h-[75%] bg-[#1A1A1A] rounded-t-sm"></div>
+                         </div>
+                         {/* Apr */}
+                         <div className="flex items-end gap-1 h-full">
+                           <div className="w-2.5 h-[82%] bg-[#C8E64A] rounded-t-sm"></div>
+                           <div className="w-2.5 h-[84%] bg-[#1A1A1A] rounded-t-sm"></div>
+                         </div>
+                         {/* May */}
+                         <div className="flex items-end gap-1 h-full">
+                           <div className="w-2.5 h-[0%] bg-[#C8E64A] rounded-t-sm"></div>
+                           <div className="w-2.5 h-[45%] bg-[#1A1A1A] rounded-t-sm"></div>
+                         </div>
+                         {/* Jun */}
+                         <div className="flex items-end gap-1 h-full">
+                           <div className="w-2.5 h-[75%] bg-[#C8E64A] rounded-t-sm"></div>
+                           <div className="w-2.5 h-[15%] bg-[#1A1A1A] rounded-t-sm"></div>
+                         </div>
+                         {/* Jul */}
+                         <div className="flex items-end gap-1 h-full">
+                           <div className="w-2.5 h-[0%] bg-[#C8E64A] rounded-t-sm"></div>
+                           <div className="w-2.5 h-[18%] bg-[#1A1A1A] rounded-t-sm"></div>
+                         </div>
+                         {/* Aug */}
+                         <div className="flex items-end gap-1 h-full">
+                           <div className="w-2.5 h-[65%] bg-[#C8E64A] rounded-t-sm"></div>
+                           <div className="w-2.5 h-[48%] bg-[#1A1A1A] rounded-t-sm"></div>
+                         </div>
+                       </div>
+                    </div>
+                    <div className="flex justify-between px-2 pl-8 text-[9px] text-gray-400 mb-4">
+                      <span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span>
+                    </div>
+                    <div className="flex justify-center gap-4 text-[10px] font-bold text-gray-500">
+                      <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-[#C8E64A]"></div>Income</div>
+                      <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-[#1A1A1A]"></div>Expenses</div>
+                    </div>
+                  </div>
+
+                  {/* 30-Day Spending Trend */}
+                  <div className="bg-white rounded-[24px] p-4 shadow-sm mb-5 border border-black/5 flex-shrink-0">
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="w-8 h-8 rounded-[10px] bg-[#C8E64A] flex items-center justify-center"><i className="ph-bold ph-trend-up text-[#1A1A1A] text-sm"></i></div>
+                      <h3 className="font-bold text-[15px]">30-Day Spending Trend</h3>
+                    </div>
+                    <div className="h-32 relative border-b border-gray-100 pb-2">
+                       <span className="absolute left-0 top-0 text-[9px] text-gray-300">15,000</span>
+                       <span className="absolute left-0 top-1/3 text-[9px] text-gray-300">10,000</span>
+                       <span className="absolute left-0 top-2/3 text-[9px] text-gray-300">5,000</span>
+                       <span className="absolute left-0 bottom-0 text-[9px] text-gray-300">0</span>
+                       <div className="absolute inset-0 pl-8 pt-2">
+                         <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                           <path d="M0,95 L5,95 L5,98 L10,98 L20,98 L30,98 L40,98 L50,98 L50,70 L55,70 L55,10 L60,10 L60,90 L65,90 L65,95 L75,95 L75,85 L80,85 L80,95 L85,95 L85,90 L90,90 L90,95 L100,95" fill="none" stroke="#C8E64A" strokeWidth="2" vectorEffect="non-scaling-stroke"/>
+                           <path d="M0,95 L5,95 L5,98 L10,98 L20,98 L30,98 L40,98 L50,98 L50,70 L55,70 L55,10 L60,10 L60,90 L65,90 L65,95 L75,95 L75,85 L80,85 L80,95 L85,95 L85,90 L90,90 L90,95 L100,95 L100,100 L0,100 Z" fill="#C8E64A" fillOpacity="0.2" stroke="none"/>
+                         </svg>
+                       </div>
+                    </div>
+                    <div className="flex justify-between px-2 pl-8 pt-2 text-[9px] text-gray-400">
+                      <span>21</span><span>26</span><span>31</span><span>05</span><span>10</span><span>15</span><span>19</span>
+                    </div>
+                  </div>
+
+                  {/* History Transaction */}
+                  <div className="flex justify-between items-center mb-4 flex-shrink-0">
+                    <h2 className="text-[17px] font-black tracking-tight">History Transaction</h2>
+                    <button className="text-gray-400 font-medium text-xs">see more</button>
+                  </div>
+                  <div className="flex flex-col gap-3 flex-shrink-0">
+                     <div className="bg-white rounded-[20px] p-4 shadow-sm border border-black/5 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                           <div className="w-12 h-12 bg-[#C8E64A] rounded-[14px] flex items-center justify-center"><i className="ph-bold ph-fork-knife text-xl text-[#1A1A1A]"></i></div>
+                           <div>
+                             <p className="font-bold text-[14px] text-dark leading-tight">Food & Dining</p>
+                             <p className="text-[10px] font-medium text-muted mt-0.5 mb-0.5">Aug 19 • 5:42 PM<br/>UPI / Mobile Payment</p>
+                             <p className="text-[10px] font-medium text-gray-400">Team lunch at Domino's</p>
+                           </div>
+                        </div>
+                        <p className="font-black text-[15px] text-dark self-start mt-1">-₹450.00</p>
+                     </div>
+                     <div className="bg-white rounded-[20px] p-4 shadow-sm border border-black/5 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                           <div className="w-12 h-12 bg-[#C8E64A] rounded-[14px] flex items-center justify-center"><i className="ph-bold ph-car-profile text-xl text-[#1A1A1A]"></i></div>
+                           <div>
+                             <p className="font-bold text-[14px] text-dark leading-tight">Transport</p>
+                             <p className="text-[10px] font-medium text-muted mt-0.5 mb-0.5">Aug 19 • 1:36 PM<br/>UPI / Mobile Payment</p>
+                             <p className="text-[10px] font-medium text-gray-400">Uber ride to office</p>
+                           </div>
+                        </div>
+                        <p className="font-black text-[15px] text-dark self-start mt-1">-₹320.00</p>
+                     </div>
+                     <div className="bg-white rounded-[20px] p-4 shadow-sm border border-black/5 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                           <div className="w-12 h-12 bg-[#C8E64A] rounded-[14px] flex items-center justify-center"><i className="ph-bold ph-shopping-cart text-xl text-[#1A1A1A]"></i></div>
+                           <div>
+                             <p className="font-bold text-[14px] text-dark leading-tight">Groceries</p>
+                             <p className="text-[10px] font-medium text-muted mt-0.5 mb-0.5">Aug 19 • 8:25 AM<br/>UPI / Mobile Payment</p>
+                             <p className="text-[10px] font-medium text-gray-400">Weekly grocery shopping</p>
+                           </div>
+                        </div>
+                        <p className="font-black text-[15px] text-dark self-start mt-1">-₹850.00</p>
+                     </div>
+                     <div className="bg-white rounded-[20px] p-4 shadow-sm border border-black/5 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                           <div className="w-12 h-12 bg-[#C8E64A] rounded-[14px] flex items-center justify-center"><i className="ph-bold ph-ticket text-xl text-[#1A1A1A]"></i></div>
+                           <div>
+                             <p className="font-bold text-[14px] text-dark leading-tight">Entertainment</p>
+                             <p className="text-[10px] font-medium text-muted mt-0.5 mb-0.5">Aug 18 • 7:40 PM<br/>Credit Card</p>
+                             <p className="text-[10px] font-medium text-gray-400">Movie tickets for two</p>
+                           </div>
+                        </div>
+                        <p className="font-black text-[15px] text-dark self-start mt-1">-₹1,200.00</p>
+                     </div>
+                     <div className="bg-white rounded-[20px] p-4 shadow-sm border border-black/5 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                           <div className="w-12 h-12 bg-[#C8E64A] rounded-[14px] flex items-center justify-center"><i className="ph-bold ph-tote text-xl text-[#1A1A1A]"></i></div>
+                           <div>
+                             <p className="font-bold text-[14px] text-dark leading-tight">Shopping</p>
+                             <p className="text-[10px] font-medium text-muted mt-0.5 mb-0.5">Aug 18 • 1:58 PM<br/>Credit/Debit Card</p>
+                             <p className="text-[10px] font-medium text-gray-400">Clothes shopping at Zara</p>
+                           </div>
+                        </div>
+                        <p className="font-black text-[15px] text-dark self-start mt-1">-₹2,500.00</p>
+                     </div>
+                  </div>
+
+                  {/* Menu Grid */}
+                  <div className="grid grid-cols-2 gap-4 mt-8 flex-shrink-0">
+                    <div className="bg-[#1A1A1A] rounded-[24px] p-5 flex flex-col items-center justify-center text-center gap-2 shadow-elevated border border-black/5">
+                      <i className="ph-fill ph-piggy-bank text-[#C8E64A] text-4xl"></i>
+                      <p className="text-[#C8E64A] text-sm font-black mt-1">Budgets</p>
+                      <p className="text-gray-400 text-[10px] font-medium">Set spending limits</p>
+                    </div>
+                    <div className="bg-[#1A1A1A] rounded-[24px] p-5 flex flex-col items-center justify-center text-center gap-2 shadow-elevated border border-black/5">
+                      <i className="ph-fill ph-flag-banner text-[#C8E64A] text-4xl"></i>
+                      <p className="text-[#C8E64A] text-sm font-black mt-1">Savings</p>
+                      <p className="text-gray-400 text-[10px] font-medium">Track your goals</p>
+                    </div>
+                    <div className="bg-[#1A1A1A] rounded-[24px] p-5 flex flex-col items-center justify-center text-center gap-2 shadow-elevated border border-black/5">
+                      <i className="ph-fill ph-shapes text-[#C8E64A] text-4xl"></i>
+                      <p className="text-[#C8E64A] text-sm font-black mt-1">Categories</p>
+                      <p className="text-gray-400 text-[10px] font-medium">Organize spending</p>
+                    </div>
+                    <div className="bg-[#1A1A1A] rounded-[24px] p-5 flex flex-col items-center justify-center text-center gap-2 shadow-elevated border border-black/5">
+                      <i className="ph-fill ph-chart-pie-slice text-[#C8E64A] text-4xl"></i>
+                      <p className="text-[#C8E64A] text-sm font-black mt-1">Reports</p>
+                      <p className="text-gray-400 text-[10px] font-medium">Analyze spending</p>
+                    </div>
+                    <div className="bg-[#1A1A1A] rounded-[24px] p-5 flex flex-col items-center justify-center text-center gap-2 shadow-elevated border border-black/5">
+                      <i className="ph-fill ph-users-three text-[#C8E64A] text-4xl"></i>
+                      <p className="text-[#C8E64A] text-sm font-black mt-1">Split Groups</p>
+                      <p className="text-gray-400 text-[10px] font-medium">Share expenses</p>
+                    </div>
+                    <div className="bg-[#1A1A1A] rounded-[24px] p-5 flex flex-col items-center justify-center text-center gap-2 shadow-elevated border border-black/5">
+                      <i className="ph-fill ph-download-simple text-[#C8E64A] text-4xl"></i>
+                      <p className="text-[#C8E64A] text-sm font-black mt-1">Export</p>
+                      <p className="text-gray-400 text-[10px] font-medium">Download CSV</p>
+                    </div>
+                  </div>
+                </div>
+
+                  {/* Bottom Navigation */}
+                  <div className="absolute bottom-5 left-4 right-4 bg-[#1A1A1A] rounded-[32px] p-2 flex items-center justify-between shadow-[0_10px_30px_rgba(0,0,0,0.3)] z-20">
+                     <div className="w-[42px] h-[42px] bg-[#C8E64A] rounded-full flex items-center justify-center shadow-inner">
+                        <i className="ph-fill ph-house text-[#1A1A1A] text-xl"></i>
+                     </div>
+                     <div className="w-[42px] h-[42px] flex items-center justify-center"><i className="ph-bold ph-arrows-left-right text-white/50 text-xl"></i></div>
+                     <div className="w-[42px] h-[42px] flex items-center justify-center"><i className="ph-bold ph-credit-card text-white/50 text-xl"></i></div>
+                     <div className="w-[42px] h-[42px] flex items-center justify-center"><i className="ph-bold ph-users-three text-white/50 text-xl"></i></div>
+                     <div className="w-[42px] h-[42px] flex items-center justify-center"><i className="ph-bold ph-git-branch text-white/50 text-xl"></i></div>
+                  </div>
+                  
+                  {/* iOS Home Indicator */}
+                  <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-24 h-1 bg-white/20 rounded-full z-30"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    const Features = () => {
+      return (
+        <section id="features" className="py-24 md:py-32 relative overflow-hidden bg-white/50">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-20 max-w-2xl mx-auto scroll-reveal">
+              <h2 className="text-4xl md:text-5xl font-black mb-5 tracking-tight text-dark">Built for serious money management.</h2>
+              <p className="text-dark/60 text-xl font-medium">Explore powerful features covering everything from offline tracking to complex debt settlements.</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              
+              {/* Feature 2: Intuitive Swipe Actions (Span 1) */}
+              <div className="bg-white rounded-[32px] p-10 shadow-card flex flex-col justify-between group scroll-reveal delay-100">
+                <div className="mb-8">
+                  <div className="w-14 h-14 rounded-card bg-brand/20 flex items-center justify-center mb-6 shadow-sm group-hover:bg-brand/30 transition-colors">
+                    <i className="ph-fill ph-hand-swipe-right text-3xl text-dark"></i>
+                  </div>
+                  <h3 className="text-2xl font-black mb-4 tracking-tight leading-tight">Intuitive Swipe Actions</h3>
+                  <p className="text-dark/70 text-[17px] font-medium leading-relaxed">Manage transactions effortlessly. Swipe right to delete or left to edit without navigating away.</p>
+                </div>
+                <div className="mt-auto relative rounded-[20px] overflow-hidden bg-dark flex justify-start shadow-inner border border-black/5">
+                   <div className="absolute left-0 top-0 bottom-0 flex w-[96px] items-center justify-center">
+                     <i className="ph-fill ph-trash text-2xl text-brand transform scale-125"></i>
+                   </div>
+                   <div className="flex items-center justify-between p-4 rounded-[20px] bg-light w-full relative z-10 transform translate-x-[96px] group-hover:translate-x-0 transition-transform duration-700 shadow-sm">
+                     <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-xl bg-brand flex items-center justify-center text-dark"><i className="ph-fill ph-coffee"></i></div>
+                        <div><p className="font-bold text-xs">Coffee</p></div>
+                     </div>
+                     <p className="font-black text-sm text-dark">-₹4.50</p>
+                   </div>
+                </div>
+              </div>
+
+              {/* Feature 4: Budget Guard (Span 1) */}
+              <div className="bg-white rounded-[32px] p-10 shadow-card flex flex-col justify-between group scroll-reveal delay-200 relative overflow-hidden">
+                <div className="mb-8 relative z-10">
+                  <div className="w-14 h-14 rounded-card bg-brand/20 flex items-center justify-center mb-6 shadow-sm group-hover:bg-brand/40 transition-colors">
+                    <i className="ph-fill ph-warning-circle text-3xl text-dark group-hover:animate-pulse"></i>
+                  </div>
+                  <h3 className="text-2xl font-black mb-4 tracking-tight leading-tight">Strict Budget Guard</h3>
+                  <p className="text-dark/70 text-[17px] font-medium leading-relaxed">Set custom category budgets and get real-time warnings before you overspend. Stay strictly within your goals.</p>
+                </div>
+                <div className="mt-auto relative bg-light rounded-card p-6 border border-black/5 shadow-inner overflow-hidden min-h-[130px] flex flex-col justify-center z-10">
+                  <div className="transition-all duration-700 ease-in-out transform group-hover:-translate-y-6 group-hover:scale-95">
+                     <div className="flex justify-between text-sm mb-3 font-bold">
+                        <span className="text-dark flex items-center gap-2"><i className="ph-fill ph-fork-knife text-brand"></i> Dining Out</span>
+                        <span className="text-dark transition-colors duration-700">
+                          <span className="inline-block group-hover:hidden">75%</span>
+                          <span className="hidden group-hover:inline-block">98%</span>
+                        </span>
+                     </div>
+                     <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                       <div className="bg-brand h-3 rounded-full relative transition-all duration-1000 ease-out w-[75%] group-hover:w-[98%] group-hover:bg-dark">
+                          <div className="absolute top-0 right-0 bottom-0 w-6 bg-white/30 rounded-full animate-pulse"></div>
+                       </div>
+                     </div>
+                     <p className="text-xs font-medium mt-3 transition-colors duration-700 text-muted group-hover:text-dark">Remaining: <span className="group-hover:hidden">₹1,250.00</span><span className="hidden group-hover:inline-block">₹45.00</span></p>
+                  </div>
+                  
+                  {/* Sliding Alert Banner */}
+                  <div className="absolute left-3 right-3 bottom-3 bg-dark text-white rounded-[16px] p-3 shadow-lg flex items-center gap-3 transform translate-y-[150%] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 ease-out border border-white/10">
+                     <i className="ph-fill ph-warning-circle text-xl text-brand animate-bounce"></i>
+                     <div>
+                        <p className="text-xs font-black leading-tight text-brand">Limit Approaching!</p>
+                        <p className="text-[10px] font-medium text-white/80 mt-0.5">You are about to exceed budget.</p>
+                     </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Feature 5: Smart Analytics (Span 1) */}
+              <div className="bg-white rounded-[32px] p-10 shadow-card flex flex-col justify-between overflow-hidden relative group scroll-reveal delay-300">
+                <div className="z-10 mb-8 max-w-md">
+                  <div className="w-14 h-14 rounded-card bg-brand/20 flex items-center justify-center mb-6 shadow-sm group-hover:bg-brand/40 transition-colors">
+                    <i className="ph-fill ph-user-plus text-3xl text-dark"></i>
+                  </div>
+                  <h3 className="text-2xl font-black mb-4 text-dark tracking-tight leading-tight">Split Your Expenses</h3>
+                  <p className="text-dark/70 text-[17px] font-medium leading-relaxed">Easily invite friends via a quick link and start a group to seamlessly track and split your expenses on trips or dinners.</p>
+                </div>
+                <div className="mt-auto flex justify-center pb-2 relative z-10">
+                   <div className="w-full bg-light border border-black/5 rounded-[24px] shadow-sm p-5 relative overflow-hidden flex flex-col transform group-hover:-translate-y-2 group-hover:shadow-md transition-all duration-500">
+                      <div className="flex items-center gap-2 mb-5">
+                         <div className="w-12 h-12 rounded-full bg-dark flex items-center justify-center font-black text-brand border-4 border-white shadow-sm z-30 transform group-hover:scale-110 transition-transform duration-500">A</div>
+                         <div className="w-12 h-12 rounded-full bg-brand flex items-center justify-center font-black text-dark border-4 border-white shadow-sm -ml-5 z-20 transform group-hover:scale-110 transition-transform duration-500 delay-75">S</div>
+                         <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center border-4 border-white shadow-sm -ml-5 z-10 text-muted transform group-hover:scale-110 group-hover:bg-dark group-hover:text-brand transition-all duration-500 delay-150"><i className="ph-bold ph-plus text-lg"></i></div>
+                      </div>
+                      <div className="bg-white rounded-xl p-3 border border-dashed border-dark/20 flex items-center justify-between group-hover:border-solid group-hover:border-brand transition-all duration-500 cursor-pointer group/link">
+                         <span className="text-[13px] font-bold text-dark group-hover:text-brand transition-colors">espere.in/join/goa</span>
+                         <i className="ph-bold ph-copy text-dark group-hover/link:text-brand transition-colors"></i>
+                      </div>
+                   </div>
+                </div>
+              </div>
+
+              {/* Feature 6: True Offline (Span 3) */}
+              <div className="md:col-span-3 bg-dark text-white rounded-[32px] p-10 md:p-14 shadow-elevated flex flex-col md:flex-row items-center justify-between gap-12 overflow-hidden relative group scroll-reveal delay-100">
+                <div className="absolute inset-0 bg-gradient-to-l from-brand/10 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <div className="z-10 max-w-xl">
+                  <div className="w-14 h-14 rounded-card bg-white/10 border border-white/5 flex items-center justify-center mb-6 text-brand backdrop-blur-md">
+                    <i className="ph-fill ph-wifi-slash text-3xl"></i>
+                  </div>
+                  <h3 className="text-3xl md:text-4xl font-black mb-4 tracking-tight leading-tight">True Offline Experience</h3>
+                  <p className="text-white/70 text-[17px] font-medium leading-relaxed">Built from the ground up as a native app with an offline-first architecture. Track your expenses deep underground or on a flight with no internet. Everything auto-syncs securely to the cloud the moment you're back online.</p>
+                </div>
+                
+                <div className="z-10 w-full md:w-auto flex justify-center pb-2 flex-shrink-0">
+                  <div className="bg-[#222222] rounded-[28px] p-6 pr-10 border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.4)] flex items-center gap-5 transform group-hover:scale-105 transition-transform duration-500">
+                     <div className="w-14 h-14 rounded-full bg-brand/20 flex items-center justify-center text-brand relative">
+                       <div className="absolute inset-0 rounded-full bg-brand/20 animate-ping opacity-50"></div>
+                       <i className="ph-fill ph-check-circle text-3xl relative z-10"></i>
+                     </div>
+                     <div>
+                       <p className="font-bold text-lg">Synced Successfully</p>
+                       <p className="text-brand text-sm font-bold mt-1">Just now</p>
+                     </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Feature 1: Intelligent Group Settlements & Pixel Mockup (Span 3) */}
+              <div className="md:col-span-3 bg-dark text-white rounded-[40px] p-8 md:p-14 shadow-elevated flex flex-col lg:flex-row items-center justify-between gap-12 overflow-hidden relative group scroll-reveal">
+                <div className="absolute inset-0 bg-gradient-to-r from-brand/10 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <div className="z-10 max-w-xl">
+                  <div className="w-16 h-16 rounded-[20px] bg-white/10 border border-white/5 flex items-center justify-center mb-8 text-brand backdrop-blur-md">
+                    <i className="ph-fill ph-users-three text-4xl"></i>
+                  </div>
+                  <h3 className="text-4xl md:text-5xl font-black mb-6 tracking-tight leading-tight">Intelligent Group Settlements</h3>
+                  <p className="text-white/70 text-lg md:text-xl font-medium leading-relaxed mb-6">
+                    Split bills exactly how you want with built-in support for Equal, Percentage, and Exact amount shares.
+                  </p>
+                  <p className="text-white/70 text-lg md:text-xl font-medium leading-relaxed mb-8">
+                    Our Virtual Ledger uses a greedy algorithm to reduce complex N-way group debts into minimal transaction sequences. No more web of debts—settle up instantly.
+                  </p>
+                  <ul className="space-y-4">
+                    <li className="flex items-center gap-3"><i className="ph-fill ph-check-circle text-brand text-2xl"></i> <span className="font-bold text-white/90 text-lg">Equal, Percentage & Exact Splits</span></li>
+                    <li className="flex items-center gap-3"><i className="ph-fill ph-check-circle text-brand text-2xl"></i> <span className="font-bold text-white/90 text-lg">Automatic Rounding Correction</span></li>
+                    <li className="flex items-center gap-3"><i className="ph-fill ph-check-circle text-brand text-2xl"></i> <span className="font-bold text-white/90 text-lg">Greedy Algorithm Simplification</span></li>
+                  </ul>
+                </div>
+                
+                {/* Pixel Mobile Mockup Showcase */}
+                <div className="z-10 w-full lg:w-auto flex justify-center flex-shrink-0" style={{perspective: '1000px'}}>
+                  <div className="relative w-[320px] h-[660px] bg-[#111] rounded-[48px] border-[12px] border-[#222] shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden transition-transform duration-700 hover:rotate-y-[-5deg] hover:scale-[1.02]">
+                     {/* Hardware Buttons */}
+                     <div className="absolute -right-[14px] top-32 w-1 h-12 bg-[#333] rounded-l-md"></div>
+                     <div className="absolute -right-[14px] top-52 w-1 h-24 bg-[#333] rounded-l-md"></div>
+                     
+                     {/* Pixel Punch Hole Camera */}
+                     <div className="absolute top-4 left-1/2 -translate-x-1/2 w-4 h-4 bg-black rounded-full z-30 shadow-inner"></div>
+                     
+                     {/* Screen Content - Multi-Split / Group Details */}
+                     <div className="absolute inset-0 bg-[#F5F5F5] text-dark flex flex-col z-20 overflow-hidden">
+                        {/* Status Bar Space */}
+                        <div className="h-10 flex items-center justify-between px-5 pt-2">
+                          <div className="flex items-center gap-1"><span className="text-[10px] font-bold">9:29</span> <i className="ph-fill ph-discord-logo text-[8px]"></i></div>
+                          <div className="flex items-center gap-1">
+                            <i className="ph-bold ph-bluetooth text-[10px]"></i>
+                            <i className="ph-bold ph-wifi-high text-[10px]"></i>
+                            <i className="ph-fill ph-cell-signal-full text-[10px]"></i>
+                            <i className="ph-fill ph-battery-full text-[10px]"></i>
+                          </div>
+                        </div>
+
+                        {/* App Header */}
+                        <div className="px-4 pt-2 pb-4 flex items-center justify-between z-10">
+                           <div className="flex items-center gap-3">
+                             <div className="w-10 h-10 rounded-[14px] bg-white flex items-center justify-center shadow-sm"><i className="ph-bold ph-arrow-left text-lg"></i></div>
+                             <p className="font-bold text-[19px] tracking-tight ml-1">Goa Trip</p>
+                           </div>
+                           <div className="flex items-center gap-2">
+                             <div className="w-10 h-10 rounded-[14px] bg-[#1A1A1A] flex items-center justify-center shadow-sm"><i className="ph-fill ph-pencil-simple text-[#C8E64A] text-lg"></i></div>
+                             <div className="w-10 h-10 rounded-[14px] bg-[#C8E64A] flex items-center justify-center shadow-sm"><i className="ph-fill ph-user-plus text-[#1A1A1A] text-lg"></i></div>
+                           </div>
+                        </div>
+                        
+                        <div className="flex-1 overflow-y-auto px-4 pb-10 scrollbar-hide flex flex-col gap-4">
+                            {/* Balance Card */}
+                            <div className="bg-[#1A1A1A] rounded-[24px] p-5 text-white shadow-elevated relative">
+                              <p className="text-white/60 text-[11px] font-medium tracking-wide mb-1">Your Net Balance</p>
+                              <p className="text-[32px] font-black text-[#C8E64A] tracking-tight leading-none mb-4">+₹290.00</p>
+                              
+                              <div className="flex gap-4 mb-5">
+                                <div className="flex items-center gap-1.5 text-[11px] font-bold text-white/80">
+                                   <div className="w-4 h-4 rounded-full bg-[#C8E64A]/20 flex items-center justify-center text-[#C8E64A]"><i className="ph-bold ph-arrow-up text-[8px]"></i></div>
+                                   Paid: ₹0
+                                </div>
+                                <div className="flex items-center gap-1.5 text-[11px] font-bold text-white/80">
+                                   <div className="w-4 h-4 rounded-full bg-[#C8E64A]/20 flex items-center justify-center text-[#C8E64A]"><i className="ph-fill ph-chart-pie-slice text-[8px]"></i></div>
+                                   Share: ₹0
+                                </div>
+                              </div>
+
+                              <div className="flex gap-3">
+                                <div className="flex-1 bg-[#2A2A2A] hover:bg-[#333] transition-colors rounded-[14px] py-2.5 flex items-center justify-center gap-2">
+                                  <i className="ph-bold ph-plus text-[#C8E64A] text-sm"></i>
+                                  <span className="text-sm font-bold">Expense</span>
+                                </div>
+                                <div className="flex-1 bg-[#2A2A2A] hover:bg-[#333] transition-colors rounded-[14px] py-2.5 flex items-center justify-center gap-2">
+                                  <i className="ph-fill ph-handshake text-[#C8E64A] text-sm"></i>
+                                  <span className="text-sm font-bold">Settle Up</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Tabs */}
+                            <div className="bg-white rounded-full p-1.5 flex shadow-sm border border-black/5">
+                              <div className="flex-1 text-center py-2 text-[10px] font-bold text-muted">Expenses</div>
+                              <div className="flex-1 text-center py-2 text-[10px] font-bold text-dark bg-[#F5F5F5] rounded-full shadow-sm">Balances</div>
+                              <div className="flex-1 text-center py-2 text-[10px] font-bold text-muted">Settle Up</div>
+                            </div>
+
+                            {/* Member Balances List */}
+                            <div>
+                               <p className="font-bold text-sm mb-3 ml-1 text-dark">Member Balances</p>
+                               <div className="flex flex-col gap-2.5">
+                                 {/* Item 1 */}
+                                 <div className="bg-white rounded-[16px] p-3 flex items-center justify-between shadow-sm border border-black/5">
+                                    <div className="flex items-center gap-3">
+                                       <div className="w-10 h-10 rounded-[12px] bg-dark overflow-hidden flex items-center justify-center border border-black/5">
+                                          <img src="images/logo.png" className="w-full h-full object-cover opacity-80" />
+                                       </div>
+                                       <div>
+                                          <p className="font-bold text-[13px] text-dark leading-tight">Abdulla Fajal</p>
+                                          <p className="text-[11px] font-medium text-dark/70 mt-0.5">Gets back ₹290.00</p>
+                                       </div>
+                                    </div>
+                                    <i className="ph-bold ph-lock-key text-muted/50 text-sm mr-1"></i>
+                                 </div>
+
+                                 {/* Item 2 */}
+                                 <div className="bg-white rounded-[16px] p-3 flex items-center justify-between shadow-sm border border-black/5">
+                                    <div className="flex items-center gap-3">
+                                       <div className="w-10 h-10 rounded-[12px] bg-[#C8E64A] flex items-center justify-center font-bold text-dark text-lg border border-black/5">A</div>
+                                       <div>
+                                          <p className="font-bold text-[13px] text-dark leading-tight">Adiba</p>
+                                          <p className="text-[11px] font-medium text-dark/70 mt-0.5">Gets back ₹2155.00</p>
+                                       </div>
+                                    </div>
+                                    <i className="ph-bold ph-lock-key text-muted/50 text-sm mr-1"></i>
+                                 </div>
+
+                                 {/* Item 3 */}
+                                 <div className="bg-white rounded-[16px] p-3 flex items-center justify-between shadow-sm border border-black/5">
+                                    <div className="flex items-center gap-3">
+                                       <div className="w-10 h-10 rounded-[12px] bg-[#C8E64A] flex items-center justify-center font-bold text-dark text-lg border border-black/5">S</div>
+                                       <div>
+                                          <p className="font-bold text-[13px] text-dark leading-tight">Sabiha</p>
+                                          <p className="text-[11px] font-medium text-dark/70 mt-0.5">To pay ₹2305.00</p>
+                                       </div>
+                                    </div>
+                                    <i className="ph-bold ph-lock-key text-muted/50 text-sm mr-1"></i>
+                                 </div>
+
+                                 {/* Item 4 */}
+                                 <div className="bg-white rounded-[16px] p-3 flex items-center justify-between shadow-sm border border-black/5">
+                                    <div className="flex items-center gap-3">
+                                       <div className="w-10 h-10 rounded-[12px] bg-[#C8E64A] flex items-center justify-center font-bold text-dark text-lg border border-black/5">S</div>
+                                       <div>
+                                          <p className="font-bold text-[13px] text-dark leading-tight">Shoaib</p>
+                                          <p className="text-[11px] font-medium text-dark/70 mt-0.5">To pay ₹70.00</p>
+                                       </div>
+                                    </div>
+                                    <i className="ph-bold ph-lock-key text-muted/50 text-sm mr-1"></i>
+                                 </div>
+
+                                 {/* Item 5 */}
+                                 <div className="bg-white rounded-[16px] p-3 flex items-center justify-between shadow-sm border border-black/5">
+                                    <div className="flex items-center gap-3">
+                                       <div className="w-10 h-10 rounded-[12px] bg-[#C8E64A] flex items-center justify-center font-bold text-dark text-lg border border-black/5">A</div>
+                                       <div>
+                                          <p className="font-bold text-[13px] text-dark leading-tight">Aaisha</p>
+                                          <p className="text-[11px] font-medium text-dark/70 mt-0.5">To pay ₹70.00</p>
+                                       </div>
+                                    </div>
+                                    <i className="ph-bold ph-lock-key text-muted/50 text-sm mr-1"></i>
+                                 </div>
+
+                                 {/* Item 6 */}
+                                 <div className="bg-white rounded-[16px] p-3 flex items-center justify-between shadow-sm border border-black/5">
+                                    <div className="flex items-center gap-3">
+                                       <div className="w-10 h-10 rounded-[12px] bg-[#C8E64A] flex items-center justify-center font-bold text-dark text-lg border border-black/5">A</div>
+                                       <div>
+                                          <p className="font-bold text-[13px] text-dark leading-tight">Aqib</p>
+                                          <p className="text-[11px] font-medium text-dark/70 mt-0.5">To pay ₹30.00</p>
+                                       </div>
+                                    </div>
+                                    <i className="ph-bold ph-lock-key text-muted/50 text-sm mr-1"></i>
+                                 </div>
+                               </div>
+                            </div>
+                        </div>
+                        
+                        {/* Android Home Indicator */}
+                        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-24 h-1.5 bg-black/20 rounded-full z-30"></div>
+                     </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    const CTA = () => {
+      return (
+        <section className="py-24 px-6 scroll-reveal">
+          <div className="max-w-6xl mx-auto bg-dark rounded-[48px] p-12 md:p-24 text-center relative overflow-hidden shadow-elevated group">
+            {/* Animated Background Orbs */}
+            <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-brand rounded-full blur-[120px] opacity-20 group-hover:opacity-40 transition-opacity duration-1000 animate-pulse pointer-events-none"></div>
+            <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-brand rounded-full blur-[120px] opacity-20 group-hover:opacity-40 transition-opacity duration-1000 pointer-events-none" style={{ animation: 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite reverse' }}></div>
+            
+            {/* Floating Glass Badges */}
+            <div className="absolute top-20 left-10 md:left-20 w-16 h-16 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 flex items-center justify-center transform -rotate-12 animate-bounce hidden md:flex" style={{ animationDuration: '3s' }}>
+               <i className="ph-fill ph-wallet text-3xl text-brand"></i>
+            </div>
+            <div className="absolute bottom-20 right-10 md:right-20 w-20 h-20 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 flex items-center justify-center transform rotate-12 animate-bounce hidden md:flex" style={{ animationDuration: '4s', animationDelay: '1s' }}>
+               <i className="ph-fill ph-users-three text-4xl text-brand"></i>
+            </div>
+
+            <h2 className="text-5xl md:text-7xl font-black text-white mb-8 tracking-tight relative z-10 leading-tight">
+              Take control of <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand to-[#E5FF70] animate-pulse">your finances today.</span>
+            </h2>
+            <p className="text-white/70 text-xl md:text-2xl font-medium max-w-3xl mx-auto mb-12 relative z-10 leading-relaxed">
+              Join thousands of users who are already saving more and settling group debts instantly with Espere.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-6 relative z-10">
+               <a href="espere.apk" download className="inline-flex bg-brand text-dark px-10 py-5 rounded-btn font-black text-lg hover:bg-white transition-all duration-300 shadow-glow transform hover:-translate-y-2 hover:scale-105 items-center justify-center gap-3">
+                 <i className="ph-bold ph-download-simple text-2xl"></i>
+                 Download Now for Free
+               </a>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    const Footer = () => {
+      return (
+        <footer className="bg-white border-t border-black/5 py-16 px-6 mt-12">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
+              <div className="flex items-center gap-3">
+                <img src="images/logo.png" alt="Espere Logo" className="w-8 h-8 object-contain rounded-lg shadow-soft" />
+                <span className="font-black text-xl tracking-tight">Espere</span>
+              </div>
+              
+              <div className="flex flex-wrap justify-center gap-8 text-sm font-bold text-dark/70">
+                <a href="#features" className="hover:text-brand transition-colors">Features</a>
+                <a href="privacy.html" className="hover:text-brand transition-colors">Privacy Policy</a>
+                <a href="terms.html" className="hover:text-brand transition-colors">Terms of Service</a>
+                <a href="contact.html" className="hover:text-brand transition-colors">Contact Support</a>
+              </div>
+              
+              <div className="flex gap-5">
+                <a href="#" className="text-dark/50 hover:text-brand transition-colors transform hover:scale-110">
+                  <i className="ph-fill ph-twitter-logo text-2xl"></i>
+                </a>
+                <a href="#" className="text-dark/50 hover:text-brand transition-colors transform hover:scale-110">
+                  <i className="ph-fill ph-instagram-logo text-2xl"></i>
+                </a>
+                <a href="#" className="text-dark/50 hover:text-brand transition-colors transform hover:scale-110">
+                  <i className="ph-fill ph-linkedin-logo text-2xl"></i>
+                </a>
+              </div>
+            </div>
+            
+            <div className="text-center text-sm font-medium text-muted pt-8 border-t border-black/5">
+              &copy; {new Date().getFullYear()} Espere Inc. All rights reserved.
+            </div>
+          </div>
+        </footer>
+      );
+    };
+
+    const App = () => {
+      useScrollReveal();
+      
+      return (
+        <div className="font-sans antialiased text-dark selection:bg-brand/30 selection:text-dark">
+          <Navbar />
+          <main>
+            <Hero />
+            <Features />
+            <CTA />
+          </main>
+          <Footer />
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+  
+  </body>
 </html>

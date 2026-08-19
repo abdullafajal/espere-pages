@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <title>Terms of Service - Espere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Master your money with Espere. The ultimate app to track personal spending with precision, set smart budgets, and instantly split group expenses with friends.">
+  <meta name="keywords" content="expense tracker, split bills, group expenses, budget planner, personal finance app, money manager, settle debts, splitwise alternative">
+  <meta name="author" content="Espere">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://espere.in/terms.html">
+  <meta property="og:title" content="Terms of Service - Espere">
+  <meta property="og:description" content="Master your money with Espere. The ultimate app to track personal spending with precision, set smart budgets, and instantly split group expenses with friends.">
+  <meta property="og:image" content="https://espere.in/images/logo.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://espere.in/terms.html">
+  <meta property="twitter:title" content="Terms of Service - Espere">
+  <meta property="twitter:description" content="Master your money with Espere. The ultimate app to track personal spending with precision, set smart budgets, and instantly split group expenses with friends.">
+  <meta property="twitter:image" content="https://espere.in/images/logo.png">
+  
+  <link rel="canonical" href="https://espere.in/terms.html">
+
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "iobye2h59p");
+  </script>
+
+  <!-- PWA Manifest -->
+  <!-- Icons -->
+  <link rel="icon" type="image/png" href="images/favicon_transparent.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="images/icon-maskable-512.png">
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              DEFAULT: '#C8E64A',
+              hover: '#D9F260',
+            },
+            dark: {
+              DEFAULT: '#1A1A1A',
+              bg: '#0F0F0F',
+            },
+            light: {
+              DEFAULT: '#F5F5F5',
+              card: '#FFFFFF',
+            },
+            muted: '#9E9E9E'
+          },
+          borderRadius: {
+            'btn': '16px',
+            'card': '20px',
+            'pill': '28px',
+          },
+          boxShadow: {
+            'soft': '0 2px 12px rgba(0,0,0,0.06)',
+            'card': '0 1px 8px rgba(0,0,0,0.04), 0 4px 24px rgba(0,0,0,0.04)',
+            'elevated': '0 4px 20px rgba(0,0,0,0.08)',
+            'glow': '0 0 32px rgba(200, 230, 74, 0.4)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- React & ReactDOM -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <!-- Babel for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Phosphor Icons for elegant UI icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <style>
+    body {
+      background-color: #F5F5F5;
+      color: #1A1A1A;
+      overflow-x: hidden;
+      overscroll-behavior-y: none;
+    }
+    
+    .glass-nav {
+      background: rgba(245, 245, 245, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    }
+    
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .scroll-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-100 { transition-delay: 100ms; }
+    .delay-200 { transition-delay: 200ms; }
+    
+    .mockup-3d {
+      transform: translateZ(0) rotateY(-15deg) rotateX(5deg) rotateZ(2deg);
+      will-change: transform;
+      transform-style: preserve-3d;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mockup-3d:hover {
+      transform: translateZ(0) rotateY(0) rotateX(0) rotateZ(0) scale(1.02);
+    }
+
+    /* Hide scrollbar for clean mockups */
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    const useScrollReveal = () => {
+      const ref = useRef(null);
+      useEffect(() => {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+        );
+        
+        const elements = document.querySelectorAll('.scroll-reveal');
+        elements.forEach(el => observer.observe(el));
+        
+        return () => {
+          elements.forEach(el => observer.unobserve(el));
+        };
+      }, []);
+      return ref;
+    };
+
+    const Navbar = () => {
+      return (
+        <nav className="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+          <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="index.html" className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
+              <img src="images/logo.png" alt="Espere Logo" className="w-10 h-10 object-contain rounded-xl shadow-soft" />
+              <span className="font-black text-2xl tracking-tight text-dark">Espere</span>
+            </a>
+            
+            <div className="hidden md:flex items-center gap-8 text-[15px] font-bold text-dark/60">
+              <a href="index.html#features" className="hover:text-dark transition-colors">Features</a>
+              <a href="faq.html" className="hover:text-dark transition-colors">FAQ</a>
+            </div>
+            
+            <div>
+              <a href="espere.apk" download className="inline-block bg-brand hover:bg-brand-hover text-dark font-bold px-7 py-3 rounded-btn transition-all duration-300 hover:shadow-glow transform hover:-translate-y-0.5">
+                Download App
+              </a>
+            </div>
+          </div>
+        </nav>
+      );
+    };
+
+
+    const PageContent = () => {
+      return (
+        <section className="pt-32 pb-24 px-6 min-h-screen">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-4xl md:text-5xl font-black mb-8">Terms of Service</h1>
+            <p className="text-dark/70 mb-8 font-medium">Last updated: August 2026</p>
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-2xl font-bold mb-4">1. Acceptance of Terms</h3>
+                <p className="text-dark/70 leading-relaxed">By accessing and using Espere, you accept and agree to be bound by the terms and provision of this agreement.</p>
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-4">2. User Conduct</h3>
+                <p className="text-dark/70 leading-relaxed">You agree to use Espere only for lawful purposes. You are responsible for all activities that occur under your account.</p>
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-4">3. Service Availability</h3>
+                <p className="text-dark/70 leading-relaxed">While we strive for 100% uptime, Espere is provided "as is" and "as available" without warranties of any kind.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    const Footer = () => {
+      return (
+        <footer className="bg-white border-t border-black/5 py-16 px-6 mt-12">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
+              <div className="flex items-center gap-3">
+                <img src="images/logo.png" alt="Espere Logo" className="w-8 h-8 object-contain rounded-lg shadow-soft" />
+                <span className="font-black text-xl tracking-tight">Espere</span>
+              </div>
+              
+              <div className="flex flex-wrap justify-center gap-8 text-sm font-bold text-dark/70">
+                <a href="index.html#features" className="hover:text-brand transition-colors">Features</a>
+                <a href="privacy.html" className="hover:text-brand transition-colors">Privacy Policy</a>
+                <a href="terms.html" className="hover:text-brand transition-colors">Terms of Service</a>
+                <a href="contact.html" className="hover:text-brand transition-colors">Contact Support</a>
+              </div>
+              
+              <div className="flex gap-5">
+                <a href="#" className="text-dark/50 hover:text-brand transition-colors transform hover:scale-110">
+                  <i className="ph-fill ph-twitter-logo text-2xl"></i>
+                </a>
+                <a href="#" className="text-dark/50 hover:text-brand transition-colors transform hover:scale-110">
+                  <i className="ph-fill ph-instagram-logo text-2xl"></i>
+                </a>
+                <a href="#" className="text-dark/50 hover:text-brand transition-colors transform hover:scale-110">
+                  <i className="ph-fill ph-linkedin-logo text-2xl"></i>
+                </a>
+              </div>
+            </div>
+            
+            <div className="text-center text-sm font-medium text-muted pt-8 border-t border-black/5">
+              &copy; {new Date().getFullYear()} Espere Inc. All rights reserved.
+            </div>
+          </div>
+        </footer>
+      );
+    };
+
+    const App = () => {
+      useScrollReveal();
+      
+      return (
+        <div className="font-sans antialiased text-dark selection:bg-brand/30 selection:text-dark">
+          <Navbar />
+          <main>
+            <PageContent />
+            
+            
+          </main>
+          <Footer />
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+  
+  </body>
+</html>
