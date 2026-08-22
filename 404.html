@@ -79,45 +79,63 @@
       const path = window.location.pathname;
       const API_BASE_URL = 'https://montra.pythonanywhere.com';
       
-      // Check if this is an /invite/ path
-      if (path.startsWith('/invite/')) {
+      // Check if this is an /invite/ or /accounts/register/ path
+      if (path.startsWith('/invite/') || path.startsWith('/accounts/register/')) {
         document.getElementById('invite-container').classList.remove('hidden');
         document.getElementById('invite-container').classList.add('flex');
         
-        // Extract token
-        const parts = path.split('/').filter(p => p.length > 0);
-        if (parts.length >= 2) {
-          const token = parts[1];
-          const intentUrl = `intent://espere.in/invite/${token}#Intent;scheme=https;package=com.example.espere_app;end`;
+        if (path.startsWith('/accounts/register/')) {
+          // Friend Invitation
+          document.getElementById('loading-state').classList.add('hidden');
+          document.getElementById('inviter-name').textContent = 'A friend';
+          document.getElementById('group-name').textContent = 'Espere';
+          document.getElementById('invite-details').classList.remove('hidden');
+          
+          const searchParams = new URLSearchParams(window.location.search);
+          const email = searchParams.get('email') || '';
+          const intentUrl = `intent://espere.in/accounts/register/?email=${email}#Intent;scheme=https;package=com.example.espere_app;end`;
           
           document.getElementById('btn-open-app').href = intentUrl;
-          
-          // Try auto-redirect
           setTimeout(() => {
             window.location.href = intentUrl;
           }, 500);
-
-          // Fetch invite details
-          fetch(`${API_BASE_URL}/api/split/invite/${token}/`)
-            .then(res => res.json())
-            .then(data => {
-              document.getElementById('loading-state').classList.add('hidden');
-              if (data.valid) {
-                document.getElementById('inviter-name').textContent = data.invited_by || 'Someone';
-                document.getElementById('group-name').textContent = data.group_name || 'the group';
-                document.getElementById('invite-details').classList.remove('hidden');
-              } else {
-                document.getElementById('error-state').classList.remove('hidden');
-              }
-            })
-            .catch(err => {
-              console.error(err);
-              document.getElementById('loading-state').classList.add('hidden');
-              // Silently fail the UI fetch, the user can still download/open app
-            });
+          
         } else {
-          document.getElementById('loading-state').classList.add('hidden');
-          document.getElementById('error-state').classList.remove('hidden');
+          // Group Invitation (Token based)
+          const parts = path.split('/').filter(p => p.length > 0);
+          if (parts.length >= 2) {
+            const token = parts[1];
+            const intentUrl = `intent://espere.in/invite/${token}#Intent;scheme=https;package=com.example.espere_app;end`;
+            
+            document.getElementById('btn-open-app').href = intentUrl;
+            
+            // Try auto-redirect
+            setTimeout(() => {
+              window.location.href = intentUrl;
+            }, 500);
+
+            // Fetch invite details
+            fetch(`${API_BASE_URL}/api/split/invite/${token}/`)
+              .then(res => res.json())
+              .then(data => {
+                document.getElementById('loading-state').classList.add('hidden');
+                if (data.valid) {
+                  document.getElementById('inviter-name').textContent = data.invited_by || 'Someone';
+                  document.getElementById('group-name').textContent = data.group_name || 'the group';
+                  document.getElementById('invite-details').classList.remove('hidden');
+                } else {
+                  document.getElementById('error-state').classList.remove('hidden');
+                }
+              })
+              .catch(err => {
+                console.error(err);
+                document.getElementById('loading-state').classList.add('hidden');
+                // Silently fail the UI fetch, the user can still download/open app
+              });
+          } else {
+            document.getElementById('loading-state').classList.add('hidden');
+            document.getElementById('error-state').classList.remove('hidden');
+          }
         }
       } else {
         // Standard 404
