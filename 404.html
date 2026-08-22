@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espere - Invitation</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            brand: '#E0FE19',
+            dark: '#111111',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 text-dark font-sans h-screen flex flex-col">
+
+  <!-- Invite Content (Hidden by default) -->
+  <div id="invite-container" class="hidden flex-1 flex flex-col items-center justify-center p-6">
+    <div class="bg-white p-8 rounded-3xl shadow-xl max-w-md w-full text-center border border-gray-100">
+      <img src="images/favicon.png" alt="Espere" class="w-20 h-20 mx-auto rounded-2xl mb-6 shadow-sm">
+      
+      <h2 class="text-3xl font-bold mb-2">You've been invited!</h2>
+      
+      <div id="loading-state" class="my-6">
+        <div class="animate-pulse flex space-x-4 justify-center">
+          <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+        </div>
+      </div>
+
+      <div id="invite-details" class="hidden mb-8 text-gray-600">
+        <p class="text-lg">
+          <strong id="inviter-name" class="text-dark">Someone</strong> has invited you to join the group <strong id="group-name" class="text-dark">Espere</strong>.
+        </p>
+      </div>
+
+      <div id="error-state" class="hidden mb-8 text-red-500 font-medium bg-red-50 p-4 rounded-xl">
+        This invitation link is invalid or has expired.
+      </div>
+
+      <div class="flex flex-col gap-4 mt-8">
+        <a id="btn-open-app" href="#" class="bg-brand text-dark font-bold py-4 px-6 rounded-xl hover:bg-[#d0ec16] transition-colors shadow-sm text-lg">
+          Open in App
+        </a>
+        <a href="/espere.apk" download class="bg-dark text-white font-bold py-4 px-6 rounded-xl hover:bg-gray-800 transition-colors shadow-sm text-lg">
+          Download APK
+        </a>
+      </div>
+      
+      <p class="text-sm text-gray-500 mt-6">
+        If you already have Espere installed, click "Open in App". Otherwise, download the app to get started.
+      </p>
+    </div>
+  </div>
+
+  <!-- Standard 404 Content (Hidden by default) -->
+  <div id="not-found-container" class="hidden flex-1 flex flex-col items-center justify-center p-6 text-center">
+    <h1 class="text-9xl font-black text-brand drop-shadow-md">404</h1>
+    <h2 class="text-3xl font-bold mt-4 mb-2">Page Not Found</h2>
+    <p class="text-gray-500 mb-8 max-w-md mx-auto">The page you are looking for doesn't exist or has been moved.</p>
+    <a href="/" class="bg-dark text-white font-bold py-3 px-8 rounded-xl hover:bg-gray-800 transition-colors">
+      Go Home
+    </a>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const path = window.location.pathname;
+      const API_BASE_URL = 'https://montra.pythonanywhere.com';
+      
+      // Check if this is an /invite/ path
+      if (path.startsWith('/invite/')) {
+        document.getElementById('invite-container').classList.remove('hidden');
+        document.getElementById('invite-container').classList.add('flex');
+        
+        // Extract token
+        const parts = path.split('/').filter(p => p.length > 0);
+        if (parts.length >= 2) {
+          const token = parts[1];
+          const intentUrl = `intent://espere.in/invite/${token}#Intent;scheme=https;package=com.example.espere_app;end`;
+          
+          document.getElementById('btn-open-app').href = intentUrl;
+          
+          // Try auto-redirect
+          setTimeout(() => {
+            window.location.href = intentUrl;
+          }, 500);
+
+          // Fetch invite details
+          fetch(`${API_BASE_URL}/api/split/invite/${token}/`)
+            .then(res => res.json())
+            .then(data => {
+              document.getElementById('loading-state').classList.add('hidden');
+              if (data.valid) {
+                document.getElementById('inviter-name').textContent = data.invited_by || 'Someone';
+                document.getElementById('group-name').textContent = data.group_name || 'the group';
+                document.getElementById('invite-details').classList.remove('hidden');
+              } else {
+                document.getElementById('error-state').classList.remove('hidden');
+              }
+            })
+            .catch(err => {
+              console.error(err);
+              document.getElementById('loading-state').classList.add('hidden');
+              // Silently fail the UI fetch, the user can still download/open app
+            });
+        } else {
+          document.getElementById('loading-state').classList.add('hidden');
+          document.getElementById('error-state').classList.remove('hidden');
+        }
+      } else {
+        // Standard 404
+        document.getElementById('not-found-container').classList.remove('hidden');
+        document.getElementById('not-found-container').classList.add('flex');
+      }
+    });
+  </script>
+</body>
+</html>

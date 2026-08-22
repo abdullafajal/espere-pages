@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.example.espere_app",
+    "sha256_cert_fingerprints": [
+      "28:9B:58:D0:D1:92:7B:3A:A5:93:66:72:94:BA:66:34:90:50:D7:D4:6A:2A:70:0E:7E:9D:18:D9:CA:E4:0C:72"
+    ]
+  }
+}]
