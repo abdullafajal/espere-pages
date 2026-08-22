@@ -93,26 +93,19 @@
           
           const searchParams = new URLSearchParams(window.location.search);
           const email = searchParams.get('email') || '';
-          const intentUrl = `intent://espere.in/accounts/register/?email=${email}#Intent;scheme=https;package=com.example.espere_app;end`;
+          const fallbackUrl = encodeURIComponent('https://espere.in/espere.apk');
+          const intentUrl = `intent://espere.in/accounts/register/?email=${email}#Intent;scheme=https;package=com.example.espere_app;S.browser_fallback_url=${fallbackUrl};end`;
           
           document.getElementById('btn-open-app').href = intentUrl;
-          setTimeout(() => {
-            window.location.href = intentUrl;
-          }, 500);
-          
         } else {
           // Group Invitation (Token based)
           const parts = path.split('/').filter(p => p.length > 0);
           if (parts.length >= 2) {
             const token = parts[1];
-            const intentUrl = `intent://espere.in/invite/${token}#Intent;scheme=https;package=com.example.espere_app;end`;
+            const fallbackUrl = encodeURIComponent('https://espere.in/espere.apk');
+            const intentUrl = `intent://espere.in/invite/${token}#Intent;scheme=https;package=com.example.espere_app;S.browser_fallback_url=${fallbackUrl};end`;
             
             document.getElementById('btn-open-app').href = intentUrl;
-            
-            // Try auto-redirect
-            setTimeout(() => {
-              window.location.href = intentUrl;
-            }, 500);
 
             // Fetch invite details
             fetch(`${API_BASE_URL}/api/split/invite/${token}/`)
