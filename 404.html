@@ -82,8 +82,8 @@
       const path = window.location.pathname;
       const API_BASE_URL = 'https://montra.pythonanywhere.com';
       
-      // Check if this is an /invite/ or /accounts/register/ path
-      if (path.startsWith('/invite/') || path.startsWith('/accounts/register/')) {
+      // Check if this is an /invite/, /accounts/register/, or /add_friend/ path
+      if (path.startsWith('/invite/') || path.startsWith('/accounts/register/') || path.startsWith('/add_friend/')) {
         document.getElementById('invite-container').classList.remove('hidden');
         document.getElementById('invite-container').classList.add('flex');
         
@@ -98,6 +98,20 @@
           const email = searchParams.get('email') || '';
           const fallbackUrl = encodeURIComponent('https://espere.in/espere.apk');
           const intentUrl = `intent://espere.in/accounts/register/?email=${email}#Intent;scheme=https;package=com.example.espere_app;S.browser_fallback_url=${fallbackUrl};end`;
+          
+          document.getElementById('btn-open-app').href = intentUrl;
+        } else if (path.startsWith('/add_friend/')) {
+          // New Add Friend Deep Link
+          document.getElementById('loading-state').classList.add('hidden');
+          const parts = path.split('/').filter(p => p.length > 0);
+          const username = parts.length >= 2 ? parts[1] : 'A friend';
+          
+          document.getElementById('inviter-name').textContent = username;
+          document.getElementById('group-name').textContent = 'Espere';
+          document.getElementById('invite-details').classList.remove('hidden');
+          
+          const fallbackUrl = encodeURIComponent('https://espere.in/espere.apk');
+          const intentUrl = `intent://espere.in/add_friend/${username}#Intent;scheme=https;package=com.example.espere_app;S.browser_fallback_url=${fallbackUrl};end`;
           
           document.getElementById('btn-open-app').href = intentUrl;
         } else {
