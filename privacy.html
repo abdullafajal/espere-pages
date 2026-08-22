@@ -185,6 +185,7 @@
             
             <div className="hidden md:flex items-center gap-6 text-[15px] font-bold text-dark/60">
               <a href="/#features" className="hover:text-dark transition-colors">Features</a>
+              <a href="about.html" className="hover:text-dark transition-colors">About</a>
               <a href="faq.html" className="hover:text-dark transition-colors">FAQ</a>
               <a href="privacy.html" className="text-dark border-b-2 border-dark pb-1 hover:text-dark transition-colors">Privacy Policy</a>
               <a href="terms.html" className="hover:text-dark transition-colors">Terms of Service</a>
@@ -203,25 +204,136 @@
 
 
     const PageContent = () => {
-      return (
-        <section className="pt-32 pb-24 px-6 min-h-screen">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-black mb-8">Privacy Policy</h1>
-            <p className="text-dark/70 mb-8 font-medium">Last updated: August 2026</p>
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-2xl font-bold mb-4">1. Data Collection</h3>
-                <p className="text-dark/70 leading-relaxed">We collect information that you provide directly to us when you create an account, create groups, or add expenses. This includes your name, email address, and financial tracking data.</p>
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold mb-4">2. Use of Information</h3>
-                <p className="text-dark/70 leading-relaxed">Your information is solely used to provide the Espere service, including syncing across your devices and settling group debts. We do not sell your personal data to third parties.</p>
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold mb-4">3. Data Security</h3>
-                <p className="text-dark/70 leading-relaxed">We implement industry-standard security measures to protect your data both in transit and at rest. Your passwords and sensitive information are securely hashed and encrypted.</p>
+      const sections = [
+        {
+          icon: "ph-database",
+          title: "1. Information We Collect",
+          content: (
+            <div className="space-y-4">
+              <p>We collect information to provide you with a seamless financial tracking experience:</p>
+              <ul className="list-disc pl-5 space-y-2 text-dark/80">
+                <li><strong>Account Information:</strong> Name, email address, and profile picture (if provided) when you sign up.</li>
+                <li><strong>Financial Data:</strong> Expenses, budgets, bills, and transaction details that you manually input into the app.</li>
+                <li><strong>Group Data:</strong> Information about the groups you create or join, and how expenses are split among members.</li>
+                <li><strong>Device Information:</strong> We use Firebase Cloud Messaging (FCM) to send push notifications. We securely store an anonymous device token to deliver these notifications.</li>
+              </ul>
+            </div>
+          )
+        },
+        {
+          icon: "ph-shield-check",
+          title: "2. How We Use Your Data",
+          content: (
+            <div className="space-y-4">
+              <p>Your data is used strictly to make Espere work for you:</p>
+              <ul className="list-disc pl-5 space-y-2 text-dark/80">
+                <li>To sync your offline expenses to the cloud when you reconnect.</li>
+                <li>To accurately calculate group settlements and debts.</li>
+                <li>To send you important notifications regarding group invites or expense updates.</li>
+              </ul>
+              <div className="bg-brand/10 p-4 rounded-xl border border-brand/20 mt-4">
+                <p className="font-bold text-dark flex items-center gap-2">
+                  <i className="ph-fill ph-warning-circle text-brand text-xl"></i>
+                  Zero Data Selling Policy
+                </p>
+                <p className="text-sm mt-1">We will <strong>never</strong> sell, rent, or trade your personal or financial data to third-party advertisers, data brokers, or anyone else.</p>
               </div>
             </div>
+          )
+        },
+        {
+          icon: "ph-users",
+          title: "3. Information Sharing",
+          content: (
+            <div className="space-y-4">
+              <p>Because Espere is designed for group expense splitting, some of your data is shared with other users by design:</p>
+              <ul className="list-disc pl-5 space-y-2 text-dark/80">
+                <li>When you add an expense to a group, all members of that group can see the expense details and who paid for it.</li>
+                <li>Your profile name and email are visible to people you invite to groups.</li>
+                <li>Outside of the groups you explicitly join, your data is completely private.</li>
+              </ul>
+            </div>
+          )
+        },
+        {
+          icon: "ph-lock-key",
+          title: "4. Data Security & Storage",
+          content: (
+            <p className="text-dark/80 leading-relaxed">
+              We implement industry-standard encryption protocols to protect your data in transit (via HTTPS) and at rest. Because Espere utilizes an <strong>Offline-First Architecture</strong>, a local copy of your data is securely stored on your device using encrypted local databases. You are responsible for keeping your physical device secure.
+            </p>
+          )
+        },
+        {
+          icon: "ph-github-logo",
+          title: "5. Open Source Transparency",
+          content: (
+            <p className="text-dark/80 leading-relaxed">
+              Espere is proudly Open Source. This means our codebase is publicly available for auditing. Any developer can inspect our code on GitHub to verify exactly how data is handled and ensure there are no hidden trackers or malicious data collection practices.
+            </p>
+          )
+        },
+        {
+          icon: "ph-export",
+          title: "6. Your Rights & Data Export",
+          content: (
+            <div className="space-y-4">
+              <p className="text-dark/80 leading-relaxed">
+                You have total ownership of your data. At any time, you can:
+              </p>
+              <ul className="list-disc pl-5 space-y-2 text-dark/80">
+                <li><strong>Export your data:</strong> Generate high-fidelity PDF reports of all your personal and group expenses.</li>
+                <li><strong>Delete your account:</strong> You can permanently delete your account and all associated data directly from the app settings.</li>
+              </ul>
+            </div>
+          )
+        }
+      ];
+
+      return (
+        <section className="pt-32 pb-24 px-6 min-h-screen relative overflow-hidden">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-brand/15 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
+          <div className="max-w-4xl mx-auto">
+            {/* Header */}
+            <div className="text-center mb-16 scroll-reveal">
+              <div className="w-20 h-20 bg-brand rounded-3xl flex items-center justify-center mx-auto mb-6 transform hover:scale-110 transition-transform duration-300">
+                <i className="ph-bold ph-shield-check text-dark text-4xl"></i>
+              </div>
+              <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">Privacy Policy</h1>
+              <p className="text-dark/70 text-xl font-medium max-w-2xl mx-auto">
+                We believe your financial data belongs to you, and only you. Here is exactly how we handle, protect, and secure your information.
+              </p>
+              <p className="text-dark/50 text-sm font-bold mt-6 uppercase tracking-wider">Last updated: August 2026</p>
+            </div>
+
+            {/* Content */}
+            <div className="space-y-8">
+              {sections.map((section, idx) => (
+                <div key={idx} className="bg-white p-8 md:p-10 rounded-[32px] shadow-sm border border-black/5 scroll-reveal group hover:shadow-md transition-shadow duration-300">
+                  <div className="flex items-start gap-5">
+                    <div className="w-12 h-12 bg-brand rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-brand-hover transition-colors duration-300">
+                      <i className={`ph-bold ${section.icon} text-2xl text-dark transition-colors`}></i>
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold mb-4">{section.title}</h3>
+                      <div className="text-dark/70 leading-relaxed font-medium">
+                        {section.content}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Contact CTA */}
+            <div className="mt-16 bg-dark text-white p-10 rounded-[32px] text-center scroll-reveal">
+              <h3 className="text-2xl font-bold mb-4">Have questions about your privacy?</h3>
+              <p className="text-white/70 mb-8 max-w-lg mx-auto">We're always here to help. Reach out to our support team if you have any questions about how your data is handled.</p>
+              <a href="contact.html" className="inline-block bg-brand hover:bg-brand-hover text-dark font-black px-8 py-4 rounded-2xl transition-transform hover:-translate-y-1 duration-300 shadow-glow">
+                Contact Us
+              </a>
+            </div>
+
           </div>
         </section>
       )
@@ -239,6 +351,7 @@
               
               <div className="flex flex-wrap justify-center gap-8 text-sm font-bold text-dark/70">
                 <a href="/#features" className="hover:text-brand transition-colors">Features</a>
+                <a href="about.html" className="hover:text-brand transition-colors">About</a>
                 <a href="privacy.html" className="hover:text-brand transition-colors">Privacy Policy</a>
                 <a href="terms.html" className="hover:text-brand transition-colors">Terms of Service</a>
                 <a href="contact.html" className="hover:text-brand transition-colors">Contact Support</a>

@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <title>FAQ - Espere</title>
+  <title>Contact Support - Espere</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#F5F5F5">
   <meta name="description" content="Master your money with Espere. The ultimate app to track personal spending with precision, set smart budgets, and instantly split group expenses with friends.">
@@ -12,19 +12,19 @@
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://espere.in/faq.html">
-  <meta property="og:title" content="FAQ - Espere">
+  <meta property="og:url" content="https://espere.in/contact.html">
+  <meta property="og:title" content="Contact Support - Espere">
   <meta property="og:description" content="Master your money with Espere. The ultimate app to track personal spending with precision, set smart budgets, and instantly split group expenses with friends.">
   <meta property="og:image" content="https://espere.in/images/logo.png">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://espere.in/faq.html">
-  <meta property="twitter:title" content="FAQ - Espere">
+  <meta property="twitter:url" content="https://espere.in/contact.html">
+  <meta property="twitter:title" content="Contact Support - Espere">
   <meta property="twitter:description" content="Master your money with Espere. The ultimate app to track personal spending with precision, set smart budgets, and instantly split group expenses with friends.">
   <meta property="twitter:image" content="https://espere.in/images/logo.png">
   
-  <link rel="canonical" href="https://espere.in/faq.html">
+  <link rel="canonical" href="https://espere.in/contact.html">
 
   <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
@@ -122,6 +122,20 @@
 
     .delay-100 { transition-delay: 100ms; }
     .delay-200 { transition-delay: 200ms; }
+    .delay-300 { transition-delay: 300ms; }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    .animate-float {
+      animation: float 4s ease-in-out infinite;
+    }
+    .animate-float-delayed {
+      animation: float 4s ease-in-out infinite;
+      animation-delay: 2s;
+    }
     
     .mockup-3d {
       transform: translateZ(0) rotateY(-15deg) rotateX(5deg) rotateZ(2deg);
@@ -185,8 +199,8 @@
             
             <div className="hidden md:flex items-center gap-6 text-[15px] font-bold text-dark/60">
               <a href="/#features" className="hover:text-dark transition-colors">Features</a>
-              <a href="about.html" className="hover:text-dark transition-colors">About</a>
-              <a href="faq.html" className="text-dark border-b-2 border-dark pb-1 hover:text-dark transition-colors">FAQ</a>
+              <a href="about.html" className="text-dark border-b-2 border-dark pb-1 hover:text-dark transition-colors">About</a>
+              <a href="faq.html" className="hover:text-dark transition-colors">FAQ</a>
               <a href="privacy.html" className="hover:text-dark transition-colors">Privacy Policy</a>
               <a href="terms.html" className="hover:text-dark transition-colors">Terms of Service</a>
               <a href="contact.html" className="hover:text-dark transition-colors">Contact Support</a>
@@ -203,92 +217,96 @@
     };
 
 
-    const AccordionItem = ({ question, answer, isOpen, onClick }) => {
-      return (
-        <div className="bg-white rounded-2xl shadow-sm border border-black/5 overflow-hidden transition-all duration-300 hover:shadow-md mb-4 scroll-reveal">
-          <button 
-            className="w-full px-8 py-6 text-left flex justify-between items-center focus:outline-none"
-            onClick={onClick}
-          >
-            <h3 className="text-xl font-bold text-dark pr-8">{question}</h3>
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center bg-brand text-dark transition-transform duration-300 ${isOpen ? 'rotate-180 bg-dark text-white' : ''}`}>
-              <i className={`ph-bold ${isOpen ? 'ph-caret-up' : 'ph-caret-down'} text-xl`}></i>
-            </div>
-          </button>
-          <div 
-            className={`px-8 overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[500px] opacity-100 pb-8' : 'max-h-0 opacity-0 pb-0'}`}
-          >
-            <p className="text-dark/70 text-lg leading-relaxed font-medium border-t border-black/5 pt-6">{answer}</p>
-          </div>
-        </div>
-      );
-    };
-
     const PageContent = () => {
-      const [openIndex, setOpenIndex] = useState(0);
-
-      const faqs = [
-        {
-          category: "General",
-          questions: [
-            { q: "What is Espere?", a: "Espere is an all-in-one personal finance and expense tracking app. It allows you to track your daily spending, set up budgets, and seamlessly split shared expenses with friends or groups." },
-            { q: "Is Espere completely free?", a: "Yes! The core features of Espere—including personal expense tracking and group settlements—are completely free to use without any hidden fees." },
-            { q: "Is the app open source?", a: "Yes, Espere is proudly open source! Our code is publicly available on GitHub. We believe financial software should be transparent, community-driven, and free from hidden agendas." }
-          ]
-        },
-        {
-          category: "Features & Usage",
-          questions: [
-            { q: "How do group expenses work?", a: "You can easily create a group (like 'Trip to Bali' or 'Apartment Utilities'), add your friends, and start adding expenses. Espere automatically calculates who owes whom and provides a simplified settlement plan to minimize the number of transactions needed." },
-            { q: "Can I use Espere without an internet connection?", a: "Absolutely. Espere is built with an Offline-First architecture. You can log expenses and manage groups entirely offline. The moment you reconnect to the internet, the app automatically and seamlessly syncs your data to the cloud." },
-            { q: "Can I export my financial data?", a: "Yes, you have full control over your data. You can easily export your personal and group expense history and generate high-fidelity PDF reports for your records." }
-          ]
-        },
-        {
-          category: "Security & Privacy",
-          questions: [
-            { q: "Is my financial data secure?", a: "Total security is one of our core values. Your data is strictly encrypted both in transit and at rest. We utilize industry-standard security protocols to ensure your privacy is never compromised." },
-            { q: "Do you sell my data?", a: "Never. As an open-source, user-first platform, we do not sell your personal or financial data to third-party advertisers or data brokers. Your money is your business." }
-          ]
-        }
-      ];
-
       return (
         <section className="pt-32 pb-24 px-6 min-h-screen relative overflow-hidden">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-brand/15 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
-          <div className="max-w-4xl mx-auto">
-            {/* Header */}
-            <div className="text-center mb-16 scroll-reveal">
-              <div className="w-20 h-20 bg-brand rounded-3xl flex items-center justify-center mx-auto mb-6 transform hover:scale-110 transition-transform duration-300">
-                <i className="ph-bold ph-question text-dark text-4xl"></i>
-              </div>
-              <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">Frequently Asked Questions</h1>
-              <p className="text-dark/70 text-xl font-medium max-w-2xl mx-auto">Everything you need to know about the product and how it works. Can't find the answer you're looking for? Feel free to <a href="contact.html" className="text-brand hover:underline">contact our support team</a>.</p>
+          <div className="max-w-5xl mx-auto">
+            {/* Hero Section */}
+            <div className="text-center mb-20 scroll-reveal">
+              <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tight">
+                About <span className="text-brand drop-shadow-sm">Espere</span>
+              </h1>
+              <p className="text-dark/70 text-xl md:text-2xl font-medium max-w-2xl mx-auto leading-relaxed">
+                We believe that managing money should be as seamless as spending it. Espere is built to give you total control over your personal and group finances.
+              </p>
             </div>
 
-            {/* FAQ Accordions */}
-            <div className="space-y-12">
-              {faqs.map((group, groupIdx) => (
-                <div key={groupIdx} className="scroll-reveal">
-                  <h2 className="text-2xl font-black mb-6 pl-4 border-l-4 border-brand">{group.category}</h2>
-                  <div>
-                    {group.questions.map((faq, idx) => {
-                      // Calculate a global index to keep only one accordion open globally if desired.
-                      // Or we can just use string keys. Let's use string keys for the state.
-                      const itemKey = `${groupIdx}-${idx}`;
-                      return (
-                        <AccordionItem 
-                          key={itemKey}
-                          question={faq.q} 
-                          answer={faq.a} 
-                          isOpen={openIndex === itemKey}
-                          onClick={() => setOpenIndex(openIndex === itemKey ? null : itemKey)}
-                        />
-                      );
-                    })}
-                  </div>
+            {/* Vision & Mission Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+              <div className="bg-white p-10 rounded-[32px] shadow-sm border border-black/5 scroll-reveal delay-100 hover:shadow-elevated transition-shadow duration-300">
+                <div className="w-16 h-16 bg-brand rounded-2xl flex items-center justify-center mb-6">
+                  <i className="ph-fill ph-target text-dark text-3xl"></i>
                 </div>
-              ))}
+                <h3 className="text-3xl font-black mb-4">Our Mission</h3>
+                <p className="text-dark/70 text-lg font-medium leading-relaxed">
+                  To eliminate financial stress by providing a beautifully simple, highly intuitive platform where users can effortlessly track their expenses, manage budgets, and split bills without the usual awkwardness.
+                </p>
+              </div>
+
+              <div className="bg-dark text-white p-10 rounded-[32px] shadow-sm scroll-reveal delay-200 hover:shadow-elevated transition-shadow duration-300 relative overflow-hidden group">
+                <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-[#C8E64A]/10 rounded-full blur-3xl transition-transform duration-700 group-hover:scale-150"></div>
+                <div className="relative z-10">
+                  <div className="w-16 h-16 bg-brand rounded-2xl flex items-center justify-center mb-6">
+                    <i className="ph-fill ph-lightbulb text-dark text-3xl"></i>
+                  </div>
+                  <h3 className="text-3xl font-black mb-4">Our Vision</h3>
+                  <p className="text-white/70 text-lg font-medium leading-relaxed">
+                    A world where everyone feels confident and empowered about their finances. We are constantly innovating to bring you smart insights and automated tools that put your money to work for you.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Core Values Section */}
+            <div className="bg-[#F5F5F5] rounded-[48px] p-12 md:p-16 border border-black/5 scroll-reveal text-center relative overflow-hidden">
+               <h2 className="text-4xl font-black mb-12 relative z-10">Built on Trust & Simplicity</h2>
+               
+               <div className="grid grid-cols-1 md:grid-cols-3 gap-10 relative z-10">
+                 <div className="flex flex-col items-center scroll-reveal delay-100">
+                   <div className="w-20 h-20 bg-brand rounded-full flex items-center justify-center shadow-sm mb-6 animate-float">
+                     <i className="ph-bold ph-shield-check text-dark text-4xl drop-shadow-sm"></i>
+                   </div>
+                   <h4 className="text-xl font-bold mb-3">Total Security</h4>
+                   <p className="text-dark/60 font-medium">Your financial data is encrypted and completely secure. We never compromise on your privacy.</p>
+                 </div>
+                 
+                 <div className="flex flex-col items-center scroll-reveal delay-200">
+                   <div className="w-20 h-20 bg-brand rounded-full flex items-center justify-center shadow-sm mb-6 animate-float-delayed">
+                     <i className="ph-bold ph-magic-wand text-dark text-4xl drop-shadow-sm"></i>
+                   </div>
+                   <h4 className="text-xl font-bold mb-3">Beautiful Design</h4>
+                   <p className="text-dark/60 font-medium">We believe finance tools don't have to be boring. Espere is crafted with a focus on modern, fluid aesthetics.</p>
+                 </div>
+
+                 <div className="flex flex-col items-center scroll-reveal delay-300">
+                   <div className="w-20 h-20 bg-brand rounded-full flex items-center justify-center shadow-sm mb-6 animate-float">
+                     <i className="ph-bold ph-users text-dark text-4xl drop-shadow-sm"></i>
+                   </div>
+                   <h4 className="text-xl font-bold mb-3">Community First</h4>
+                   <p className="text-dark/60 font-medium">Built for real people. Whether splitting a dinner or tracking a vacation, we focus on the human element of money.</p>
+                 </div>
+               </div>
+            </div>
+
+            {/* Open Source Section */}
+            <div className="mt-12 bg-white rounded-[48px] p-12 md:p-16 border border-black/5 shadow-sm scroll-reveal delay-100 text-center relative overflow-hidden">
+               <div className="absolute -top-20 -left-20 w-64 h-64 bg-[#C8E64A]/10 rounded-full blur-3xl"></div>
+               <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-[#C8E64A]/10 rounded-full blur-3xl"></div>
+               
+               <div className="relative z-10 max-w-3xl mx-auto">
+                 <div className="w-20 h-20 bg-brand rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-elevated animate-float-delayed">
+                   <i className="ph-bold ph-github-logo text-dark text-4xl"></i>
+                 </div>
+                 <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">Proudly Open Source</h2>
+                 <p className="text-dark/70 text-lg md:text-xl font-medium leading-relaxed mb-10">
+                   Transparency is at the heart of everything we do. Espere is fully open-source, meaning our code is publicly available for anyone to review, contribute to, and learn from. We believe that financial software should be open, community-driven, and completely free from hidden agendas.
+                 </p>
+                 <a href="https://github.com/abdullafajal/espere_app" target="_blank" className="inline-flex items-center gap-3 bg-dark hover:bg-black text-[#C8E64A] font-black px-8 py-4 rounded-2xl transition-all duration-300 shadow-elevated hover:shadow-glow transform hover:-translate-y-1">
+                   <i className="ph-bold ph-code text-xl"></i>
+                   View Source Code
+                 </a>
+               </div>
             </div>
 
           </div>

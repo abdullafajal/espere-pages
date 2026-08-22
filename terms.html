@@ -185,6 +185,7 @@
             
             <div className="hidden md:flex items-center gap-6 text-[15px] font-bold text-dark/60">
               <a href="/#features" className="hover:text-dark transition-colors">Features</a>
+              <a href="about.html" className="hover:text-dark transition-colors">About</a>
               <a href="faq.html" className="hover:text-dark transition-colors">FAQ</a>
               <a href="privacy.html" className="hover:text-dark transition-colors">Privacy Policy</a>
               <a href="terms.html" className="text-dark border-b-2 border-dark pb-1 hover:text-dark transition-colors">Terms of Service</a>
@@ -203,25 +204,130 @@
 
 
     const PageContent = () => {
-      return (
-        <section className="pt-32 pb-24 px-6 min-h-screen">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-black mb-8">Terms of Service</h1>
-            <p className="text-dark/70 mb-8 font-medium">Last updated: August 2026</p>
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-2xl font-bold mb-4">1. Acceptance of Terms</h3>
-                <p className="text-dark/70 leading-relaxed">By accessing and using Espere, you accept and agree to be bound by the terms and provision of this agreement.</p>
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold mb-4">2. User Conduct</h3>
-                <p className="text-dark/70 leading-relaxed">You agree to use Espere only for lawful purposes. You are responsible for all activities that occur under your account.</p>
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold mb-4">3. Service Availability</h3>
-                <p className="text-dark/70 leading-relaxed">While we strive for 100% uptime, Espere is provided "as is" and "as available" without warranties of any kind.</p>
-              </div>
+      const sections = [
+        {
+          icon: "ph-handshake",
+          title: "1. Acceptance of Terms",
+          content: (
+            <p>
+              By downloading, installing, or using the Espere application ("Service"), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the Service. Espere is provided as an open-source tool to help you track personal and group finances.
+            </p>
+          )
+        },
+        {
+          icon: "ph-calculator",
+          title: "2. Financial Tool, Not Financial Advice",
+          content: (
+            <div className="space-y-4">
+              <p>
+                Espere is a software utility designed to help you track expenses, split bills, and manage budgets. 
+              </p>
+              <ul className="list-disc pl-5 space-y-2 text-dark/80">
+                <li>We do <strong>not</strong> provide financial, legal, or tax advice.</li>
+                <li>The accuracy of the data depends entirely on what you input. We are not responsible for calculation errors resulting from incorrect user input.</li>
+                <li>Espere is a tracking tool; it does not directly move money, withdraw from your bank, or legally enforce debt collection between friends.</li>
+              </ul>
             </div>
+          )
+        },
+        {
+          icon: "ph-users-three",
+          title: "3. Group Expenses & Settlements",
+          content: (
+            <div className="space-y-4">
+              <p>When using Espere to split expenses with groups, you acknowledge that:</p>
+              <ul className="list-disc pl-5 space-y-2 text-dark/80">
+                <li>Espere calculates "who owes whom" based on the expenses logged by group members.</li>
+                <li>You and your group members are solely responsible for actually settling those debts (e.g., via cash, bank transfer, or third-party payment apps).</li>
+                <li>Espere is not liable for unpaid debts between users.</li>
+              </ul>
+            </div>
+          )
+        },
+        {
+          icon: "ph-wifi-slash",
+          title: "4. Offline-First Architecture & Syncing",
+          content: (
+            <div className="space-y-4">
+              <p>Espere operates with an offline-first design:</p>
+              <ul className="list-disc pl-5 space-y-2 text-dark/80">
+                <li>Your data is stored locally on your device first, allowing you to use the app without an internet connection.</li>
+                <li>When you reconnect to the internet, Espere syncs your local data to the cloud.</li>
+                <li>You are responsible for ensuring your device eventually connects to the internet to back up your data. If you delete the app or lose your device before syncing, unsynced local data cannot be recovered.</li>
+              </ul>
+            </div>
+          )
+        },
+        {
+          icon: "ph-code-block",
+          title: "5. Open Source Software",
+          content: (
+            <p>
+              The Espere application source code is available under an Open Source license. While the code is free to inspect and modify according to its specific repository license, the hosted services, APIs, and trademarked branding of "Espere" remain the property of Espere Inc. You may not use our branding, logos, or hosted API endpoints for separate commercial applications without explicit permission.
+            </p>
+          )
+        },
+        {
+          icon: "ph-prohibit",
+          title: "6. Acceptable Use",
+          content: (
+            <div className="space-y-4">
+              <p>You agree not to:</p>
+              <ul className="list-disc pl-5 space-y-2 text-dark/80">
+                <li>Use Espere for any illegal activities or to track illicit transactions.</li>
+                <li>Attempt to breach, hack, or exploit the API or server infrastructure.</li>
+                <li>Harass or abuse other users through group invites or expense notes.</li>
+              </ul>
+              <p>We reserve the right to terminate accounts that violate these terms.</p>
+            </div>
+          )
+        }
+      ];
+
+      return (
+        <section className="pt-32 pb-24 px-6 min-h-screen relative overflow-hidden">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-brand/15 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
+          <div className="max-w-4xl mx-auto">
+            {/* Header */}
+            <div className="text-center mb-16 scroll-reveal">
+              <div className="w-20 h-20 bg-brand rounded-3xl flex items-center justify-center mx-auto mb-6 transform hover:scale-110 transition-transform duration-300">
+                <i className="ph-bold ph-file-text text-dark text-4xl"></i>
+              </div>
+              <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">Terms of Service</h1>
+              <p className="text-dark/70 text-xl font-medium max-w-2xl mx-auto">
+                Please read these terms carefully before using Espere. They outline your rights and responsibilities when using our tracking and settlement tools.
+              </p>
+              <p className="text-dark/50 text-sm font-bold mt-6 uppercase tracking-wider">Last updated: August 2026</p>
+            </div>
+
+            {/* Content */}
+            <div className="space-y-8">
+              {sections.map((section, idx) => (
+                <div key={idx} className="bg-white p-8 md:p-10 rounded-[32px] shadow-sm border border-black/5 scroll-reveal group hover:shadow-md transition-shadow duration-300">
+                  <div className="flex items-start gap-5">
+                    <div className="w-12 h-12 bg-brand rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-brand-hover transition-colors duration-300">
+                      <i className={`ph-bold ${section.icon} text-2xl text-dark transition-colors`}></i>
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold mb-4">{section.title}</h3>
+                      <div className="text-dark/70 leading-relaxed font-medium">
+                        {section.content}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Contact CTA */}
+            <div className="mt-16 bg-[#F5F5F5] border border-black/5 p-10 rounded-[32px] text-center scroll-reveal">
+              <h3 className="text-2xl font-bold mb-4">Questions about our Terms?</h3>
+              <p className="text-dark/70 mb-8 max-w-lg mx-auto">If you need clarification on any of the terms outlined above, please don't hesitate to reach out to us.</p>
+              <a href="contact.html" className="inline-block bg-brand hover:bg-brand-hover text-dark font-bold px-8 py-4 rounded-2xl transition-transform hover:-translate-y-1 duration-300 shadow-elevated">
+                Contact Us
+              </a>
+            </div>
+
           </div>
         </section>
       )
@@ -239,6 +345,7 @@
               
               <div className="flex flex-wrap justify-center gap-8 text-sm font-bold text-dark/70">
                 <a href="/#features" className="hover:text-brand transition-colors">Features</a>
+                <a href="about.html" className="hover:text-brand transition-colors">About</a>
                 <a href="privacy.html" className="hover:text-brand transition-colors">Privacy Policy</a>
                 <a href="terms.html" className="hover:text-brand transition-colors">Terms of Service</a>
                 <a href="contact.html" className="hover:text-brand transition-colors">Contact Support</a>
