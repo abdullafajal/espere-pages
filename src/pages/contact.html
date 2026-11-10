@@ -1,0 +1,78 @@
+---
+title: Contact Support - Espere
+description: Have a bug report, question or feedback about Espere? Send our support team a message and we'll get back to you.
+path: contact.html
+nav: contact
+body_class: page-contact
+---
+<section class="page-hero">
+  <div class="orb" data-parallax="0.1" aria-hidden="true"></div>
+  <div class="container">
+    <span class="eyebrow" data-reveal>Support</span>
+    <h1 data-split>Contact <span class="hl">Support</span></h1>
+    <p class="lead" data-reveal data-delay="200">Have a bug report, question, or feedback? We're here for you.</p>
+  </div>
+</section>
+
+<section class="section section-tight" style="padding-top:0">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="form-card" data-reveal="up">
+        <h2>Send us a message</h2>
+        <div id="form-status" aria-live="polite" hidden></div>
+        <form class="form" id="contact-form" novalidate>
+          <div class="field">
+            <label for="name">Name</label>
+            <input class="control" id="name" name="name" type="text" required autocomplete="name" placeholder="Your name">
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="email">Email</label>
+              <input class="control" id="email" name="email" type="email" required autocomplete="email" placeholder="Your email address">
+            </div>
+            <div class="field">
+              <label for="type">Type</label>
+              <select class="control" id="type" name="type">
+                <option value="support">General Support</option>
+                <option value="bug_report">Bug Report</option>
+                <option value="feedback">Feedback</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea class="control" id="message" name="message" rows="5" required placeholder="How can we help? Or describe the bug..."></textarea>
+          </div>
+          <div class="field">
+            <label for="captcha_answer">Verification: <span id="captcha-question">Loading...</span></label>
+            <div class="captcha">
+              <input class="control" id="captcha_answer" name="captcha_answer" type="number" required inputmode="numeric" placeholder="Answer" disabled>
+              <button class="icon-btn" id="captcha-refresh" type="button" aria-label="Get a new verification question" disabled><svg class="i" aria-hidden="true"><use href="#i-refresh"/></svg></button>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-lg btn-block" id="form-submit" type="submit" disabled>
+            <span class="spinner" aria-hidden="true"></span>
+            <span class="btn-label">Send Message</span>
+            <svg class="i i-go" aria-hidden="true"><use href="#i-send"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <aside class="contact-side">
+        <ul class="reach" data-stagger="120">
+          <li><span class="b-ico"><svg class="i" aria-hidden="true"><use href="#i-help"/></svg></span><span>General Support<small>Questions about using Espere</small></span></li>
+          <li><span class="b-ico"><svg class="i" aria-hidden="true"><use href="#i-bug"/></svg></span><span>Bug Report<small>Describe what went wrong</small></span></li>
+          <li><span class="b-ico"><svg class="i" aria-hidden="true"><use href="#i-zap"/></svg></span><span>Feedback<small>Tell us what to improve</small></span></li>
+        </ul>
+        <div class="phone" style="--pw:260px" data-reveal="scale" data-delay="200" role="img" aria-label="Espere app splash screen">
+          <div class="phone-screen">
+            <div class="splash">
+              <img src="images/logo-192.png" width="128" height="128" alt="Espere logo">
+              <a class="btn btn-primary" href="espere.apk" download><svg class="i" aria-hidden="true"><use href="#i-download"/></svg> Download App</a>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

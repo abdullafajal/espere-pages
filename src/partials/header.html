@@ -1,0 +1,49 @@
+<header class="site-header" data-header data-tone="{{header_tone}}">
+  <div class="header-inner">
+    <a class="brand" href="index.html" aria-label="Espere home">
+      <img src="images/logo-96.png" width="36" height="36" alt="">
+      <span>Espere</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <span class="nav-pill" aria-hidden="true"></span>
+      <a href="index.html#features" data-nav="features">Features</a>
+      <a href="about.html" data-nav="about">About</a>
+      <a href="faq.html" data-nav="faq">FAQ</a>
+      <div class="nav-drop">
+        <button class="nav-link" type="button" data-nav="legal" aria-expanded="false" aria-haspopup="true" aria-controls="legal-menu">
+          Legal <svg class="i chev" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+        </button>
+        <div class="drop-menu" id="legal-menu">
+          <a href="privacy.html" data-nav="privacy">
+            <span class="dm-ico"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg></span>
+            <span><b>Privacy Policy</b><small>How your data is handled and protected</small></span>
+          </a>
+          <a href="terms.html" data-nav="terms">
+            <span class="dm-ico"><svg class="i" aria-hidden="true"><use href="#i-file"/></svg></span>
+            <span><b>Terms of Service</b><small>Your rights and responsibilities</small></span>
+          </a>
+        </div>
+      </div>
+      <a href="contact.html" data-nav="contact">Contact Support</a>
+    </nav>
+    <a class="btn btn-primary btn-sm header-cta" href="espere.apk" download>
+      <svg class="i i-down" aria-hidden="true"><use href="#i-download"/></svg> Download App
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+      <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true" inert>
+  <span class="mm-label" style="--i:0">Menu</span>
+  <a class="mm-link" style="--i:1" href="index.html#features" data-nav="features">Features <svg class="i" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+  <a class="mm-link" style="--i:2" href="about.html" data-nav="about">About <svg class="i" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+  <a class="mm-link" style="--i:3" href="faq.html" data-nav="faq">FAQ <svg class="i" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+  <a class="mm-link" style="--i:4" href="contact.html" data-nav="contact">Contact Support <svg class="i" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+  <div class="mm-legal" style="--i:5">
+    <span class="mm-label">Legal</span>
+    <a href="privacy.html" data-nav="privacy">Privacy Policy</a>
+    <a href="terms.html" data-nav="terms">Terms of Service</a>
+  </div>
+  <a class="btn btn-primary btn-lg mm-cta" style="--i:6" href="espere.apk" download><svg class="i" aria-hidden="true"><use href="#i-download"/></svg> Download App</a>
+</div>

@@ -1,29 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Terms of Service - Espere</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#F5F5F5">
-  <meta name="description" content="Master your money with Espere. The ultimate app to track personal spending with precision, set smart budgets, and instantly split group expenses with friends.">
+  <meta name="theme-color" content="#F4F3EC">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="The terms for using Espere: a financial tracking tool, group settlements, offline syncing, open source licensing and acceptable use.">
   <meta name="keywords" content="expense tracker, split bills, group expenses, budget planner, personal finance app, money manager, settle debts, splitwise alternative">
   <meta name="author" content="Espere">
   <meta name="robots" content="index, follow">
-  
+
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Espere">
   <meta property="og:url" content="https://espere.in/terms.html">
   <meta property="og:title" content="Terms of Service - Espere">
-  <meta property="og:description" content="Master your money with Espere. The ultimate app to track personal spending with precision, set smart budgets, and instantly split group expenses with friends.">
-  <meta property="og:image" content="https://espere.in/images/logo.png">
+  <meta property="og:description" content="The terms for using Espere: a financial tracking tool, group settlements, offline syncing, open source licensing and acceptable use.">
+  <meta property="og:image" content="https://espere.in/images/og-image.png">
 
   <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://espere.in/terms.html">
-  <meta property="twitter:title" content="Terms of Service - Espere">
-  <meta property="twitter:description" content="Master your money with Espere. The ultimate app to track personal spending with precision, set smart budgets, and instantly split group expenses with friends.">
-  <meta property="twitter:image" content="https://espere.in/images/logo.png">
-  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://espere.in/terms.html">
+  <meta name="twitter:title" content="Terms of Service - Espere">
+  <meta name="twitter:description" content="The terms for using Espere: a financial tracking tool, group settlements, offline syncing, open source licensing and acceptable use.">
+  <meta name="twitter:image" content="https://espere.in/images/og-image.png">
+
   <link rel="canonical" href="https://espere.in/terms.html">
 
   <script type="text/javascript">
@@ -34,363 +36,256 @@
     })(window, document, "clarity", "script", "iobye2h59p");
   </script>
 
-  <!-- PWA Manifest -->
   <!-- Icons -->
+  <link rel="icon" href="images/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="images/favicon_transparent.png">
-  <link rel="apple-touch-icon" sizes="512x512" href="images/icon-maskable-512.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="images/logo-192.png">
 
-  <!-- Google Fonts: Inter -->
+  <!-- Fonts: Bricolage Grotesque (display) + Inter (text) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-          colors: {
-            brand: {
-              DEFAULT: '#C8E64A',
-              hover: '#D9F260',
-            },
-            dark: {
-              DEFAULT: '#1A1A1A',
-              bg: '#0F0F0F',
-            },
-            light: {
-              DEFAULT: '#F5F5F5',
-              card: '#FFFFFF',
-            },
-            muted: '#9E9E9E'
-          },
-          borderRadius: {
-            'btn': '16px',
-            'card': '20px',
-            'pill': '28px',
-          },
-          boxShadow: {
-            'soft': '0 2px 12px rgba(0,0,0,0.06)',
-            'card': '0 1px 8px rgba(0,0,0,0.04), 0 4px 24px rgba(0,0,0,0.04)',
-            'elevated': '0 4px 20px rgba(0,0,0,0.08)',
-            'glow': '0 0 32px rgba(200, 230, 74, 0.4)',
-          }
-        }
-      }
-    }
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- React & ReactDOM -->
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <!-- Babel for JSX -->
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script>document.documentElement.classList.add('js');</script>
 
-  <!-- Phosphor Icons for elegant UI icons -->
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-  <style>
-    body {
-      background-color: #F5F5F5;
-      color: #1A1A1A;
-      overflow-x: hidden;
-      overscroll-behavior-y: none;
-    }
-    
-    .glass-nav {
-      background: rgba(245, 245, 245, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-    }
-    
-    .scroll-reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    
-    .scroll-reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .delay-100 { transition-delay: 100ms; }
-    .delay-200 { transition-delay: 200ms; }
-    
-    .mockup-3d {
-      transform: translateZ(0) rotateY(-15deg) rotateX(5deg) rotateZ(2deg);
-      will-change: transform;
-      transform-style: preserve-3d;
-      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .mockup-3d:hover {
-      transform: translateZ(0) rotateY(0) rotateX(0) rotateZ(0) scale(1.02);
-    }
-
-    /* Hide scrollbar for clean mockups */
-    .scrollbar-hide::-webkit-scrollbar {
-        display: none;
-    }
-    .scrollbar-hide {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-  </style>
 </head>
-<body>
-  <div id="root"></div>
+<body class="page-terms">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="scroll-progress" aria-hidden="true"></div>
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></symbol>
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+    <symbol id="i-arrow-down-left" viewBox="0 0 24 24"><path d="M17 7 7 17"/><path d="M17 17H7V7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-palette" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></symbol>
+    <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></symbol>
+    <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/><path d="M5 12.859a10 10 0 0 1 5.17-2.69"/><path d="M19 12.859a10 10 0 0 0-2.007-1.523"/><path d="M2 8.82a15 15 0 0 1 4.177-2.643"/><path d="M22 8.82a15 15 0 0 0-11.288-3.764"/><path d="m2 2 20 20"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></symbol>
+    <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><circle cx="12" cy="16" r="1"/><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></symbol>
+    <symbol id="i-export" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="m16 6-4-4-4 4"/><path d="M12 2v13"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></symbol>
+    <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></symbol>
+    <symbol id="i-handshake" viewBox="0 0 24 24"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></symbol>
+    <symbol id="i-calculator" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M8 6h8"/><path d="M16 14v4"/><path d="M16 10h.01M12 10h.01M8 10h.01M12 14h.01M8 14h.01M12 18h.01M8 18h.01"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+    <symbol id="i-swipe" viewBox="0 0 24 24"><path d="m18 8 4 4-4 4"/><path d="m6 8-4 4 4 4"/><path d="M2 12h20"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
+    <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></symbol>
+    <symbol id="i-utensils" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></symbol>
+    <symbol id="i-trending" viewBox="0 0 24 24"><path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></symbol>
+    <symbol id="i-bug" viewBox="0 0 24 24"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M3 21c0-2.1 1.7-3.9 3.8-4"/><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"/><path d="M22 13h-4"/><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
+    <symbol id="i-piggy" viewBox="0 0 24 24"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2V5z"/><path d="M2 9v1c0 1.1.9 2 2 2h1"/><path d="M16 11h.01"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol>
+  </defs>
+</svg>
 
-  <script type="text/babel">
-    const { useState, useEffect, useRef } = React;
+<header class="site-header" data-header data-tone="light">
+  <div class="header-inner">
+    <a class="brand" href="index.html" aria-label="Espere home">
+      <img src="images/logo-96.png" width="36" height="36" alt="">
+      <span>Espere</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <span class="nav-pill" aria-hidden="true"></span>
+      <a href="index.html#features" data-nav="features">Features</a>
+      <a href="about.html" data-nav="about">About</a>
+      <a href="faq.html" data-nav="faq">FAQ</a>
+      <div class="nav-drop">
+        <button class="nav-link" type="button" data-nav="legal" aria-current="page" aria-expanded="false" aria-haspopup="true" aria-controls="legal-menu">
+          Legal <svg class="i chev" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+        </button>
+        <div class="drop-menu" id="legal-menu">
+          <a href="privacy.html" data-nav="privacy">
+            <span class="dm-ico"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg></span>
+            <span><b>Privacy Policy</b><small>How your data is handled and protected</small></span>
+          </a>
+          <a href="terms.html" data-nav="terms" aria-current="page">
+            <span class="dm-ico"><svg class="i" aria-hidden="true"><use href="#i-file"/></svg></span>
+            <span><b>Terms of Service</b><small>Your rights and responsibilities</small></span>
+          </a>
+        </div>
+      </div>
+      <a href="contact.html" data-nav="contact">Contact Support</a>
+    </nav>
+    <a class="btn btn-primary btn-sm header-cta" href="espere.apk" download>
+      <svg class="i i-down" aria-hidden="true"><use href="#i-download"/></svg> Download App
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+      <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true" inert>
+  <span class="mm-label" style="--i:0">Menu</span>
+  <a class="mm-link" style="--i:1" href="index.html#features" data-nav="features">Features <svg class="i" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+  <a class="mm-link" style="--i:2" href="about.html" data-nav="about">About <svg class="i" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+  <a class="mm-link" style="--i:3" href="faq.html" data-nav="faq">FAQ <svg class="i" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+  <a class="mm-link" style="--i:4" href="contact.html" data-nav="contact">Contact Support <svg class="i" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+  <div class="mm-legal" style="--i:5">
+    <span class="mm-label">Legal</span>
+    <a href="privacy.html" data-nav="privacy">Privacy Policy</a>
+    <a href="terms.html" data-nav="terms" aria-current="page">Terms of Service</a>
+  </div>
+  <a class="btn btn-primary btn-lg mm-cta" style="--i:6" href="espere.apk" download><svg class="i" aria-hidden="true"><use href="#i-download"/></svg> Download App</a>
+</div>
 
-    const useScrollReveal = () => {
-      const ref = useRef(null);
-      useEffect(() => {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-        );
-        
-        const elements = document.querySelectorAll('.scroll-reveal');
-        elements.forEach(el => observer.observe(el));
-        
-        return () => {
-          elements.forEach(el => observer.unobserve(el));
-        };
-      }, []);
-      return ref;
-    };
+<main id="main">
+<section class="page-hero">
+  <div class="orb" data-parallax="0.1" aria-hidden="true"></div>
+  <div class="container">
+    <span class="page-ico" data-reveal><svg class="i" aria-hidden="true"><use href="#i-file"/></svg></span>
+    <h1 data-split>Terms of <span class="hl">Service</span></h1>
+    <p class="lead" data-reveal data-delay="200">Please read these terms carefully before using Espere. They outline your rights and responsibilities when using our tracking and settlement tools.</p>
+    <p class="chip meta" data-reveal data-delay="300"><span class="dot"></span> Last updated: August 2026</p>
+  </div>
+</section>
 
-    const Navbar = () => {
-      return (
-        <nav className="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
-          <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="/" className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
-              <img src="images/logo.png" alt="Espere Logo" className="w-10 h-10 object-contain rounded-xl shadow-soft" />
-              <span className="font-black text-2xl tracking-tight text-dark">Espere</span>
-            </a>
-            
-            <div className="hidden md:flex items-center gap-6 text-[15px] font-bold text-dark/60">
-              <a href="/#features" className="hover:text-dark transition-colors">Features</a>
-              <a href="about.html" className="hover:text-dark transition-colors">About</a>
-              <a href="faq.html" className="hover:text-dark transition-colors">FAQ</a>
-              <a href="privacy.html" className="hover:text-dark transition-colors">Privacy Policy</a>
-              <a href="terms.html" className="text-dark border-b-2 border-dark pb-1 hover:text-dark transition-colors">Terms of Service</a>
-              <a href="contact.html" className="hover:text-dark transition-colors">Contact Support</a>
-            </div>
-            
-            <div>
-              <a href="espere.apk" download className="inline-block bg-brand hover:bg-brand-hover text-dark font-bold px-7 py-3 rounded-btn transition-all duration-300 hover:shadow-glow transform hover:-translate-y-0.5">
-                Download App
-              </a>
-            </div>
-          </div>
-        </nav>
-      );
-    };
-
-
-    const PageContent = () => {
-      const sections = [
-        {
-          icon: "ph-handshake",
-          title: "1. Acceptance of Terms",
-          content: (
-            <p>
-              By downloading, installing, or using the Espere application ("Service"), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the Service. Espere is provided as an open-source tool to help you track personal and group finances.
-            </p>
-          )
-        },
-        {
-          icon: "ph-calculator",
-          title: "2. Financial Tool, Not Financial Advice",
-          content: (
-            <div className="space-y-4">
-              <p>
-                Espere is a software utility designed to help you track expenses, split bills, and manage budgets. 
-              </p>
-              <ul className="list-disc pl-5 space-y-2 text-dark/80">
-                <li>We do <strong>not</strong> provide financial, legal, or tax advice.</li>
-                <li>The accuracy of the data depends entirely on what you input. We are not responsible for calculation errors resulting from incorrect user input.</li>
-                <li>Espere is a tracking tool; it does not directly move money, withdraw from your bank, or legally enforce debt collection between friends.</li>
-              </ul>
-            </div>
-          )
-        },
-        {
-          icon: "ph-users-three",
-          title: "3. Group Expenses & Settlements",
-          content: (
-            <div className="space-y-4">
-              <p>When using Espere to split expenses with groups, you acknowledge that:</p>
-              <ul className="list-disc pl-5 space-y-2 text-dark/80">
-                <li>Espere calculates "who owes whom" based on the expenses logged by group members.</li>
-                <li>You and your group members are solely responsible for actually settling those debts (e.g., via cash, bank transfer, or third-party payment apps).</li>
-                <li>Espere is not liable for unpaid debts between users.</li>
-              </ul>
-            </div>
-          )
-        },
-        {
-          icon: "ph-wifi-slash",
-          title: "4. Offline-First Architecture & Syncing",
-          content: (
-            <div className="space-y-4">
-              <p>Espere operates with an offline-first design:</p>
-              <ul className="list-disc pl-5 space-y-2 text-dark/80">
-                <li>Your data is stored locally on your device first, allowing you to use the app without an internet connection.</li>
-                <li>When you reconnect to the internet, Espere syncs your local data to the cloud.</li>
-                <li>You are responsible for ensuring your device eventually connects to the internet to back up your data. If you delete the app or lose your device before syncing, unsynced local data cannot be recovered.</li>
-              </ul>
-            </div>
-          )
-        },
-        {
-          icon: "ph-code-block",
-          title: "5. Open Source Software",
-          content: (
-            <p>
-              The Espere application source code is available under an Open Source license. While the code is free to inspect and modify according to its specific repository license, the hosted services, APIs, and trademarked branding of "Espere" remain the property of Espere Inc. You may not use our branding, logos, or hosted API endpoints for separate commercial applications without explicit permission.
-            </p>
-          )
-        },
-        {
-          icon: "ph-prohibit",
-          title: "6. Acceptable Use",
-          content: (
-            <div className="space-y-4">
-              <p>You agree not to:</p>
-              <ul className="list-disc pl-5 space-y-2 text-dark/80">
-                <li>Use Espere for any illegal activities or to track illicit transactions.</li>
-                <li>Attempt to breach, hack, or exploit the API or server infrastructure.</li>
-                <li>Harass or abuse other users through group invites or expense notes.</li>
-              </ul>
-              <p>We reserve the right to terminate accounts that violate these terms.</p>
-            </div>
-          )
-        }
-      ];
-
-      return (
-        <section className="pt-32 pb-24 px-6 min-h-screen relative overflow-hidden">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-brand/15 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
-          <div className="max-w-4xl mx-auto">
-            {/* Header */}
-            <div className="text-center mb-16 scroll-reveal">
-              <div className="w-20 h-20 bg-brand rounded-3xl flex items-center justify-center mx-auto mb-6 transform hover:scale-110 transition-transform duration-300">
-                <i className="ph-bold ph-file-text text-dark text-4xl"></i>
-              </div>
-              <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">Terms of Service</h1>
-              <p className="text-dark/70 text-xl font-medium max-w-2xl mx-auto">
-                Please read these terms carefully before using Espere. They outline your rights and responsibilities when using our tracking and settlement tools.
-              </p>
-              <p className="text-dark/50 text-sm font-bold mt-6 uppercase tracking-wider">Last updated: August 2026</p>
-            </div>
-
-            {/* Content */}
-            <div className="space-y-8">
-              {sections.map((section, idx) => (
-                <div key={idx} className="bg-white p-8 md:p-10 rounded-[32px] shadow-sm border border-black/5 scroll-reveal group hover:shadow-md transition-shadow duration-300">
-                  <div className="flex items-start gap-5">
-                    <div className="w-12 h-12 bg-brand rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-brand-hover transition-colors duration-300">
-                      <i className={`ph-bold ${section.icon} text-2xl text-dark transition-colors`}></i>
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold mb-4">{section.title}</h3>
-                      <div className="text-dark/70 leading-relaxed font-medium">
-                        {section.content}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Contact CTA */}
-            <div className="mt-16 bg-[#F5F5F5] border border-black/5 p-10 rounded-[32px] text-center scroll-reveal">
-              <h3 className="text-2xl font-bold mb-4">Questions about our Terms?</h3>
-              <p className="text-dark/70 mb-8 max-w-lg mx-auto">If you need clarification on any of the terms outlined above, please don't hesitate to reach out to us.</p>
-              <a href="contact.html" className="inline-block bg-brand hover:bg-brand-hover text-dark font-bold px-8 py-4 rounded-2xl transition-transform hover:-translate-y-1 duration-300 shadow-elevated">
-                Contact Us
-              </a>
-            </div>
-
+<section class="section section-tight" style="padding-top:0">
+  <div class="container">
+    <div class="legal">
+      <aside class="toc" aria-label="On this page">
+        <div class="toc-inner">
+          <h4>On this page</h4>
+          <a href="#s1">1. Acceptance of Terms</a>
+          <a href="#s2">2. Financial Tool, Not Financial Advice</a>
+          <a href="#s3">3. Group Expenses & Settlements</a>
+          <a href="#s4">4. Offline-First Architecture & Syncing</a>
+          <a href="#s5">5. Open Source Software</a>
+          <a href="#s6">6. Acceptable Use</a>
+        </div>
+      </aside>
+      <div>
+        <div class="doc">
+        <section class="doc-sec" id="s1" data-reveal>
+          <div class="doc-head"><span class="b-ico"><svg class="i" aria-hidden="true"><use href="#i-handshake"/></svg></span><h2>1. Acceptance of Terms</h2></div>
+          <div class="prose">
+            <p>By downloading, installing, or using the Espere application ("Service"), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the Service. Espere is provided as an open-source tool to help you track personal and group finances.</p>
           </div>
         </section>
-      )
-    }
-
-    const Footer = () => {
-      return (
-        <footer className="bg-white border-t border-black/5 py-16 px-6 mt-12">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
-              <div className="flex items-center gap-3">
-                <img src="images/logo.png" alt="Espere Logo" className="w-8 h-8 object-contain rounded-lg shadow-soft" />
-                <span className="font-black text-xl tracking-tight">Espere</span>
-              </div>
-              
-              <div className="flex flex-wrap justify-center gap-8 text-sm font-bold text-dark/70">
-                <a href="/#features" className="hover:text-brand transition-colors">Features</a>
-                <a href="about.html" className="hover:text-brand transition-colors">About</a>
-                <a href="privacy.html" className="hover:text-brand transition-colors">Privacy Policy</a>
-                <a href="terms.html" className="hover:text-brand transition-colors">Terms of Service</a>
-                <a href="contact.html" className="hover:text-brand transition-colors">Contact Support</a>
-              </div>
-              
-              <div className="flex gap-5">
-                <a href="#" className="text-dark/50 hover:text-brand transition-colors transform hover:scale-110">
-                  <i className="ph-fill ph-twitter-logo text-2xl"></i>
-                </a>
-                <a href="#" className="text-dark/50 hover:text-brand transition-colors transform hover:scale-110">
-                  <i className="ph-fill ph-instagram-logo text-2xl"></i>
-                </a>
-                <a href="#" className="text-dark/50 hover:text-brand transition-colors transform hover:scale-110">
-                  <i className="ph-fill ph-linkedin-logo text-2xl"></i>
-                </a>
-              </div>
-            </div>
-            
-            <div className="text-center text-sm font-medium text-muted pt-8 border-t border-black/5">
-              &copy; {new Date().getFullYear()} Espere Inc. All rights reserved.
-            </div>
+        <section class="doc-sec" id="s2" data-reveal>
+          <div class="doc-head"><span class="b-ico"><svg class="i" aria-hidden="true"><use href="#i-calculator"/></svg></span><h2>2. Financial Tool, Not Financial Advice</h2></div>
+          <div class="prose">
+            <p>Espere is a software utility designed to help you track expenses, split bills, and manage budgets.</p>
+            <ul>
+              <li>We do <strong>not</strong> provide financial, legal, or tax advice.</li>
+              <li>The accuracy of the data depends entirely on what you input. We are not responsible for calculation errors resulting from incorrect user input.</li>
+              <li>Espere is a tracking tool; it does not directly move money, withdraw from your bank, or legally enforce debt collection between friends.</li>
+            </ul>
           </div>
-        </footer>
-      );
-    };
-
-    const App = () => {
-      useScrollReveal();
-      
-      return (
-        <div className="font-sans antialiased text-dark selection:bg-brand/30 selection:text-dark">
-          <Navbar />
-          <main>
-            <PageContent />
-            
-            
-          </main>
-          <Footer />
+        </section>
+        <section class="doc-sec" id="s3" data-reveal>
+          <div class="doc-head"><span class="b-ico"><svg class="i" aria-hidden="true"><use href="#i-users"/></svg></span><h2>3. Group Expenses & Settlements</h2></div>
+          <div class="prose">
+            <p>When using Espere to split expenses with groups, you acknowledge that:</p>
+            <ul>
+              <li>Espere calculates "who owes whom" based on the expenses logged by group members.</li>
+              <li>You and your group members are solely responsible for actually settling those debts (e.g., via cash, bank transfer, or third-party payment apps).</li>
+              <li>Espere is not liable for unpaid debts between users.</li>
+            </ul>
+          </div>
+        </section>
+        <section class="doc-sec" id="s4" data-reveal>
+          <div class="doc-head"><span class="b-ico"><svg class="i" aria-hidden="true"><use href="#i-wifi-off"/></svg></span><h2>4. Offline-First Architecture & Syncing</h2></div>
+          <div class="prose">
+            <p>Espere operates with an offline-first design:</p>
+            <ul>
+              <li>Your data is stored locally on your device first, allowing you to use the app without an internet connection.</li>
+              <li>When you reconnect to the internet, Espere syncs your local data to the cloud.</li>
+              <li>You are responsible for ensuring your device eventually connects to the internet to back up your data. If you delete the app or lose your device before syncing, unsynced local data cannot be recovered.</li>
+            </ul>
+          </div>
+        </section>
+        <section class="doc-sec" id="s5" data-reveal>
+          <div class="doc-head"><span class="b-ico"><svg class="i" aria-hidden="true"><use href="#i-code"/></svg></span><h2>5. Open Source Software</h2></div>
+          <div class="prose">
+            <p>The Espere application source code is available under an Open Source license. While the code is free to inspect and modify according to its specific repository license, the hosted services, APIs, and trademarked branding of "Espere" remain the property of Espere Inc. You may not use our branding, logos, or hosted API endpoints for separate commercial applications without explicit permission.</p>
+          </div>
+        </section>
+        <section class="doc-sec" id="s6" data-reveal>
+          <div class="doc-head"><span class="b-ico"><svg class="i" aria-hidden="true"><use href="#i-ban"/></svg></span><h2>6. Acceptable Use</h2></div>
+          <div class="prose">
+            <p>You agree not to:</p>
+            <ul>
+              <li>Use Espere for any illegal activities or to track illicit transactions.</li>
+              <li>Attempt to breach, hack, or exploit the API or server infrastructure.</li>
+              <li>Harass or abuse other users through group invites or expense notes.</li>
+            </ul>
+            <p>We reserve the right to terminate accounts that violate these terms.</p>
+          </div>
+        </section>
         </div>
-      );
-    };
+        <div class="help-cta" data-reveal>
+          <div class="orb" aria-hidden="true"></div>
+          <div>
+            <h3>Questions about our Terms?</h3>
+            <p>If you need clarification on any of the terms outlined above, please don't hesitate to reach out to us.</p>
+          </div>
+          <a class="btn btn-primary" href="contact.html">Contact Us <svg class="i i-go" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html"><img src="images/logo-96.png" width="36" height="36" alt=""><span>Espere</span></a>
+        <p>Smart tracking. Effortless splitting.</p>
+      </div>
+      <div class="footer-cols">
+        <div>
+          <h4>Product</h4>
+          <a href="index.html#features">Features</a>
+          <a href="espere.apk" download>Download App</a>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <a href="about.html">About</a>
+          <a href="faq.html">FAQ</a>
+          <a href="contact.html">Contact Support</a>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+        </div>
+        <div>
+          <h4>Open source</h4>
+          <a href="https://github.com/abdullafajal/espere_app" target="_blank" rel="noopener">App on GitHub</a>
+          <a href="https://github.com/abdullafajal/espere-pages" target="_blank" rel="noopener">Website on GitHub</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year>2026</span> Espere Inc. All rights reserved.</span>
+      <a class="to-top" href="#" data-top><svg class="i" aria-hidden="true"><use href="#i-arrow-up"/></svg> Back to top</a>
+    </div>
+    <div class="footer-word" aria-hidden="true">Espere</div>
+  </div>
+</footer>
 
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
-  </script>
-  
-  </body>
+<script src="assets/js/main.js" defer></script>
+</body>
 </html>
+
