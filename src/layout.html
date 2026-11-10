@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{{> head}}
+</head>
+<body id="top" class="{{body_class}}">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="scroll-progress" aria-hidden="true"></div>
+{{> sprite}}
+{{> header}}
+<main id="main">
+{{content}}
+</main>
+{{> footer}}
+<script src="{{base}}assets/js/main.js" defer></script>
+</body>
+</html>

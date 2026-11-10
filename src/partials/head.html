@@ -1,0 +1,65 @@
+  <meta charset="UTF-8">
+  <title>{{title}}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="{{theme_color}}">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="{{description}}">
+  <meta name="author" content="Espere">
+  <meta name="robots" content="{{robots}}">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Espere">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:url" content="https://espere.in/{{path}}">
+  <meta property="og:title" content="{{title}}">
+  <meta property="og:description" content="{{description}}">
+  <meta property="og:image" content="https://espere.in/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Espere: expense tracking and group bill splitting app">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://espere.in/{{path}}">
+  <meta name="twitter:title" content="{{title}}">
+  <meta name="twitter:description" content="{{description}}">
+  <meta name="twitter:image" content="https://espere.in/images/og-image.png">
+  <meta name="twitter:image:alt" content="Espere: expense tracking and group bill splitting app">
+
+  <link rel="canonical" href="https://espere.in/{{path}}">
+  <link rel="alternate" type="text/plain" href="https://espere.in/llms.txt" title="Espere summary for LLMs">
+
+  <!-- Icons -->
+  <link rel="icon" href="{{base}}images/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{base}}images/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="{{base}}images/favicon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{base}}images/apple-touch-icon.png">
+
+  <!-- Fonts are self-hosted and subset (about 65 KB in total) -->
+  <link rel="preload" href="{{base}}assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{base}}assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+
+  <style>{{css}}</style>
+  <script>
+    (function (d, w) {
+      var r = d.documentElement;
+      r.classList.add('js');
+      // desktop layout for the travelling phone is decided before first paint (no layout shift)
+      if (w.matchMedia('(min-width:1024px)').matches && !w.matchMedia('(prefers-reduced-motion:reduce)').matches) r.classList.add('fly-layout');
+      // Microsoft Clarity analytics: loaded after the page is interactive, so it never delays rendering
+      var done = false;
+      function clarity() {
+        if (done) return; done = true;
+        (function (c, l, a, r, i, t, y) {
+          c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+          t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+          y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(w, d, 'clarity', 'script', 'iobye2h59p');
+      }
+      ['pointerdown', 'keydown', 'touchstart'].forEach(function (e) { w.addEventListener(e, clarity, { once: true, passive: true }); });
+      w.addEventListener('load', function () { setTimeout(clarity, 4000); });
+    })(document, window);
+  </script>
+  {{jsonld}}
+{{extra_head}}

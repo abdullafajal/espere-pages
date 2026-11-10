@@ -1,0 +1,22 @@
+# Espere (https://espere.in): everyone is welcome to crawl the site.
+# Search engines and AI / answer-engine crawlers share one rule set, so none of them
+# gets different (or missing) rules. A plain-text summary for LLMs lives in /llms.txt
+User-agent: *
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+Allow: /
+# The Android build is a large binary, there is nothing to index in it.
+Disallow: /espere.apk
+# Source files of the site builder, not pages.
+Disallow: /src/
+Disallow: /build.py
+
+Sitemap: https://espere.in/sitemap.xml

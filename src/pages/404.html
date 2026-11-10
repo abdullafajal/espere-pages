@@ -1,0 +1,106 @@
+---
+title: Espere - Invitation
+description: Open your Espere invitation in the app, or download Espere to get started.
+path: 404.html
+layout: layout-bare
+base: /
+body_class: centered-page
+theme_color: #10110C
+robots: noindex
+---
+<div class="orb" aria-hidden="true"></div>
+<div class="orb o2" aria-hidden="true"></div>
+
+<!-- Invite content (hidden unless the URL is an invite / friend / register link) -->
+<div id="invite-container" class="sheet" hidden>
+  <img class="logo" src="images/logo-192.png" width="88" height="88" alt="Espere">
+  <h1>You're Invited!</h1>
+
+  <div id="loading-state" role="status" aria-label="Loading invitation"><div class="skeleton"></div></div>
+
+  <div id="invite-details" hidden>
+    <p><strong id="inviter-name">Someone</strong> has invited you to join the group <strong id="group-name">Espere</strong>.</p>
+  </div>
+
+  <div id="error-state" class="err-box" role="alert" hidden>This invitation link is invalid or has expired.</div>
+
+  <div class="actions">
+    <a id="btn-open-app" class="btn btn-primary btn-lg" href="#">Open in App <svg class="i i-go" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+    <a class="btn btn-ghost btn-lg" href="/espere.apk" download><svg class="i" aria-hidden="true"><use href="#i-download"/></svg> Download APK</a>
+  </div>
+  <p class="fine">If you already have Espere installed, click "Open in App". Otherwise, download the app to get started.</p>
+</div>
+
+<!-- Standard 404 -->
+<div id="not-found-container" class="sheet" hidden>
+  <div class="nf-num">404</div>
+  <h1 style="font-size:clamp(1.6rem,5vw,2.2rem);margin:6px 0 12px">Page Not Found</h1>
+  <p>The page you are looking for doesn't exist or has been moved.</p>
+  <div class="actions"><a class="btn btn-primary btn-lg" href="/">Go Home <svg class="i i-go" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></div>
+</div>
+
+<script>
+  // Deep-link handler: this page is served by GitHub Pages for any unknown path,
+  // so /invite/<token>, /add_friend/<user> and /accounts/register/ land here.
+  document.addEventListener("DOMContentLoaded", function () {
+    var path = window.location.pathname;
+    var API_BASE_URL = 'https://montra.pythonanywhere.com';
+    var $ = function (id) { return document.getElementById(id); };
+    var PACKAGE = 'com.example.espere_app';
+    var fallbackUrl = encodeURIComponent('https://espere.in/espere.apk');
+
+    if (path.startsWith('/invite/') || path.startsWith('/accounts/register/') || path.startsWith('/add_friend/')) {
+      $('invite-container').hidden = false;
+
+      if (path.startsWith('/accounts/register/')) {
+        // Friend invitation
+        $('loading-state').hidden = true;
+        $('inviter-name').textContent = 'A friend';
+        $('group-name').textContent = 'Espere';
+        $('invite-details').hidden = false;
+        var email = new URLSearchParams(window.location.search).get('email') || '';
+        $('btn-open-app').href = 'intent://espere.in/accounts/register/?email=' + email +
+          '#Intent;scheme=https;package=' + PACKAGE + ';S.browser_fallback_url=' + fallbackUrl + ';end';
+      } else if (path.startsWith('/add_friend/')) {
+        // Add-friend deep link
+        $('loading-state').hidden = true;
+        var parts = path.split('/').filter(function (p) { return p.length > 0; });
+        var username = parts.length >= 2 ? parts[1] : 'A friend';
+        $('inviter-name').textContent = username;
+        $('group-name').textContent = 'Espere';
+        $('invite-details').hidden = false;
+        $('btn-open-app').href = 'intent://espere.in/add_friend/' + username +
+          '#Intent;scheme=https;package=' + PACKAGE + ';S.browser_fallback_url=' + fallbackUrl + ';end';
+      } else {
+        // Group invitation (token based)
+        var segs = path.split('/').filter(function (p) { return p.length > 0; });
+        if (segs.length >= 2) {
+          var token = segs[1];
+          $('btn-open-app').href = 'intent://espere.in/invite/' + token +
+            '#Intent;scheme=https;package=' + PACKAGE + ';S.browser_fallback_url=' + fallbackUrl + ';end';
+          fetch(API_BASE_URL + '/api/split/invite/' + token + '/')
+            .then(function (res) { return res.json(); })
+            .then(function (data) {
+              $('loading-state').hidden = true;
+              if (data.valid) {
+                $('inviter-name').textContent = data.invited_by || 'Someone';
+                $('group-name').textContent = data.group_name || 'the group';
+                $('invite-details').hidden = false;
+              } else {
+                $('error-state').hidden = false;
+              }
+            })
+            .catch(function (err) {
+              console.error(err);
+              $('loading-state').hidden = true; // the user can still download / open the app
+            });
+        } else {
+          $('loading-state').hidden = true;
+          $('error-state').hidden = false;
+        }
+      }
+    } else {
+      $('not-found-container').hidden = false;
+    }
+  });
+</script>
