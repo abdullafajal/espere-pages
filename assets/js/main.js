@@ -305,6 +305,295 @@
   }
 
   /* ---- Group settlements: sticky story with live phone screens ------------ */
+  function initWalk() {
+    var sec = $('.walk');
+    if (!sec) return;
+    var stage = $('.walk-stage', sec), wrap = $('.walk-phone', sec), phone = $('.walk-phone .phone', sec);
+    var scenes = $$('.wscene'), chs = $$('.walk-ch', sec);
+    var bal = $('[data-walk-bal]'), amt = $('[data-walk-amt]'), spent = $('[data-walk-spent]'), pct = $('[data-walk-pct]');
+    var caption = $('.walk-caption', sec), num = $('.walk-num', sec);
+    var caps = chs.map(function (b) { return $('em', b).textContent; });
+    var N = scenes.length, cur = -1, target = 0, shown = 0, running = false, last = 0, manual = 0;
+    var staticMode = reduce;
+    if (staticMode) sec.classList.add('walk-static');
+
+    function clamp(v) { return Math.max(0, Math.min(1, v)); }
+    function layout() {
+      var h = stage.clientHeight - parseFloat(getComputedStyle(stage).paddingTop);
+      var reserve = window.innerWidth < 1024 ? 230 : 48;
+      var sc = staticMode ? 1 : Math.max(0.5, Math.min(1, (h - reserve) / 620));
+      phone.style.setProperty('--ws', sc);
+      wrap.style.width = 300 * sc + 'px';
+      wrap.style.height = 620 * sc + 'px';
+    }
+    function setCls(el, name, on) { if (el.classList.contains(name) !== on) el.classList.toggle(name, on); }
+    function render(p) {
+      var ch = Math.min(N - 1, Math.floor(p * N + 1e-6));
+      sec.style.setProperty('--p', p.toFixed(4));
+      scenes.forEach(function (sc, i) {
+        var x = p * N - i, l = clamp(x / 0.8);
+        sc.style.setProperty('--x', x.toFixed(4));
+        sc.style.setProperty('--lp', l.toFixed(4));
+        sec.style.setProperty('--x' + i, x.toFixed(4));
+        if (i === 3) sc.style.setProperty('--x3', x.toFixed(4));
+        setCls(sc, 's1', l > 0.2); setCls(sc, 's2', l > 0.45); setCls(sc, 's3', l > 0.7);
+        if (i === 0 && amt) {
+          var n = Math.min(4, Math.floor(clamp(l / 0.42) * 4.999));
+          var t = n ? Number('1200'.slice(0, n)).toLocaleString('en-IN') : '0';
+          if (amt.textContent !== t) amt.textContent = t;
+        }
+        if (i === 4 && bal) {
+          var bf = clamp(l * 2.4);
+          bal.textContent = '\u20b9' + (bf * 24580).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+        if (i === 3 && spent) {
+          var f = clamp((l - 0.05) * 5);
+          spent.textContent = Math.round(f * 14400).toLocaleString('en-IN');
+          pct.textContent = Math.round(f * 72) + '%';
+        }
+      });
+      chs.forEach(function (b, i) {
+        var l = i < ch ? 1 : i > ch ? 0 : clamp(p * N - ch);
+        b.style.setProperty('--lp', l.toFixed(3));
+        setCls(b, 'is-active', i === ch); setCls(b, 'is-done', i < ch);
+      });
+      if (ch !== cur) {
+        cur = ch;
+        chs.forEach(function (b, i) { if (i === ch) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+        if (num) { num.textContent = ch < 4 ? '0' + (ch + 1) : ''; num.classList.remove('pop'); void num.offsetWidth; num.classList.add('pop'); }
+        if (caption) caption.textContent = caps[ch] || '';
+      }
+      setCls(sec, 'is-moving', p > 0.015);
+      setCls(sec, 'is-final', ch === N - 1);
+    }
+    function progress() {
+      if (staticMode) return clamp((manual + 0.95) / N);
+      var r = sec.getBoundingClientRect();
+      return clamp(-r.top / (sec.offsetHeight - window.innerHeight));
+    }
+    // Damped follow: the scene eases toward the scroll position, so wheel steps feel fluid.
+    function frame(now) {
+      var dt = Math.min(64, now - last); last = now;
+      var k = 1 - Math.exp(-dt / 110);
+      shown += (target - shown) * k;
+      if (Math.abs(target - shown) < 0.0004) { shown = target; running = false; }
+      render(shown);
+      if (running) requestAnimationFrame(frame);
+    }
+    function onScroll() {
+      target = progress();
+      if (staticMode) { shown = target; render(shown); return; }
+      if (!running) { running = true; last = performance.now(); requestAnimationFrame(frame); }
+    }
+    chs.forEach(function (b, i) {
+      b.addEventListener('click', function () {
+        if (staticMode) { manual = i; onScroll(); return; }
+        var total = sec.offsetHeight - window.innerHeight;
+        var top = sec.getBoundingClientRect().top + window.pageYOffset + total * ((i + 0.62) / N);
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      });
+    });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', function () { layout(); onScroll(); });
+    layout();
+    target = shown = progress();
+    render(shown);
+  }
+
+  function initSpot() {
+    var band = $('.cta-band');
+    if (!band || reduce || !window.matchMedia('(hover: hover)').matches) return;
+    var ticking = false, ex = 0, ey = 0;
+    band.addEventListener('pointermove', function (e) {
+      var r = band.getBoundingClientRect();
+      ex = e.clientX - r.left; ey = e.clientY - r.top;
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        band.style.setProperty('--mx', ex + 'px');
+        band.style.setProperty('--my', ey + 'px');
+        ticking = false;
+      });
+    });
+  }
+
+  /* One phone for the whole page. It starts as the hero phone, follows the scroll, parks at
+     each feature card, then moves into the Settlements and "How it works" sections, where it
+     takes over their screens. Pure transforms, no library.
+     Horizontal travel, scale, tilt and the screen cross-fades are eased over time, so wheel
+     steps never look jerky; the vertical position stays locked to the page while it is docked. */
+  function initFly() {
+    var fly = $('.fly'), heroPhone = $('.hero-visual .phone'), slots = $$('.frow-slot');
+    if (!fly || !heroPhone || !slots.length || reduce) { root.classList.remove('fly-layout'); return; }
+    var mq = window.matchMedia('(min-width: 1024px)');
+    var flyScreen = $('.phone-screen', fly);
+
+    // three groups of screens, each in its own wrapper so whole groups can cross-fade
+    function group(name) { var g = doc.createElement('div'); g.className = 'fg fg-' + name; flyScreen.appendChild(g); return g; }
+    var gFeat = group('feat'), gStory = group('story'), gWalk = group('walk');
+    var scenes = $$('.fscene', fly);
+    scenes.forEach(function (el) { gFeat.appendChild(el); });
+    scenes[0].innerHTML = $('.phone-screen', heroPhone).innerHTML;
+    $$('.hero-visual .float-card').forEach(function (card) {
+      var cl = card.cloneNode(true);
+      cl.removeAttribute('data-parallax');
+      cl.style.transform = '';
+      fly.appendChild(cl);
+    });
+    var groups = { feat: { el: gFeat, v: 1 }, story: { el: gStory, v: 0 }, walk: { el: gWalk, v: 0 } };
+
+    var storySec = $('#settlements'), storyStick = $('.story-phone'), storyPhone = $('.story-sticky .phone'), storyScreens = $('.screens');
+    var walkSec = $('.walk'), walkStage = $('.walk-stage'), walkWrap = $('.walk-phone'), walkScenes = $$('.wscene');
+    var moved = [];
+    function adopt(el, into) { moved.push({ el: el, parent: el.parentNode, next: el.nextSibling }); into.appendChild(el); }
+    function release() { while (moved.length) { var m = moved.pop(); m.parent.insertBefore(m.el, m.next); } }
+
+    var anchors = [], active = false, running = false, last = 0, snap = true, curScene = -1, curG = 'feat';
+    var cur = { x: 0, s: 1, rot: 0, dy: 0, op: 1 };
+    var tgt = { x: 0, s: 1, rot: 0, dy: 0, op: 1, locked: true, vy: 0 };
+
+    function docPos(el) {
+      var x = 0, y = 0, n = el;
+      while (n) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; }
+      return { cx: x + el.offsetWidth / 2, cy: y + el.offsetHeight / 2, w: el.offsetWidth };
+    }
+    function measure() {
+      var vh = window.innerHeight;
+      var fs = Math.max(0.6, Math.min(1, (vh - 150) / 620));
+      document.documentElement.style.setProperty('--fs', fs.toFixed(3));
+      anchors = [heroPhone].concat(slots).map(function (el, i) {
+        var d = docPos(el);
+        return { cx: d.cx, cy: d.cy, s: d.w / 300, rot: i === 0 ? -2 : (i % 2 ? 4 : -4), g: 'feat', scene: i, dy: 0 };
+      });
+      // a pinned (sticky) section = two anchors: where the pin starts and where it ends
+      function sticky(name, stick, parent, slot) {
+        if (!stick || !slot || !parent) return;
+        var top = parseFloat(getComputedStyle(stick).top) || 0;
+        var p = docPos(slot), st = docPos(stick), par = docPos(parent);
+        var rel = p.cy - (st.cy - stick.offsetHeight / 2);
+        var natTop = par.cy - parent.offsetHeight / 2;
+        var cyIn = natTop - top + vh / 2;
+        var cyOut = natTop + parent.offsetHeight - stick.offsetHeight - top + vh / 2;
+        if (cyOut <= cyIn) cyOut = cyIn + 1;
+        var base = { cx: p.cx, s: p.w / 300, rot: 0, g: name, scene: -1, dy: top + rel - vh / 2 };
+        anchors.push(Object.assign({}, base, { cy: cyIn }));
+        anchors.push(Object.assign({}, base, { cy: cyOut }));
+      }
+      sticky('story', storyStick, storyStick && storyStick.parentElement, storyPhone);
+      // the phone must already be on the right when the (left-aligned) heading arrives
+      var storyHead = $('#settlements .section-head');
+      if (storyHead && anchors.length >= 2 && anchors[anchors.length - 2].g === 'story') {
+        anchors[anchors.length - 2].tEnd = docPos(storyHead).cy - storyHead.offsetHeight / 2 - 340;
+      }
+      var wn = anchors.length;
+      sticky('walk', walkStage, walkSec, walkWrap);
+      if (anchors.length === wn + 2) {
+        // last chapter: the phone slides to the left half, the CTA text takes the right half
+        var wIn = anchors[wn], wOut = anchors[wn + 1], copy = $('.walk-copy');
+        var wMid = Object.assign({}, wIn, { cy: wIn.cy + (wOut.cy - wIn.cy) * 0.8 });
+        if (copy) wOut.cx = docPos(copy).cx;
+        wOut.rot = -3;
+        anchors.splice(wn + 1, 0, wMid);
+      }
+      anchors.sort(function (a, b) { return a.cy - b.cy; });
+    }
+    function smooth(t) { return t * t * (3 - 2 * t); }
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    // where the phone wants to be for the current scroll position
+    function aim() {
+      var vh = window.innerHeight, sy = window.pageYOffset, vc = sy + vh * 0.5;
+      var A = anchors, n = A.length - 1, anc;
+      if (vc <= A[0].cy) {
+        anc = A[0];
+        tgt.x = anc.cx; tgt.s = anc.s; tgt.rot = anc.rot; tgt.dy = 0; tgt.op = 1; tgt.locked = true; tgt.vy = anc.cy - sy;
+      } else if (vc >= A[n].cy) {
+        anc = A[n];
+        tgt.x = anc.cx; tgt.s = anc.s; tgt.rot = anc.rot; tgt.dy = 0; tgt.op = 1; tgt.locked = true; tgt.vy = anc.cy + anc.dy - sy;
+      } else {
+        var i = 0;
+        while (i < n - 1 && vc >= A[i + 1].cy) i++;
+        var a = A[i], b = A[i + 1];
+        var t = (vc - a.cy) / (b.cy - a.cy);
+        var e;
+        if (b.tEnd) {
+          // travel only inside the empty gap before the section's heading
+          var ts = Math.min(a.cy + 200, b.tEnd - 160);
+          e = smooth(Math.max(0, Math.min(1, (vc - ts) / (b.tEnd - ts))));
+        } else e = smooth(Math.max(0, Math.min(1, (t - 0.18) / 0.64)));
+        tgt.x = lerp(a.cx, b.cx, e); tgt.s = lerp(a.s, b.s, e); tgt.rot = lerp(a.rot, b.rot, e);
+        tgt.dy = lerp(a.dy, b.dy, e); tgt.locked = false; tgt.vy = 0;
+        // between different sections the phone thins out while it crosses the headings
+        var dip = Math.abs(a.cx - b.cx) > 80 ? (a.g !== b.g ? 0.3 : 0.1) : 0;
+        tgt.op = 1 - dip * Math.sin(Math.PI * e);
+        anc = t < 0.5 ? a : b;
+      }
+      return anc;
+    }
+    function apply(anc) {
+      var vh = window.innerHeight, sy = window.pageYOffset;
+      var vy = tgt.locked ? tgt.vy : vh / 2 + cur.dy;
+      fly.style.transform = 'translate3d(' + (cur.x - 150).toFixed(1) + 'px,' + (vy - 310).toFixed(1) + 'px,0) rotate(' + cur.rot.toFixed(2) + 'deg) scale(' + cur.s.toFixed(3) + ')';
+      fly.style.opacity = cur.op.toFixed(3);
+      fly.style.visibility = (vy + 330 * cur.s < -40 || vy - 330 * cur.s > vh + 40) ? 'hidden' : 'visible';
+      if (anc.g !== curG) { curG = anc.g; fly.setAttribute('data-g', curG); }
+      var sc = anc.g === 'feat' ? anc.scene : -1;
+      if (sc !== curScene) {
+        curScene = sc;
+        scenes.forEach(function (el, k) { el.classList.toggle('is-on', k === sc); });
+        fly.classList.toggle('s0', sc === 0);
+      }
+    }
+    function frame(now) {
+      if (!active || !anchors.length) { running = false; return; }
+      var dt = Math.min(64, now - last); last = now;
+      var anc = aim();
+      var settled = true;
+      var k = snap ? 1 : 1 - Math.exp(-dt / 95);
+      ['x', 's', 'rot', 'dy', 'op'].forEach(function (key) {
+        var d = tgt[key] - cur[key];
+        if (Math.abs(d) > (key === 'x' ? 0.15 : 0.0015)) { cur[key] += d * k; settled = false; } else cur[key] = tgt[key];
+      });
+      // screen groups cross-fade
+      var kg = snap ? 1 : 1 - Math.exp(-dt / 140);
+      Object.keys(groups).forEach(function (name) {
+        var g = groups[name], want = anc.g === name ? 1 : 0, d = want - g.v;
+        if (Math.abs(d) > 0.004) { g.v += d * kg; settled = false; } else g.v = want;
+        g.el.style.opacity = g.v.toFixed(3);
+        g.el.style.visibility = g.v < 0.01 ? 'hidden' : 'visible';
+      });
+      apply(anc);
+      snap = false;
+      // keep running while the page is moving or anything is still easing
+      if (!settled || Math.abs(window.pageYOffset - lastY) > 0.5) { lastY = window.pageYOffset; requestAnimationFrame(frame); } else { running = false; }
+    }
+    var lastY = -1;
+    function request() {
+      if (running || !active) return;
+      running = true; last = performance.now(); requestAnimationFrame(frame);
+    }
+    function remeasure() { if (active) { measure(); request(); } }
+    function setActive() {
+      var on = mq.matches;
+      if (on === active) return;
+      active = on;
+      document.documentElement.classList.toggle('fly-on', on);
+      document.documentElement.classList.toggle('fly-layout', on);
+      if (on) {
+        if (storyScreens) adopt(storyScreens, gStory);
+        walkScenes.forEach(function (el) { adopt(el, gWalk); });
+        measure(); snap = true; running = false; request();
+      } else { release(); }
+    }
+    window.addEventListener('scroll', request, { passive: true });
+    window.addEventListener('resize', function () { setTimeout(remeasure, 60); remeasure(); });
+    if (mq.addEventListener) mq.addEventListener('change', setActive);
+    window.addEventListener('load', remeasure);
+    setTimeout(remeasure, 700);
+    setTimeout(remeasure, 2000);
+    setActive();
+  }
+
   function initStory() {
     var steps = $$('.story-step');
     var screens = $$('.screen');
@@ -400,6 +689,15 @@
   }
 
   /* ---- Feature demos (budget bar → warning, offline → synced) -------------- */
+  /* Run fn once when el scrolls into view (falls back to immediately). */
+  function whenVisible(el, fn) {
+    if (!hasIO) { fn(); return; }
+    var io = new IntersectionObserver(function (es) {
+      if (es[0].isIntersecting) { io.disconnect(); fn(); }
+    }, { threshold: 0.35 });
+    io.observe(el);
+  }
+
   function initDemos() {
     var budget = $('.budget-demo');
     if (budget) {
@@ -411,7 +709,7 @@
         left.textContent = p >= 98 ? '₹45.00' : '₹1,250.00';
         budget.classList.toggle('is-hot', p >= 98);
       }
-      budget.addEventListener('reveal', function () {
+      whenVisible(budget, function () {
         set(75);
         if (reduce) return;
         setInterval(function () { hot = !hot; set(hot ? 98 : 75); }, 3600);
@@ -419,17 +717,18 @@
     }
     var sync = $('.sync-steps');
     if (sync) {
-      var rows = $$('.sync-step', sync);
+      var rows = $$('.sync-step', sync), card = sync.closest('.b-card');
       function cycle() {
         var i = 0;
         function step() {
           rows.forEach(function (r, k) { r.classList.toggle('is-done', k < i); r.classList.toggle('is-on', k === i); });
+          if (card) card.classList.toggle('is-online', i >= 2);
           i = (i + 1) % (rows.length + 1);
         }
         step();
-        if (!reduce) setInterval(step, 1500); else rows.forEach(function (r) { r.classList.add('is-done'); });
+        if (!reduce) setInterval(step, 1500); else rows.forEach(function (r) { r.classList.add('is-done'); }); if (card) card.classList.add('is-online');
       }
-      sync.addEventListener('reveal', cycle);
+      whenVisible(sync, cycle);
     }
     var swipe = $('.swipe-demo');
     if (swipe) {
@@ -530,6 +829,6 @@
 
   onReady(function () {
     initHeader(); initNav(); initMenu(); initSplit(); initDemos(); initReveal(); initCounters(); initParallax();
-    initTilt(); initAccordion(); initStory(); initToc(); initContact(); initFooter();
+    initTilt(); initAccordion(); initStory(); initWalk(); initFly(); initSpot(); initToc(); initContact(); initFooter();
   });
 })();

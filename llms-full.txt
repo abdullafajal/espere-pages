@@ -1,0 +1,67 @@
+# Espere: full reference
+
+Website: https://espere.in/
+Platform: Android (Flutter app). Download: https://espere.in/espere.apk
+Price: free. The core features (personal expense tracking and group settlements) are free to use without hidden fees.
+License / source: open source. App: https://github.com/abdullafajal/espere_app , website: https://github.com/abdullafajal/espere-pages
+Support: https://espere.in/contact.html
+
+## What Espere is
+
+Espere is an all-in-one personal finance and expense tracking app. You can track your daily spending, set up budgets and split shared expenses with friends or groups. It is offline-first: the app works without an internet connection and syncs to the cloud automatically when you reconnect.
+
+## Main features
+
+- Expense and income tracking: add a transaction with an amount, category, date and notes in a few taps. Categories can have their own icon and colour.
+- Swipe actions: swipe a transaction right to delete it, or left to edit it, without leaving the list.
+- Strict budget guard: set custom budgets per category and get real-time warnings ("Limit approaching") before you overspend.
+- Group expenses: create a group such as "Trip to Bali" or "Apartment utilities", invite friends with a link and add shared expenses. Espere calculates who owes whom.
+- Three ways to split a bill: equal, percentage or exact amounts. When a total does not divide evenly (for example 100.00 split three ways), the leftover is corrected so that every share adds up to the penny (33.33 + 33.33 + 33.34).
+- Smart settlements: debts are simplified with a greedy algorithm into the fewest possible payments. For example, six balances can be settled in five payments.
+- True offline experience: expenses are saved on the phone first and synced securely to the cloud when the connection is back. Group changes are live because they notify other members.
+- Reports and export: export personal and group expense history and generate PDF reports.
+- Currency: the currency symbol can be changed in settings and is used across the app and widgets.
+- Home-screen widget: a quick-add widget on Android for logging an expense in four steps.
+
+## Frequently asked questions
+
+Q: What is Espere?
+A: Espere is an all-in-one personal finance and expense tracking app. It allows you to track your daily spending, set up budgets, and seamlessly split shared expenses with friends or groups.
+
+Q: Is Espere completely free?
+A: Yes. The core features of Espere, including personal expense tracking and group settlements, are completely free to use without any hidden fees.
+
+Q: Is the app open source?
+A: Yes. Espere's code is publicly available on GitHub. Financial software should be transparent, community-driven and free from hidden agendas.
+
+Q: How do group expenses work?
+A: You can create a group (like "Trip to Bali" or "Apartment Utilities"), add your friends and start adding expenses. Espere automatically calculates who owes whom and provides a simplified settlement plan to minimize the number of transactions needed.
+
+Q: Can I use Espere without an internet connection?
+A: Yes. Espere is built with an offline-first architecture. You can log expenses and manage groups entirely offline. The moment you reconnect to the internet, the app automatically syncs your data to the cloud.
+
+Q: Can I export my financial data?
+A: Yes. You can export your personal and group expense history and generate high-fidelity PDF reports for your records.
+
+Q: Is my financial data secure?
+A: Your data is encrypted both in transit and at rest, using industry-standard security protocols.
+
+Q: Do you sell my data?
+A: No. Espere is an open-source, user-first platform and does not sell personal or financial data to third-party advertisers or data brokers.
+
+## Privacy in short
+
+Espere does not sell personal or financial data. Data is encrypted in transit and at rest. The code is open source so the behaviour can be verified. You have the right to export your data and to delete it. Full policy: https://espere.in/privacy.html
+
+## Terms in short
+
+Espere is a financial tracking tool, not financial advice. Group expenses and settlements are calculated from what members enter. Offline changes are synced when a connection is available. The software is open source. Full terms: https://espere.in/terms.html
+
+## Pages
+
+- https://espere.in/ (home)
+- https://espere.in/faq.html
+- https://espere.in/about.html
+- https://espere.in/contact.html
+- https://espere.in/privacy.html
+- https://espere.in/terms.html

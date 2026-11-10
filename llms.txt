@@ -1,0 +1,27 @@
+# Espere
+
+> Espere is a free, open-source personal finance app for Android. It tracks personal spending, sets category budgets and splits group expenses with friends, and it works fully offline: everything syncs to the cloud once the phone is back online. Espere does not sell personal or financial data.
+
+Espere is built around four things: adding an expense in seconds, splitting it any way you like (equal, percentage or exact amounts, always down to the last paisa), settling up a group in the fewest possible payments, and tracking spending against budgets. The mobile app is written in Flutter and its source code is public on GitHub. This website (espere.in) is a static site that explains the app and hosts the Android download.
+
+## Main pages
+
+- [Home](https://espere.in/): What Espere does, its main features, how group settlements work and the download button.
+- [FAQ](https://espere.in/faq.html): Short answers about pricing, open source, group expenses, offline mode, data export and security.
+- [About](https://espere.in/about.html): The mission behind Espere and why it is open source.
+- [Contact Support](https://espere.in/contact.html): A form to report a bug, ask a question or send feedback.
+
+## Policies
+
+- [Privacy Policy](https://espere.in/privacy.html): What data is collected, how it is used and protected, no data selling, and your rights to export and delete your data.
+- [Terms of Service](https://espere.in/terms.html): Terms for using Espere, including that it is a tracking tool and not financial advice.
+
+## Source code
+
+- [Espere app on GitHub](https://github.com/abdullafajal/espere_app): The Flutter mobile app.
+- [Espere website on GitHub](https://github.com/abdullafajal/espere-pages): This website.
+
+## Optional
+
+- [Full text for LLMs](https://espere.in/llms-full.txt): The same information with complete answers, in one plain-text file.
+- [Sitemap](https://espere.in/sitemap.xml)
