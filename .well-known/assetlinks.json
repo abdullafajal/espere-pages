@@ -4,7 +4,8 @@
     "namespace": "android_app",
     "package_name": "com.example.espere_app",
     "sha256_cert_fingerprints": [
-      "28:9B:58:D0:D1:92:7B:3A:A5:93:66:72:94:BA:66:34:90:50:D7:D4:6A:2A:70:0E:7E:9D:18:D9:CA:E4:0C:72"
+      "28:9B:58:D0:D1:92:7B:3A:A5:93:66:72:94:BA:66:34:90:50:D7:D4:6A:2A:70:0E:7E:9D:18:D9:CA:E4:0C:72",
+      "20:FE:40:7C:25:8D:B2:B8:E8:0D:8C:33:DB:68:38:6E:43:D1:6C:01:71:55:4C:08:38:99:C7:4F:EA:B8:10:EB"
     ]
   }
 }]
