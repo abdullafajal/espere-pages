@@ -17,7 +17,7 @@ src/partials/           head, header, footer, icon sprite (shared by every page)
 src/pages/*.html        page content with a small front-matter block
 build.py                assembles src/ into the root pages (Python 3, standard library only)
 images/                 logo, favicon, Open Graph image
-espere.apk              latest Android build
+espere.apk              latest Android build (published automatically, see Notes)
 .well-known/            Android app-link verification
 ```
 
@@ -31,6 +31,10 @@ Never edit the root `*.html` files by hand: they are overwritten by the build.
 
 ## Notes
 
+* `espere.apk` is committed by the **Publish website APK** workflow in
+  [`espere_app`](https://github.com/abdullafajal/espere_app) on every release (push to its
+  `main`). Don't replace it by hand: a build signed with another key can't be installed over
+  it. Details: `espere_app/docs/APK_RELEASE.md`.
 * `404.html` doubles as the invite / friend-link landing page. GitHub Pages serves it for
   unknown paths such as `/invite/<token>`, `/add_friend/<user>` and `/accounts/register/`,
   so it uses absolute asset URLs and keeps its small inline script.
