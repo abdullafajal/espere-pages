@@ -45,6 +45,12 @@
     (function (d, w) {
       var r = d.documentElement;
       r.classList.add('js');
+      // Colour chosen on this site or passed by the app's share link (?c=pink); applied before first paint
+      try {
+        var ok = /^(lime|mint|sky|lavender|pink|peach|sun)$/, q = new URLSearchParams(w.location.search).get('c'), a;
+        if (q && ok.test(q)) { a = q; w.localStorage.setItem('espere_accent', q); } else { a = w.localStorage.getItem('espere_accent'); }
+        if (a && a !== 'lime' && ok.test(a)) r.setAttribute('data-accent', a);
+      } catch (e) {}
       // Microsoft Clarity analytics: loaded after the page is interactive, so it never delays rendering
       var done = false;
       function clarity() {
