@@ -695,12 +695,13 @@ html.no-motion .sw > span { transform: none !important; }
 .fly-label h2 { margin-top: 12px; font-size: clamp(1.9rem, 4vw, 3rem); }
 .fly-slot { position: relative; }
 .travel-on .fly-slot { visibility: hidden; }
-.traveller { position: fixed; left: 0; top: 0; z-index: 1; pointer-events: none; }
+.traveller { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 1; pointer-events: none; }
+body { position: relative; }
 .traveller .phone { --pw: 300px; transform-origin: 50% 50%; will-change: transform; }
 .tr-screens { background: transparent; }
-.tr-screens .tr-screen { position: absolute; inset: 0; opacity: 0; transition: opacity .35s ease; }
+.tr-screens .tr-screen { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity .35s ease, visibility 0s linear .35s; }
 .tr-screens .tr-screen::before { display: none; }
-.tr-screens .tr-screen.on { opacity: 1; }
+.tr-screens .tr-screen.on { opacity: 1; visibility: visible; transition: opacity .35s ease, visibility 0s; }
 @media (min-width: 900px) {
   .fly-row { grid-template-columns: 1fr 1fr; gap: 72px; min-height: 86vh; }
   .fly-row.rev .fly-copy { order: 2; }
