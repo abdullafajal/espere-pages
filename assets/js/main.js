@@ -28,6 +28,7 @@
 
     var wrap = doc.createElement('div');
     wrap.className = 'traveller';
+    wrap.style.position = 'absolute'; // page coordinates (see measure/paint below)
     wrap.setAttribute('aria-hidden', 'true');
     wrap.innerHTML = '<div class="phone"><div class="phone-screen tr-screens"></div></div>';
     var box = $('.tr-screens', wrap);

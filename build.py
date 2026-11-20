@@ -217,6 +217,10 @@ def main():
     built, sitemap = [], []
     # The stylesheet is inlined into every page: one round trip less before the first paint.
     css = minify_css(read(ROOT / "assets/css/styles.css"))
+    # The script URL carries a hash of its content, so a phone never runs an old cached
+    # script against a newer page (the stylesheet is inlined, the script is not).
+    import hashlib
+    js_ver = hashlib.sha1((ROOT / "assets/js/main.js").read_bytes()).hexdigest()[:10]
     inline_css = css.replace('url("../fonts/', 'url("/assets/fonts/').replace("url(../fonts/", "url(/assets/fonts/")
     for page in sorted((SRC / "pages").glob("*.html")):
         meta, content = parse_page(read(page))
@@ -225,6 +229,7 @@ def main():
         if not meta["jsonld"]:
             meta["jsonld"] = jsonld(meta)
         html = render(read(SRC / f"{meta['layout']}.html"), meta, partials)
+        html = html.replace('assets/js/main.js"', 'assets/js/main.js?v=%s"' % js_ver)
         html = mark_current(html, meta["nav"])
         html = presplit(html)
         html = inline_delays(html)
