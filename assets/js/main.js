@@ -18,6 +18,41 @@
   function raf(fn) { return window.requestAnimationFrame(fn); }
   var hasIO = 'IntersectionObserver' in window;
 
+  /* ---- Feature tour: the step nearest the middle of the screen drives the phone */
+  function initTour() {
+    var steps = $$('.tour-step'), screens = $$('.tscreen'), dots = $$('.tour-dots i'), phone = $('.tour-phone');
+    var col = $('.tour-phone-col');
+    if (!steps.length || !screens.length) return;
+    var cur = 0, ticking = false;
+    function show(i) {
+      if (i === cur) return;
+      cur = i;
+      steps.forEach(function (el, k) { el.classList.toggle('on', k === i); });
+      screens.forEach(function (el, k) { el.classList.toggle('on', k === i); });
+      dots.forEach(function (el, k) { el.classList.toggle('on', k === i); });
+      if (phone && !reduce) {
+        phone.classList.remove('bump');
+        raf(function () { phone.classList.add('bump'); });
+      }
+    }
+    function update() {
+      ticking = false;
+      // On phones the sticky phone covers the top of the screen, so measure below it.
+      var top = 0;
+      if (col && getComputedStyle(col).position === 'sticky') top = col.getBoundingClientRect().bottom;
+      var mid = top + (window.innerHeight - top) * 0.4, best = 0, bestD = Infinity;
+      steps.forEach(function (el, k) {
+        var r = el.getBoundingClientRect();
+        var d = (r.top <= mid && r.bottom >= mid) ? 0 : Math.min(Math.abs(r.top - mid), Math.abs(r.bottom - mid));
+        if (d < bestD) { bestD = d; best = k; }
+      });
+      show(best);
+    }
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; raf(update); } }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+
   /* ---- Header: scrolled state, hide on scroll down, progress bar ---------- */
   function initHeader() {
     var header = $('[data-header]');
@@ -829,6 +864,6 @@
 
   onReady(function () {
     initHeader(); initNav(); initMenu(); initSplit(); initDemos(); initReveal(); initCounters(); initParallax();
-    initTilt(); initAccordion(); initStory(); initWalk(); initFly(); initSpot(); initToc(); initContact(); initFooter();
+    initTilt(); initAccordion(); initTour(); initStory(); initWalk(); initFly(); initSpot(); initToc(); initContact(); initFooter();
   });
 })();
