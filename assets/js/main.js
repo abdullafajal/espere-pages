@@ -85,44 +85,76 @@
     }
     function ease(t) { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); }
 
-    function frame() {
-      ticking = false;
+    // Where the phone should be for the current scroll (y in page coordinates).
+    function target() {
       var sy = window.scrollY, c = sy + window.innerHeight / 2;
       var pts = slots.map(center);
       var i = 0;
       while (i < pts.length - 1 && pts[i + 1].y <= c) i++;
       var a = pts[i], b = pts[Math.min(i + 1, pts.length - 1)];
       var t = b === a ? 0 : (c - a.y) / (b.y - a.y);
-      // stay with a row for a while, then glide to the next one
-      var e = ease((t - 0.28) / 0.44);
-      var x = a.x + (b.x - a.x) * e;
-      var y = a.y + (b.y - a.y) * e - sy;
+      // rest with a row briefly, then glide over most of the way to the next one
+      var e = ease((t - 0.12) / 0.76);
       var w = a.w + (b.w - a.w) * e;
       var arc = Math.sin(Math.PI * e);
       var dir = b.x - a.x > 20 ? 1 : (b.x - a.x < -20 ? -1 : 0);
-      var s = (w / baseW) * (1 - 0.08 * arc);
+      var tg = { x: a.x + (b.x - a.x) * e, y: a.y + (b.y - a.y) * e, s: (w / baseW) * (1 - 0.08 * arc), r: 0 };
       if (window.innerWidth < 900) {
         // phones: rows are stacked, so swing aside and shrink while passing the text
         var side = i % 2 ? -1 : 1;
-        x += side * arc * window.innerWidth * 0.42;
-        s = (w / baseW) * (1 - 0.64 * arc);
+        tg.x += side * arc * window.innerWidth * 0.42;
+        tg.s = (w / baseW) * (1 - 0.64 * arc);
         dir = side;
       }
-      phone.style.transform = 'translate3d(' + (x - baseW / 2).toFixed(1) + 'px,' + (y - baseH / 2).toFixed(1) +
-        'px,0) rotate(' + (dir * arc * 7).toFixed(2) + 'deg) scale(' + s.toFixed(4) + ')';
-      var idx = e > 0.5 ? Math.min(i + 1, pts.length - 1) : i;
-      if (idx !== cur) {
-        screens[cur].classList.remove('on');
-        screens[idx].classList.add('on');
-        cur = idx;
-      }
+      tg.r = dir * arc * 7;
+      tg.idx = e > 0.5 ? Math.min(i + 1, pts.length - 1) : i;
+      return tg;
     }
-    function req() { if (!ticking) { ticking = true; raf(frame); } }
-    window.addEventListener('scroll', req, { passive: true });
+
+    // The phone eases towards the target every frame, so a flick or a jump in
+    // scroll never makes it snap. Its y is kept in page coordinates: while it rests
+    // with a row it scrolls exactly with the page.
+    var pos = null, last = 0, running = false;
+    function frame(now) {
+      var tg = target();
+      if (!pos) pos = { x: tg.x, y: tg.y, s: tg.s, r: tg.r };
+      var dt = last ? Math.min(64, now - last) : 16;
+      last = now;
+      var k = 1 - Math.exp(-dt / 110); // ~110 ms to cover most of the gap
+      pos.x += (tg.x - pos.x) * k;
+      pos.y += (tg.y - pos.y) * k;
+      pos.s += (tg.s - pos.s) * k;
+      pos.r += (tg.r - pos.r) * k;
+      var sy = window.scrollY;
+      phone.style.transform = 'translate3d(' + (pos.x - baseW / 2).toFixed(2) + 'px,' + (pos.y - sy - baseH / 2).toFixed(2) +
+        'px,0) rotate(' + pos.r.toFixed(3) + 'deg) scale(' + pos.s.toFixed(4) + ')';
+      if (tg.idx !== cur) {
+        screens[cur].classList.remove('on');
+        screens[tg.idx].classList.add('on');
+        cur = tg.idx;
+      }
+      var moving = Math.abs(tg.x - pos.x) > 0.2 || Math.abs(tg.y - pos.y) > 0.2 ||
+        Math.abs(tg.s - pos.s) > 0.0005 || Math.abs(tg.r - pos.r) > 0.02;
+      if (moving) raf(frame); else { running = false; last = 0; }
+    }
+    function req() {
+      if (running) return;
+      running = true;
+      raf(frame);
+    }
+    // While resting, follow the page on every scroll frame (no lag).
+    window.addEventListener('scroll', function () {
+      if (!running && pos) {
+        var sy = window.scrollY;
+        phone.style.transform = 'translate3d(' + (pos.x - baseW / 2).toFixed(2) + 'px,' + (pos.y - sy - baseH / 2).toFixed(2) +
+          'px,0) rotate(' + pos.r.toFixed(3) + 'deg) scale(' + pos.s.toFixed(4) + ')';
+      }
+      req();
+    }, { passive: true });
     window.addEventListener('resize', function () { measure(); req(); });
     window.addEventListener('load', function () { measure(); req(); });
     measure();
-    frame();
+    req();
   }
 
   /* ---- Stacked cards: a card shrinks a little as the next one slides over it */
