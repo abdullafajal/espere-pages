@@ -13,7 +13,7 @@ Espere is an all-in-one personal finance and expense tracking app. You can track
 ## Main features
 
 - Add in seconds: the add screen opens on a keypad. Type the amount, tap a category, and it is saved. Optional time, payment method (e.g. UPI) and note. Categories can be your own.
-- Scan or share: scan a bill with the camera, or share a payment screenshot or bill to Espere from any app, and the amount is read (OCR) and filled in for you.
+- Scan to save: scan a bill with the camera, or share a payment screenshot or bill to Espere from any app, and the amount is read (OCR) and filled in for you.
 - Home: spent this month with a daily bar chart, average per day, left to spend, money in, recent entries and one-tap repeats of frequent expenses.
 - Activity: every entry grouped by day, with search and filters (spent, received), and export to CSV.
 - Budgets: a monthly limit per category with progress bars and a warning when you go over.
@@ -29,6 +29,9 @@ Espere is an all-in-one personal finance and expense tracking app. You can track
 - Currency: INR, USD, EUR, GBP or PKR, used across the app and widgets.
 
 ## Frequently asked questions
+
+Q: Can Espere read a bill or a payment screenshot?
+A: Yes. Tap Scan on the add screen and pick a photo of a bill or a UPI payment screenshot, or share one to Espere from your gallery or payment app. Espere reads the amount and where you paid and fills them in; you check the details, pick a category and save.
 
 Q: What is Espere?
 A: Espere is an all-in-one personal finance and expense tracking app. It allows you to track your daily spending, set up budgets, and seamlessly split shared expenses with friends or groups.
