@@ -12,16 +12,21 @@ Espere is an all-in-one personal finance and expense tracking app. You can track
 
 ## Main features
 
-- Expense and income tracking: add a transaction with an amount, category, date and notes in a few taps. Categories can have their own icon and colour.
-- Swipe actions: swipe a transaction right to delete it, or left to edit it, without leaving the list.
-- Strict budget guard: set custom budgets per category and get real-time warnings ("Limit approaching") before you overspend.
-- Group expenses: create a group such as "Trip to Bali" or "Apartment utilities", invite friends with a link and add shared expenses. Espere calculates who owes whom.
-- Three ways to split a bill: equal, percentage or exact amounts. When a total does not divide evenly (for example 100.00 split three ways), the leftover is corrected so that every share adds up to the penny (33.33 + 33.33 + 33.34).
-- Smart settlements: debts are simplified with a greedy algorithm into the fewest possible payments. For example, six balances can be settled in five payments.
-- True offline experience: expenses are saved on the phone first and synced securely to the cloud when the connection is back. Group changes are live because they notify other members.
-- Reports and export: export personal and group expense history and generate PDF reports.
-- Currency: the currency symbol can be changed in settings and is used across the app and widgets.
-- Home-screen widget: a quick-add widget on Android for logging an expense in four steps.
+- Add in seconds: the add screen opens on a keypad. Type the amount, tap a category, and it is saved. Optional time, payment method (e.g. UPI) and note. Categories can be your own.
+- Scan or share: scan a bill with the camera, or share a payment screenshot or bill to Espere from any app, and the amount is read (OCR) and filled in for you.
+- Home: spent this month with a daily bar chart, average per day, left to spend, money in, recent entries and one-tap repeats of frequent expenses.
+- Activity: every entry grouped by day, with search and filters (spent, received), and export to CSV.
+- Budgets: a monthly limit per category with progress bars and a warning when you go over.
+- Reports: income vs expenses by month and accumulated savings over the year.
+- Groups: create a group (trip, home, couple, food, event, work and more), see your overall balance, every expense and payment day by day, and members with their balances.
+- Split a bill: anyone in the group can be the payer; split equally (leave people out with a tap), by exact amounts or by percentage. Shares always add up to the bill, down to the last paisa. Each group expense can have a category.
+- Settle up: debts are simplified into the fewest transfers. Send a reminder with one tap (it arrives as a notification) and record full or part payments.
+- Invite friends: share the group link, add existing friends in one tap, find people by @username or invite by email. Pending invites can be resent or cancelled. Admins choose whether members can invite.
+- Works offline: entries are saved on the phone first and synced when the connection is back.
+- Home-screen widgets: see this month's spending and add an expense without opening the app.
+- Daily reminders: a morning and a night reminder at times you choose, scheduled on the phone.
+- Personalisation: seven app colours (Lime, Mint, Sky, Lavender, Pink, Peach, Sun), an optional delete animation, springy motion and vibration.
+- Currency: INR, USD, EUR, GBP or PKR, used across the app and widgets.
 
 ## Frequently asked questions
 
@@ -41,7 +46,7 @@ Q: Can I use Espere without an internet connection?
 A: Yes. Espere is built with an offline-first architecture. You can log expenses and manage groups entirely offline. The moment you reconnect to the internet, the app automatically syncs your data to the cloud.
 
 Q: Can I export my financial data?
-A: Yes. You can export your personal and group expense history and generate high-fidelity PDF reports for your records.
+A: Yes. You can export your transactions for any period as a CSV file from the Activity screen and share or save it.
 
 Q: Is my financial data secure?
 A: Your data is encrypted both in transit and at rest, using industry-standard security protocols.

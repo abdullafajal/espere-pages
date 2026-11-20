@@ -2,7 +2,7 @@
 
 > Espere is a free, open-source personal finance app for Android. It tracks personal spending, sets category budgets and splits group expenses with friends, and it works fully offline: everything syncs to the cloud once the phone is back online. Espere does not sell personal or financial data.
 
-Espere is built around four things: adding an expense in seconds, splitting it any way you like (equal, percentage or exact amounts, always down to the last paisa), settling up a group in the fewest possible payments, and tracking spending against budgets. The mobile app is written in Flutter and its source code is public on GitHub. This website (espere.in) is a static site that explains the app and hosts the Android download.
+Espere is built around a few things: adding an expense in seconds (or by scanning or sharing a bill), splitting it any way you like (equal, percentage or exact amounts, always down to the last paisa), settling up a group in the fewest possible payments, and tracking spending against budgets. The mobile app is written in Flutter and its source code is public on GitHub. This website (espere.in) is a static site that explains the app and hosts the Android download.
 
 ## Main pages
 
