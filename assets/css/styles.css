@@ -540,13 +540,26 @@ textarea.control { min-height: 140px; resize: vertical; }
 @keyframes alert-in { from { opacity: 0; transform: translateY(-10px); } }
 .contact-side { display: grid; gap: 20px; justify-items: center; }
 .reach { width: 100%; display: grid; gap: 12px; }
+.reach-btn { width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; font: inherit; color: inherit; }
 .reach li { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: var(--r-md); background: var(--card); border: 1px solid var(--line); font-weight: 600; font-size: 15px; transition: transform .4s var(--ease), border-color .3s; }
-.reach li:hover { transform: translateX(6px); border-color: var(--lime-3); }
+.reach li:hover, .reach li:focus-within { transform: translateX(6px); border-color: var(--lime-3); }
+.reach li { cursor: pointer; }
 .reach .b-ico { width: 40px; height: 40px; border-radius: 12px; }
 .reach small { display: block; font-weight: 500; color: var(--muted); font-size: 13px; }
-.splash { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; background: var(--ink); padding: 24px; }
-.splash .btn { padding: 12px 18px; font-size: 14px; white-space: nowrap; }
-.splash img { width: 128px; height: 128px; border-radius: 32px; box-shadow: 0 20px 60px rgba(var(--accent-rgb), .25); animation: float-a 5s ease-in-out infinite; }
+.get-app { position: relative; width: 100%; overflow: hidden; display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 8px;
+  padding: 26px 0 0 26px; border-radius: var(--r-lg); background: var(--ink); color: var(--paper); }
+.get-app::before { content: ""; position: absolute; width: 360px; height: 360px; right: -120px; top: -140px; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(var(--accent-rgb), .35), transparent); pointer-events: none; }
+.get-app-copy { position: relative; padding-bottom: 26px; align-self: center; }
+.get-app-copy h2 { font-size: clamp(1.4rem, 3vw, 1.75rem); margin: 10px 0 8px; }
+.get-app-copy p { color: rgba(244, 243, 236, .72); font-size: 15px; line-height: 1.5; margin-bottom: 18px; }
+.get-app-copy .btn { padding: 12px 18px; font-size: 14px; }
+.get-app-phone { position: relative; width: 150px; height: 230px; overflow: hidden; }
+.get-app-phone .phone { --pw: 170px; position: absolute; left: 0; top: 0; border-radius: 30px; padding: 7px; transform: rotate(-4deg); transform-origin: top left; }
+.get-app-phone .phone-screen { border-radius: 24px; }
+.get-app-phone .phone-screen.shot { padding-top: 16px; }
+.get-app-phone .phone-screen::before { top: 7px; width: 9px; height: 9px; }
+@media (max-width: 380px) { .get-app-phone { width: 120px; } }
 
 /* 17. Invite / 404 --------------------------------------------------------- */
 .centered-page { min-height: 100vh; min-height: 100dvh; display: grid; place-items: center; padding: 24px; position: relative; overflow: hidden; background: var(--ink); color: var(--paper); isolation: isolate; }
