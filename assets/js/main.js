@@ -542,6 +542,20 @@
 
 
   /* ---- Contact form (same API, payload and error handling as before) ------- */
+  // The three cards next to the form pick its Type and jump to the message box.
+  function initReachCards() {
+    var type = doc.getElementById('type'), msg = doc.getElementById('message');
+    $$('[data-pick-type]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (type) type.value = b.dataset.pickType;
+        if (msg) {
+          msg.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+          msg.focus({ preventScroll: true });
+        }
+      });
+    });
+  }
+
   function initContact() {
     var form = $('#contact-form');
     if (!form) return;
@@ -632,6 +646,6 @@
 
   onReady(function () {
     initHeader(); initNav(); initMenu(); initSplit(); initReveal(); initCounters(); initParallax();
-    initTilt(); initAccordion(); initAccent(); initTravel(); initStack(); initOffscreenPause(); initToc(); initContact(); initFooter();
+    initTilt(); initAccordion(); initAccent(); initTravel(); initStack(); initOffscreenPause(); initToc(); initContact(); initReachCards(); initFooter();
   });
 })();

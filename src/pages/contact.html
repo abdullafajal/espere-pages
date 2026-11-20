@@ -60,16 +60,19 @@ body_class: page-contact
 
       <aside class="contact-side">
         <ul class="reach" data-stagger="120">
-          <li><span class="b-ico"><svg class="i" aria-hidden="true"><use href="#i-help"/></svg></span><span>General Support<small>Questions about using Espere</small></span></li>
-          <li><span class="b-ico"><svg class="i" aria-hidden="true"><use href="#i-bug"/></svg></span><span>Bug Report<small>Describe what went wrong</small></span></li>
-          <li><span class="b-ico"><svg class="i" aria-hidden="true"><use href="#i-zap"/></svg></span><span>Feedback<small>Tell us what to improve</small></span></li>
+          <li><button type="button" class="reach-btn" data-pick-type="support"><span class="b-ico"><svg class="i" aria-hidden="true"><use href="#i-help"/></svg></span><span>General Support<small>Questions about using Espere</small></span></button></li>
+          <li><button type="button" class="reach-btn" data-pick-type="bug_report"><span class="b-ico"><svg class="i" aria-hidden="true"><use href="#i-bug"/></svg></span><span>Bug Report<small>Describe what went wrong</small></span></button></li>
+          <li><button type="button" class="reach-btn" data-pick-type="feedback"><span class="b-ico"><svg class="i" aria-hidden="true"><use href="#i-zap"/></svg></span><span>Feedback<small>Tell us what to improve</small></span></button></li>
         </ul>
-        <div class="phone" style="--pw:260px" data-reveal="scale" data-delay="200" role="img" aria-label="Espere app splash screen">
-          <div class="phone-screen">
-            <div class="splash">
-              <img src="images/logo-192.png" width="128" height="128" alt="Espere logo">
-              <a class="btn btn-primary" href="espere.apk" download><svg class="i" aria-hidden="true"><use href="#i-download"/></svg> Download App</a>
-            </div>
+        <div class="get-app" data-reveal="up" data-delay="150">
+          <div class="get-app-copy">
+            <span class="eyebrow">Get the app</span>
+            <h2>Espere for Android</h2>
+            <p>Track spending, scan bills and split with friends. Free, no ads.</p>
+            <a class="btn btn-primary" href="espere.apk" download><svg class="i" aria-hidden="true"><use href="#i-download"/></svg> Download App</a>
+          </div>
+          <div class="get-app-phone" aria-hidden="true">
+            <div class="phone"><div class="phone-screen shot"><img src="images/app/home-480.webp" srcset="images/app/home-480.webp 480w, images/app/home.webp 780w" sizes="200px" alt="" width="390" height="844" loading="lazy" decoding="async"></div></div>
           </div>
         </div>
       </aside>
