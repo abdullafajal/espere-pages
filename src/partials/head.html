@@ -45,8 +45,6 @@
     (function (d, w) {
       var r = d.documentElement;
       r.classList.add('js');
-      // desktop layout for the travelling phone is decided before first paint (no layout shift)
-      if (w.matchMedia('(min-width:1024px)').matches && !w.matchMedia('(prefers-reduced-motion:reduce)').matches) r.classList.add('fly-layout');
       // Microsoft Clarity analytics: loaded after the page is interactive, so it never delays rendering
       var done = false;
       function clarity() {
