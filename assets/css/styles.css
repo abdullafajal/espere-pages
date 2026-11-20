@@ -1303,3 +1303,36 @@ html.fly-on .story-sticky .phone, html.fly-on .walk-phone .phone { visibility: h
 @media (max-width: 899px) {
   .fly-row .fly-slot { --pw: 264px; }
 }
+
+/* 26. Stacked screen cards (each card sticks a little lower than the last) -- */
+.stack-head { text-align: center; margin: clamp(64px, 9vw, 110px) 0 clamp(28px, 4vw, 48px); }
+.stack-head h2 { margin-top: 12px; }
+.stack { position: relative; display: grid; gap: 28px; padding-bottom: 8vh; }
+.stack-card {
+  position: sticky; top: calc(var(--header-h) + 18px + var(--k) * 16px);
+  display: grid; gap: 22px; overflow: hidden; min-height: min(78vh, 620px);
+  padding: clamp(26px, 4vw, 44px); border-radius: 40px; box-shadow: 0 -10px 40px rgba(16, 17, 12, .08), var(--shadow-md);
+  transform-origin: 50% 0; transform: scale(var(--s, 1)); transition: transform .2s linear;
+}
+.stack-card.t-white { background: var(--card); }
+.stack-card.t-sand { background: #ebe7dc; }
+.stack-card.t-ink { background: var(--ink); color: var(--paper); }
+.stack-card.t-lime { background: var(--lime); color: var(--ink); }
+.stack-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.stack-n { font-family: var(--font-display); font-weight: 700; font-size: 15px; letter-spacing: .14em; }
+.stack-ico { width: 64px; height: 64px; border-radius: 22px; display: grid; place-items: center; background: var(--lime-soft); color: var(--ink); }
+.stack-ico .i { width: 28px; height: 28px; }
+.t-ink .stack-ico { background: rgba(200, 230, 74, .14); color: var(--lime); }
+.t-lime .stack-ico { background: rgba(16, 17, 12, .1); }
+.stack-copy h3 { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.8rem); letter-spacing: -0.035em; line-height: 1.05; margin: clamp(18px, 4vw, 40px) 0 14px; }
+.stack-copy p { color: var(--muted); max-width: 40ch; }
+.t-ink .stack-copy p { color: rgba(244, 243, 236, .7); }
+.t-lime .stack-copy p { color: rgba(16, 17, 12, .7); }
+.stack-shot { align-self: end; justify-self: center; width: min(100%, 300px); height: 300px; overflow: hidden; border-radius: 28px 28px 0 0;
+  border: 8px solid #1a1b14; border-bottom: 0; background: #f5f6f2; margin-bottom: calc(clamp(26px, 4vw, 44px) * -1); }
+.stack-shot.dark-top { background: #141414; }
+.stack-shot img { width: 100%; height: auto; display: block; padding-top: 14px; }
+@media (min-width: 900px) {
+  .stack-card { grid-template-columns: 1fr 340px; align-items: stretch; min-height: 520px; }
+  .stack-shot { height: 100%; min-height: 460px; width: 300px; }
+}
