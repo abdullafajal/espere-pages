@@ -1280,3 +1280,26 @@ html.fly-on .story-sticky .phone, html.fly-on .walk-phone .phone { visibility: h
   .tour-label { padding: 40px 0 0; }
 }
 .no-motion .tscreen, .no-motion .tour-step { transition: none; }
+
+/* 25. Feature rows + travelling phone --------------------------------------- */
+.fly-row { display: grid; gap: 36px; align-items: center; justify-items: center; padding: clamp(36px, 7vw, 80px) 0; }
+.fly-copy { justify-self: stretch; }
+.fly-copy h3 { font-family: var(--font-display); font-size: clamp(1.7rem, 3.4vw, 2.6rem); line-height: 1.08; letter-spacing: -0.035em; margin: 12px 0 14px; }
+.fly-copy p { color: var(--muted); max-width: 46ch; }
+.fly-label { text-align: center; padding: clamp(40px, 7vw, 80px) 0 0; }
+.fly-label h2 { margin-top: 12px; font-size: clamp(1.9rem, 4vw, 3rem); }
+.fly-slot { position: relative; }
+.travel-on .fly-slot { visibility: hidden; }
+.traveller { position: fixed; left: 0; top: 0; z-index: 1; pointer-events: none; }
+.traveller .phone { --pw: 300px; transform-origin: 50% 50%; will-change: transform; }
+.tr-screens { background: transparent; }
+.tr-screens .tr-screen { position: absolute; inset: 0; opacity: 0; transition: opacity .35s ease; }
+.tr-screens .tr-screen::before { display: none; }
+.tr-screens .tr-screen.on { opacity: 1; }
+@media (min-width: 900px) {
+  .fly-row { grid-template-columns: 1fr 1fr; gap: 72px; min-height: 86vh; }
+  .fly-row.rev .fly-copy { order: 2; }
+}
+@media (max-width: 899px) {
+  .fly-row .fly-slot { --pw: 264px; }
+}

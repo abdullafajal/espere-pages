@@ -53,6 +53,78 @@
     update();
   }
 
+  /* ---- Travelling phone: one phone starts in the hero, then glides to each
+         feature row (left, right, left...) and shows that row's screen ------ */
+  function initTravel() {
+    var slots = $$('.fly-slot');
+    if (slots.length < 2 || reduce) return;
+    root.classList.add('travel-on');
+
+    var wrap = doc.createElement('div');
+    wrap.className = 'traveller';
+    wrap.setAttribute('aria-hidden', 'true');
+    wrap.innerHTML = '<div class="phone"><div class="phone-screen tr-screens"></div></div>';
+    var box = $('.tr-screens', wrap);
+    var screens = slots.map(function (slot, k) {
+      var s = $('.phone-screen', slot).cloneNode(true);
+      s.classList.add('tr-screen');
+      if (k === 0) s.classList.add('on');
+      var img = $('img', s);
+      if (img) { img.removeAttribute('loading'); img.alt = ''; }
+      box.appendChild(s);
+      return s;
+    });
+    doc.body.insertBefore(wrap, doc.body.firstChild);
+    var phone = $('.phone', wrap);
+    var cur = 0, ticking = false, baseW = 300, baseH = 620;
+
+    function measure() { baseW = phone.offsetWidth; baseH = phone.offsetHeight; }
+    function center(el) {
+      var r = el.getBoundingClientRect();
+      return { x: r.left + r.width / 2, y: r.top + window.scrollY + r.height / 2, w: r.width };
+    }
+    function ease(t) { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); }
+
+    function frame() {
+      ticking = false;
+      var sy = window.scrollY, c = sy + window.innerHeight / 2;
+      var pts = slots.map(center);
+      var i = 0;
+      while (i < pts.length - 1 && pts[i + 1].y <= c) i++;
+      var a = pts[i], b = pts[Math.min(i + 1, pts.length - 1)];
+      var t = b === a ? 0 : (c - a.y) / (b.y - a.y);
+      // stay with a row for a while, then glide to the next one
+      var e = ease((t - 0.28) / 0.44);
+      var x = a.x + (b.x - a.x) * e;
+      var y = a.y + (b.y - a.y) * e - sy;
+      var w = a.w + (b.w - a.w) * e;
+      var arc = Math.sin(Math.PI * e);
+      var dir = b.x - a.x > 20 ? 1 : (b.x - a.x < -20 ? -1 : 0);
+      var s = (w / baseW) * (1 - 0.08 * arc);
+      if (window.innerWidth < 900) {
+        // phones: rows are stacked, so swing aside and shrink while passing the text
+        var side = i % 2 ? -1 : 1;
+        x += side * arc * window.innerWidth * 0.42;
+        s = (w / baseW) * (1 - 0.64 * arc);
+        dir = side;
+      }
+      phone.style.transform = 'translate3d(' + (x - baseW / 2).toFixed(1) + 'px,' + (y - baseH / 2).toFixed(1) +
+        'px,0) rotate(' + (dir * arc * 7).toFixed(2) + 'deg) scale(' + s.toFixed(4) + ')';
+      var idx = e > 0.5 ? Math.min(i + 1, pts.length - 1) : i;
+      if (idx !== cur) {
+        screens[cur].classList.remove('on');
+        screens[idx].classList.add('on');
+        cur = idx;
+      }
+    }
+    function req() { if (!ticking) { ticking = true; raf(frame); } }
+    window.addEventListener('scroll', req, { passive: true });
+    window.addEventListener('resize', function () { measure(); req(); });
+    window.addEventListener('load', function () { measure(); req(); });
+    measure();
+    frame();
+  }
+
   /* ---- Header: scrolled state, hide on scroll down, progress bar ---------- */
   function initHeader() {
     var header = $('[data-header]');
@@ -864,6 +936,6 @@
 
   onReady(function () {
     initHeader(); initNav(); initMenu(); initSplit(); initDemos(); initReveal(); initCounters(); initParallax();
-    initTilt(); initAccordion(); initTour(); initStory(); initWalk(); initFly(); initSpot(); initToc(); initContact(); initFooter();
+    initTilt(); initAccordion(); initTour(); initTravel(); initStory(); initWalk(); initFly(); initSpot(); initToc(); initContact(); initFooter();
   });
 })();
