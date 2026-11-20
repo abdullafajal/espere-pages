@@ -125,6 +125,24 @@
     frame();
   }
 
+  /* ---- Stacked cards: a card shrinks a little as the next one slides over it */
+  function initStack() {
+    var cards = $$('.stack-card');
+    if (cards.length < 2 || reduce) return;
+    var ticking = false;
+    function frame() {
+      ticking = false;
+      for (var k = 0; k < cards.length - 1; k++) {
+        var a = cards[k].getBoundingClientRect(), b = cards[k + 1].getBoundingClientRect();
+        // 0 while the next card is a full card-height away, 1 once it has covered this one
+        var p = 1 - Math.max(0, Math.min(1, (b.top - a.top) / Math.max(1, a.height)));
+        cards[k].style.setProperty('--s', (1 - 0.06 * p).toFixed(4));
+      }
+    }
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; raf(frame); } }, { passive: true });
+    frame();
+  }
+
   /* ---- Header: scrolled state, hide on scroll down, progress bar ---------- */
   function initHeader() {
     var header = $('[data-header]');
@@ -936,6 +954,6 @@
 
   onReady(function () {
     initHeader(); initNav(); initMenu(); initSplit(); initDemos(); initReveal(); initCounters(); initParallax();
-    initTilt(); initAccordion(); initTour(); initTravel(); initStory(); initWalk(); initFly(); initSpot(); initToc(); initContact(); initFooter();
+    initTilt(); initAccordion(); initTour(); initTravel(); initStack(); initStory(); initWalk(); initFly(); initSpot(); initToc(); initContact(); initFooter();
   });
 })();
