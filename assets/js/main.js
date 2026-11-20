@@ -50,19 +50,24 @@
     });
     doc.body.insertBefore(wrap, doc.body.firstChild);
     var phone = $('.phone', wrap);
-    var cur = 0, ticking = false, baseW = 300, baseH = 620;
+    var cur = 0, baseW = 300, baseH = 620, pts = [];
 
-    function measure() { baseW = phone.offsetWidth; baseH = phone.offsetHeight; }
-    function center(el) {
-      var r = el.getBoundingClientRect();
-      return { x: r.left + r.width / 2, y: r.top + window.scrollY + r.height / 2, w: r.width };
+    // The phone lives in page coordinates (position: absolute), so the browser
+    // scrolls it natively with the page; JavaScript only touches it while it
+    // glides from one row to the next. Slot positions are measured once (and
+    // again on resize), never during scrolling.
+    function measure() {
+      baseW = phone.offsetWidth; baseH = phone.offsetHeight;
+      var sx = window.scrollX, sy = window.scrollY;
+      pts = slots.map(function (el) {
+        var r = el.getBoundingClientRect();
+        return { x: r.left + sx + r.width / 2, y: r.top + sy + r.height / 2, w: r.width };
+      });
     }
     function ease(t) { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); }
 
-    // Where the phone should be for the current scroll (y in page coordinates).
     function target() {
-      var sy = window.scrollY, c = sy + window.innerHeight / 2;
-      var pts = slots.map(center);
+      var c = window.scrollY + window.innerHeight / 2, vw = window.innerWidth;
       var i = 0;
       while (i < pts.length - 1 && pts[i + 1].y <= c) i++;
       var a = pts[i], b = pts[Math.min(i + 1, pts.length - 1)];
@@ -72,11 +77,11 @@
       var w = a.w + (b.w - a.w) * e;
       var arc = Math.sin(Math.PI * e);
       var dir = b.x - a.x > 20 ? 1 : (b.x - a.x < -20 ? -1 : 0);
-      var tg = { x: a.x + (b.x - a.x) * e, y: a.y + (b.y - a.y) * e, s: (w / baseW) * (1 - 0.08 * arc), r: 0 };
-      if (window.innerWidth < 900) {
+      var tg = { x: a.x + (b.x - a.x) * e, y: a.y + (b.y - a.y) * e, s: (w / baseW) * (1 - 0.08 * arc) };
+      if (vw < 900) {
         // phones: rows are stacked, so swing aside and shrink while passing the text
         var side = i % 2 ? -1 : 1;
-        tg.x += side * arc * window.innerWidth * 0.42;
+        tg.x += side * arc * vw * 0.42;
         tg.s = (w / baseW) * (1 - 0.64 * arc);
         dir = side;
       }
@@ -85,10 +90,30 @@
       return tg;
     }
 
-    // The phone eases towards the target every frame, so a flick or a jump in
-    // scroll never makes it snap. Its y is kept in page coordinates: while it rests
-    // with a row it scrolls exactly with the page.
-    var pos = null, last = 0, running = false;
+    function show(idx) {
+      if (idx === cur) return;
+      [idx, idx + 1].forEach(function (n) {
+        var im = screens[n] && $('img', screens[n]);
+        if (im && im.dataset.src) {
+          if (im.dataset.srcset) im.setAttribute('srcset', im.dataset.srcset);
+          im.setAttribute('src', im.dataset.src);
+          delete im.dataset.src; delete im.dataset.srcset;
+        }
+      });
+      screens[cur].classList.remove('on');
+      screens[idx].classList.add('on');
+      cur = idx;
+    }
+
+    var pos = null, shown = null, last = 0, running = false;
+    function paint() {
+      // skip the write when nothing visible changed
+      if (shown && Math.abs(shown.x - pos.x) < 0.05 && Math.abs(shown.y - pos.y) < 0.05 &&
+          Math.abs(shown.s - pos.s) < 0.0002 && Math.abs(shown.r - pos.r) < 0.01) return;
+      shown = { x: pos.x, y: pos.y, s: pos.s, r: pos.r };
+      phone.style.transform = 'translate3d(' + (pos.x - baseW / 2).toFixed(2) + 'px,' + (pos.y - baseH / 2).toFixed(2) +
+        'px,0) rotate(' + pos.r.toFixed(3) + 'deg) scale(' + pos.s.toFixed(4) + ')';
+    }
     function frame(now) {
       var tg = target();
       if (!pos) pos = { x: tg.x, y: tg.y, s: tg.s, r: tg.r };
@@ -99,24 +124,11 @@
       pos.y += (tg.y - pos.y) * k;
       pos.s += (tg.s - pos.s) * k;
       pos.r += (tg.r - pos.r) * k;
-      var sy = window.scrollY;
-      phone.style.transform = 'translate3d(' + (pos.x - baseW / 2).toFixed(2) + 'px,' + (pos.y - sy - baseH / 2).toFixed(2) +
-        'px,0) rotate(' + pos.r.toFixed(3) + 'deg) scale(' + pos.s.toFixed(4) + ')';
-      if (tg.idx !== cur) {
-        [tg.idx, tg.idx + 1].forEach(function (n) {
-          var im = screens[n] && $('img', screens[n]);
-          if (im && im.dataset.src) {
-            if (im.dataset.srcset) im.setAttribute('srcset', im.dataset.srcset);
-            im.setAttribute('src', im.dataset.src);
-            delete im.dataset.src; delete im.dataset.srcset;
-          }
-        });
-        screens[cur].classList.remove('on');
-        screens[tg.idx].classList.add('on');
-        cur = tg.idx;
-      }
-      var moving = Math.abs(tg.x - pos.x) > 0.2 || Math.abs(tg.y - pos.y) > 0.2 ||
-        Math.abs(tg.s - pos.s) > 0.0005 || Math.abs(tg.r - pos.r) > 0.02;
+      var moving = Math.abs(tg.x - pos.x) > 0.15 || Math.abs(tg.y - pos.y) > 0.15 ||
+        Math.abs(tg.s - pos.s) > 0.0004 || Math.abs(tg.r - pos.r) > 0.02;
+      if (!moving) { pos.x = tg.x; pos.y = tg.y; pos.s = tg.s; pos.r = tg.r; }
+      paint();
+      show(tg.idx);
       if (moving) raf(frame); else { running = false; last = 0; }
     }
     function req() {
@@ -124,17 +136,12 @@
       running = true;
       raf(frame);
     }
-    // While resting, follow the page on every scroll frame (no lag).
-    window.addEventListener('scroll', function () {
-      if (!running && pos) {
-        var sy = window.scrollY;
-        phone.style.transform = 'translate3d(' + (pos.x - baseW / 2).toFixed(2) + 'px,' + (pos.y - sy - baseH / 2).toFixed(2) +
-          'px,0) rotate(' + pos.r.toFixed(3) + 'deg) scale(' + pos.s.toFixed(4) + ')';
-      }
-      req();
-    }, { passive: true });
-    window.addEventListener('resize', function () { measure(); req(); });
-    window.addEventListener('load', function () { measure(); req(); });
+    window.addEventListener('scroll', req, { passive: true });
+    function remeasure() { measure(); shown = null; req(); }
+    window.addEventListener('resize', remeasure);
+    window.addEventListener('load', remeasure);
+    if ('ResizeObserver' in window) new ResizeObserver(remeasure).observe(doc.body);
+    setTimeout(remeasure, 1300); // after the hero's entrance animation has settled
     measure();
     req();
   }
