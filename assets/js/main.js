@@ -176,6 +176,54 @@
     els.forEach(function (el) { io.observe(el); });
   }
 
+  /* ---- Website colour: same seven colours as the app. The head script has already
+         set html[data-accent] before the first paint; this wires the pickers and
+         swaps the app screenshots and the logo to the chosen colour. ------------- */
+  var ACCENTS = ['lime', 'mint', 'sky', 'lavender', 'pink', 'peach', 'sun'];
+  function accentNow() { return root.getAttribute('data-accent') || 'lime'; }
+  function accentUrl(url, name) {
+    if (!url) return url;
+    // app screens: images/app/home.webp (lime) <-> images/app/pink/home.webp
+    url = url.replace(/images\/app\/(?:(?:mint|sky|lavender|pink|peach|sun)\/)?/g, 'images/app/' + (name === 'lime' ? '' : name + '/'));
+    // logo: images/logo-96.png (lime) <-> images/logo-96-pink.png
+    url = url.replace(/images\/logo-96(?:-(?:mint|sky|lavender|pink|peach|sun))?\.png/g, 'images/logo-96' + (name === 'lime' ? '' : '-' + name) + '.png');
+    return url;
+  }
+  function swapImages(name) {
+    $$('img').forEach(function (img) {
+      ['src', 'srcset', 'data-src', 'data-srcset'].forEach(function (attr) {
+        var v = img.getAttribute(attr);
+        if (v && (v.indexOf('images/app/') !== -1 || v.indexOf('images/logo-96') !== -1)) {
+          var nv = accentUrl(v, name);
+          if (nv !== v) img.setAttribute(attr, nv);
+        }
+      });
+    });
+  }
+  function initAccent() {
+    var name = accentNow();
+    if (name !== 'lime') swapImages(name);
+    var dots = $$('[data-accent-pick]');
+    function mark(n) { dots.forEach(function (d) { d.setAttribute('aria-pressed', d.dataset.accentPick === n ? 'true' : 'false'); }); }
+    mark(name);
+    dots.forEach(function (d) {
+      d.addEventListener('click', function () {
+        var n = d.dataset.accentPick;
+        if (ACCENTS.indexOf(n) === -1) return;
+        if (n === 'lime') root.removeAttribute('data-accent'); else root.setAttribute('data-accent', n);
+        try { localStorage.setItem('espere_accent', n); } catch (e) {}
+        swapImages(n);
+        mark(n);
+      });
+    });
+    var menu = $('.accent-menu'), btn = menu && $('.accent-btn', menu);
+    if (!btn) return;
+    function set(open) { menu.classList.toggle('is-open', open); btn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+    btn.addEventListener('click', function (e) { e.stopPropagation(); set(!menu.classList.contains('is-open')); });
+    doc.addEventListener('click', function (e) { if (!menu.contains(e.target)) set(false); });
+    doc.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+  }
+
   /* ---- Header: scrolled state, hide on scroll down, progress bar ---------- */
   function initHeader() {
     var header = $('[data-header]');
@@ -584,6 +632,6 @@
 
   onReady(function () {
     initHeader(); initNav(); initMenu(); initSplit(); initReveal(); initCounters(); initParallax();
-    initTilt(); initAccordion(); initTravel(); initStack(); initOffscreenPause(); initToc(); initContact(); initFooter();
+    initTilt(); initAccordion(); initAccent(); initTravel(); initStack(); initOffscreenPause(); initToc(); initContact(); initFooter();
   });
 })();
