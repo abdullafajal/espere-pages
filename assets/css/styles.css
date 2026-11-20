@@ -79,7 +79,7 @@ body {
   background: var(--paper);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 img, svg, video { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
@@ -1237,3 +1237,46 @@ html.fly-on .story-sticky .phone, html.fly-on .walk-phone .phone { visibility: h
   .show-phone { order: 2; }
   .show-phone .phone { --pw: 264px; }
 }
+
+/* 24. Feature tour: one sticky phone, screen follows the step in view ------- */
+.tour-grid { display: grid; margin-top: clamp(32px, 5vw, 64px); }
+.tour-sticky { position: sticky; z-index: 2; display: grid; justify-items: center; gap: 14px; }
+.tour-phone { --pw: 300px; }
+.tour-phone.bump { animation: tour-bump .6s var(--ease); }
+@keyframes tour-bump { 40% { transform: translateY(-6px) rotate(-1.2deg) scale(1.015); } }
+.tour-screens { background: #f5f6f2; }
+.tscreen { position: absolute; inset: 0; padding-top: 26px; background: #f5f6f2; opacity: 0; transform: translateY(28px) scale(.97); transition: opacity .45s ease, transform .6s var(--ease); }
+.tscreen.dark-top { background: #141414; }
+.tscreen.on { opacity: 1; transform: none; z-index: 1; }
+.tscreen img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.tour-dots { display: flex; gap: 6px; }
+.tour-dots i { width: 7px; height: 7px; border-radius: 4px; background: var(--line); transition: width .4s var(--ease), background .4s; }
+.tour-dots i.on { width: 22px; background: var(--ink); }
+.tour-steps { display: grid; }
+.tour-step { position: relative; padding: 28px 0; opacity: .38; transition: opacity .5s var(--ease); }
+.tour-step.on { opacity: 1; }
+.tour-step h3 { font-family: var(--font-display); font-size: clamp(1.6rem, 3.2vw, 2.4rem); line-height: 1.08; letter-spacing: -0.035em; margin: 12px 0 14px; }
+.tour-step p { color: var(--muted); max-width: 46ch; }
+.tour-n { display: none; }
+.tour-label { padding: 64px 0 8px; }
+.tour-label h2 { margin-top: 12px; font-size: clamp(1.9rem, 4vw, 3rem); }
+
+@media (min-width: 900px) {
+  .tour-grid { grid-template-columns: 1fr 1fr; gap: 72px; align-items: stretch; }
+  .tour-phone-col { order: 2; }
+  .tour-sticky { top: calc(50vh - 330px); }
+  .tour-step { min-height: 72vh; display: flex; flex-direction: column; justify-content: center; }
+}
+@media (max-width: 899px) {
+  .tour-phone-col { position: sticky; top: calc(var(--header-h) - 8px); z-index: 2; margin-inline: calc(var(--gutter) * -1); padding: 8px var(--gutter) 14px;
+    background: linear-gradient(var(--paper) 82%, rgba(244, 243, 236, 0)); }
+  .tour-sticky { position: static; }
+  .tour-phone { --pw: min(44vw, 184px); border-radius: 30px; padding: 6px; }
+  .tour-phone .phone-screen { border-radius: 25px; }
+  .tour-phone .phone-screen::before { top: 8px; width: 10px; height: 10px; }
+  .tscreen { padding-top: 18px; }
+  .tour-step { min-height: 46vh; padding: 22px 0 34px; }
+  .tour-step h3 { font-size: 1.6rem; }
+  .tour-label { padding: 40px 0 0; }
+}
+.no-motion .tscreen, .no-motion .tour-step { transition: none; }

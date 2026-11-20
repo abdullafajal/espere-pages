@@ -48,92 +48,83 @@ extra_head: <script type="application/ld+json">{"@context":"https://schema.org",
   </div>
 </div>
 
-<!-- Personal money -->
-<section class="section" id="features">
+<!-- Feature tour: one phone that changes screen as you scroll -->
+<section class="section tour" id="features">
   <div class="container">
     <div class="section-head center">
-      <span class="eyebrow" data-reveal>Your money</span>
+      <span class="eyebrow" data-reveal>Inside the app</span>
       <h2 data-split>Everything you spend, without the effort.</h2>
-      <p class="lead" data-reveal data-delay="200">These are real screens from the app.</p>
+      <p class="lead" data-reveal data-delay="200">Scroll on. The phone shows the real screen for each part of the app.</p>
     </div>
-    <div class="show">
-    <article class="show-row" id="add">
-      <div class="show-copy" data-reveal>
-        <span class="eyebrow">Add in seconds</span>
-        <h3>Type it, scan it, or share it.</h3>
-        <p>The add screen opens straight to a keypad, so logging a chai takes two taps. Got a bill or a payment screenshot? Scan it, or share it to Espere from any app, and the amount is read for you.</p>
-        <ul class="show-list"><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Big keypad, no forms to fill</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Scan a bill, or share a payment screenshot</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Categories you can make your own</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Works offline, syncs later</li></ul>
+    <div class="tour-grid">
+      <div class="tour-phone-col">
+        <div class="tour-sticky">
+          <div class="phone tour-phone">
+            <div class="phone-screen tour-screens">
+              <div class="tscreen dark-top on" data-screen="0"><img src="images/app/quick-add.webp" alt="Espere add expense screen with keypad and categories" width="390" height="844" fetchpriority="high" decoding="async"></div>
+              <div class="tscreen" data-screen="1"><img src="images/app/activity.webp" alt="Espere activity list grouped by day" width="390" height="844" loading="lazy" decoding="async"></div>
+              <div class="tscreen" data-screen="2"><img src="images/app/budgets.webp" alt="Espere budgets screen with category limits" width="390" height="844" loading="lazy" decoding="async"></div>
+              <div class="tscreen" data-screen="3"><img src="images/app/group-detail.webp" alt="Espere group page for Goa Trip" width="390" height="844" loading="lazy" decoding="async"></div>
+              <div class="tscreen dark-top" data-screen="4"><img src="images/app/sheet-group-expense.webp" alt="Espere add group expense screen" width="390" height="844" loading="lazy" decoding="async"></div>
+              <div class="tscreen" data-screen="5"><img src="images/app/group-settle.webp" alt="Espere settle up screen" width="390" height="844" loading="lazy" decoding="async"></div>
+              <div class="tscreen" data-screen="6"><img src="images/app/group-invite.webp" alt="Espere invite people screen" width="390" height="844" loading="lazy" decoding="async"></div>
+            </div>
+          </div>
+          <div class="tour-dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
       </div>
-      <div class="show-phone" data-reveal="scale"><div class="phone "><div class="phone-screen shot dark-top"><img src="images/app/quick-add.webp" alt="Espere add expense screen with keypad and categories" width="390" height="844" loading="lazy" decoding="async"></div></div></div>
-    </article>
-    <article class="show-row rev" id="home">
-      <div class="show-copy" data-reveal>
-        <span class="eyebrow">Home</span>
-        <h3>Your month at a glance.</h3>
-        <p>See what you spent this month, your daily average, what is left to spend and your recent entries, with one-tap repeats for the things you buy often.</p>
-        <ul class="show-list"><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Spent this month with a daily bar chart</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Add again in one tap</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Activity grouped by day, with search and filters</li></ul>
+      <div class="tour-steps">
+        <article class="tour-step on" data-step="0" id="add">
+          <span class="tour-n">01</span>
+          <span class="eyebrow">Add in seconds</span>
+          <h3>Type it, scan it, or share it.</h3>
+          <p>The add screen opens straight to a keypad, so logging a chai takes two taps. Got a bill or a payment screenshot? Scan it, or share it to Espere from any app, and the amount is read for you.</p>
+          <ul class="show-list"><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Big keypad, no forms to fill</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Scan a bill, or share a payment screenshot</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Categories you can make your own</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Works offline, syncs later</li></ul>
+        </article>
+        <article class="tour-step" data-step="1" id="home">
+          <span class="tour-n">02</span>
+          <span class="eyebrow">Home</span>
+          <h3>Your month at a glance.</h3>
+          <p>See what you spent this month, your daily average, what is left to spend and your recent entries, with one-tap repeats for the things you buy often.</p>
+          <ul class="show-list"><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Spent this month with a daily bar chart</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Add again in one tap</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Activity grouped by day, with search and filters</li></ul>
+        </article>
+        <article class="tour-step" data-step="2" id="budgets">
+          <span class="tour-n">03</span>
+          <span class="eyebrow">Budgets & reports</span>
+          <h3>Know before you overspend.</h3>
+          <p>Set a monthly budget per category and watch it fill up. Reports show income against spending and how your savings grow over the year.</p>
+          <ul class="show-list"><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Budget bars that warn you before the limit</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Income vs expenses, month by month</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Export your data any time</li></ul>
+        </article>
+        <div class="tour-label"><span class="eyebrow">Split with friends</span><h2 data-split>Trips, flats and dinners, settled.</h2></div>
+        <article class="tour-step" data-step="3" id="group">
+          <span class="tour-n">04</span>
+          <span class="eyebrow">Groups</span>
+          <h3>One place for every trip, flat and dinner.</h3>
+          <p>Each group shows what you get back or owe at the top, then every expense and payment, day by day. Add an expense or settle up straight from the card.</p>
+          <ul class="show-list"><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Overall balance for you, at a glance</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Activity, Balances and Members tabs</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Group settings for admins</li></ul>
+        </article>
+        <article class="tour-step" data-step="4" id="split">
+          <span class="tour-n">05</span>
+          <span class="eyebrow">Split a bill</span>
+          <h3>Split it equally, by exact amounts or by %.</h3>
+          <p>Pick who paid, then split between everyone or tap someone to leave them out. Shares update as you type and always add up to the bill.</p>
+          <ul class="show-list"><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Anyone in the group can be the payer</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Equally, Exact or By %, with live shares</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Every share adds up to the last paisa</li></ul>
+        </article>
+        <article class="tour-step" data-step="5" id="settle">
+          <span class="tour-n">06</span>
+          <span class="eyebrow">Settle up</span>
+          <h3>Fewer payments. Friendly reminders.</h3>
+          <p>Espere simplifies who owes whom into the fewest transfers. Send a reminder with one tap, and mark a payment as received when it comes in.</p>
+          <ul class="show-list"><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Debts simplified automatically</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>One-tap reminders, sent as a notification</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Record full or part payments</li></ul>
+        </article>
+        <article class="tour-step" data-step="6" id="invite">
+          <span class="tour-n">07</span>
+          <span class="eyebrow">Invite friends</span>
+          <h3>Share a link. Or find them by name.</h3>
+          <p>Send the group link on WhatsApp, search friends by @username, or invite by email. You can see who has not joined yet, and resend or cancel.</p>
+          <ul class="show-list"><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Invite link that opens the app</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Add friends you already have in one tap</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Pending invites you can resend or cancel</li></ul>
+        </article>
       </div>
-      <div class="show-phone" data-reveal="scale"><div class="phone "><div class="phone-screen shot"><img src="images/app/activity.webp" alt="Espere activity list grouped by day" width="390" height="844" loading="lazy" decoding="async"></div></div></div>
-    </article>
-    <article class="show-row" id="budgets">
-      <div class="show-copy" data-reveal>
-        <span class="eyebrow">Budgets & reports</span>
-        <h3>Know before you overspend.</h3>
-        <p>Set a monthly budget per category and watch it fill up. Reports show income against spending and how your savings grow over the year.</p>
-        <ul class="show-list"><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Budget bars that warn you before the limit</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Income vs expenses, month by month</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Export your data any time</li></ul>
-      </div>
-      <div class="show-phone" data-reveal="scale"><div class="phone "><div class="phone-screen shot"><img src="images/app/budgets.webp" alt="Espere budgets screen with category limits" width="390" height="844" loading="lazy" decoding="async"></div></div></div>
-    </article>
-    </div>
-  </div>
-</section>
-
-<!-- Groups -->
-<section class="section dark show-dark" id="groups">
-  <div class="story-bg" aria-hidden="true"><div class="orb" data-parallax="0.1"></div><div class="grid-lines"></div></div>
-  <div class="container">
-    <div class="section-head center">
-      <span class="eyebrow" data-reveal>Split with friends</span>
-      <h2 data-split>Trips, flats and dinners, settled.</h2>
-      <p class="lead" data-reveal data-delay="200">Make a group, add what each person paid, and Espere works out who owes whom.</p>
-    </div>
-    <div class="show">
-    <article class="show-row" id="group">
-      <div class="show-copy" data-reveal>
-        <span class="eyebrow">Groups</span>
-        <h3>One place for every trip, flat and dinner.</h3>
-        <p>Each group shows what you get back or owe at the top, then every expense and payment, day by day. Add an expense or settle up straight from the card.</p>
-        <ul class="show-list"><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Overall balance for you, at a glance</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Activity, Balances and Members tabs</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Group settings for admins</li></ul>
-      </div>
-      <div class="show-phone" data-reveal="scale"><div class="phone "><div class="phone-screen shot"><img src="images/app/group-detail.webp" alt="Espere group page for Goa Trip" width="390" height="844" loading="lazy" decoding="async"></div></div></div>
-    </article>
-    <article class="show-row rev" id="split">
-      <div class="show-copy" data-reveal>
-        <span class="eyebrow">Split a bill</span>
-        <h3>Split it equally, by exact amounts or by %.</h3>
-        <p>Pick who paid, then split between everyone or tap someone to leave them out. Shares update as you type and always add up to the bill.</p>
-        <ul class="show-list"><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Anyone in the group can be the payer</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Equally, Exact or By %, with live shares</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Every share adds up to the last paisa</li></ul>
-      </div>
-      <div class="show-phone" data-reveal="scale"><div class="phone "><div class="phone-screen shot dark-top"><img src="images/app/sheet-group-expense.webp" alt="Espere add group expense screen" width="390" height="844" loading="lazy" decoding="async"></div></div></div>
-    </article>
-    <article class="show-row" id="settle">
-      <div class="show-copy" data-reveal>
-        <span class="eyebrow">Settle up</span>
-        <h3>Fewer payments. Friendly reminders.</h3>
-        <p>Espere simplifies who owes whom into the fewest transfers. Send a reminder with one tap, and mark a payment as received when it comes in.</p>
-        <ul class="show-list"><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Debts simplified automatically</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>One-tap reminders, sent as a notification</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Record full or part payments</li></ul>
-      </div>
-      <div class="show-phone" data-reveal="scale"><div class="phone "><div class="phone-screen shot"><img src="images/app/group-settle.webp" alt="Espere settle up screen" width="390" height="844" loading="lazy" decoding="async"></div></div></div>
-    </article>
-    <article class="show-row rev" id="invite">
-      <div class="show-copy" data-reveal>
-        <span class="eyebrow">Invite friends</span>
-        <h3>Share a link. Or find them by name.</h3>
-        <p>Send the group link on WhatsApp, search friends by @username, or invite by email. You can see who has not joined yet, and resend or cancel.</p>
-        <ul class="show-list"><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Invite link that opens the app</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Add friends you already have in one tap</li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Pending invites you can resend or cancel</li></ul>
-      </div>
-      <div class="show-phone" data-reveal="scale"><div class="phone "><div class="phone-screen shot"><img src="images/app/group-invite.webp" alt="Espere invite people screen" width="390" height="844" loading="lazy" decoding="async"></div></div></div>
-    </article>
     </div>
   </div>
 </section>
